@@ -1,0 +1,160 @@
+{% extends 'dashboard/base.html' %}
+{% load dynamic %}
+{% load static %}
+{% block content %}
+    <div id="dashboard-widgets-wrap" class="account-setting-widgets-wrap">
+        <div class="cp-heading"><h1 class="title">Appearance Setting</h1></div>
+        <div class="dashboard-widget">
+            <div class="widget-header"><h2 class="header">Pen layout</h2> <i
+                    class="fa fa-angle-up"></i></div>
+            <div class="widget-content appearance-setting">
+                <div class="layout-section">
+                    <label class="form-label">
+                        <svg id="pen-layout-icon" xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20"
+                             xml:space="preserve">
+                            <rect x="0" y="7.7" class="st0" width="20" height="12.3"></rect>
+                            <rect x="6.9" class="st0" width="6.2" height="6.9"></rect>
+                            <rect x="0" class="st0" width="6.2" height="6.9"></rect>
+                            <rect x="13.8" class="st0" width="6.2" height="6.9"></rect>
+                        </svg>
+                        <input type="radio" name="left-layout-icon" id="left-layout-icon" hidden checked>
+                    </label>
+                    <label class="form-label">
+                        <svg id="pen-layout-icon" xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20"
+                             xml:space="preserve">
+                            <rect x="0" y="7.7" class="st0" width="20" height="12.3"></rect>
+                            <rect x="6.9" class="st0" width="6.2" height="6.9"></rect>
+                            <rect x="0" class="st0" width="6.2" height="6.9"></rect>
+                            <rect x="13.8" class="st0" width="6.2" height="6.9"></rect>
+                        </svg>
+                        <input type="radio" name="middle-layout-icon" id="middle-layout-icon" hidden>
+                    </label>
+                    <label class="form-label">
+                        <svg id="pen-layout-icon" xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20"
+                             xml:space="preserve">
+                            <rect x="0" y="7.7" class="st0" width="20" height="12.3"></rect>
+                            <rect x="6.9" class="st0" width="6.2" height="6.9"></rect>
+                            <rect x="0" class="st0" width="6.2" height="6.9"></rect>
+                            <rect x="13.8" class="st0" width="6.2" height="6.9"></rect>
+                        </svg>
+                        <input type="radio" name="right-layout-icon" id="right-layout-icon" hidden>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-widget account-setting">
+            <div class="widget-header"><h2 class="header">Pen appearance</h2> <i
+                    class="fa fa-angle-up"></i></div>
+            <div class="widget-content">
+                <form class="pen-theme-platform" method="post">
+                    <div class="platform-section">
+                        <label for="platform" class="form-label">
+                            <span>Select Platform</span>
+                            <select class="platform" id="platform" name="platform">
+                                {% for key, value in platform %}
+                                    <option value="{{ key }}"
+                                            {% if key == 'html' %}selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div class="theme-section">
+                        <label for="theme" class="form-label">
+                            <span>Select Theme</span>
+                            <select class="theme" id="theme" name="theme">
+                                {% for key, value in all_theme %}
+                                    <option value="{{ key }}"
+                                            {% if key == 'monokai' %}selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div class="font-section">
+                        <label for="font" class="form-label">
+                            <span>Select Fonts</span>
+                            <select class="font" id="font" name="font">
+                                {% for key, value in fonts.items %}
+                                    <option value="{{ key }}"
+                                            {% if key == 'Roboto' %}selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div class="font-size">
+                        <label class="form-label">
+                            <span>Font size</span>
+                            <input type="number" name="font-size" class="font-size" value="14" placeholder="Font size">
+                        </label>
+                    </div>
+                    <div class="pen-indentation">
+                        <label class="form-label">
+                            <span>Pen Indentation</span>
+                            <input type="number" name="indentation" class="indentation" value="4"
+                                   placeholder="Pen indentation">
+                        </label>
+                    </div>
+                    <div class="key-map">
+                        <div class="form-label">Key Map</div>
+                        <div class="form-field">
+                            <label for="normal" class="normal-key-section">
+                                <span>Normal</span>
+                                <input type="radio" name="normal" id="normal" class="normal" value="normal"
+                                       placeholder="Normal">
+                            </label>
+                            <label for="emacs" class="normal-key-section">
+                                <span>emacs</span>
+                                <input type="radio" name="emacs" id="emacs" class="emacs" value="emacs"
+                                       placeholder="emacs">
+                            </label>
+                            <label for="sublime" class="normal-key-section">
+                                <span>Sublime</span>
+                                <input type="radio" name="sublime" id="sublime" class="sublime" value="sublime"
+                                       placeholder=sublime">
+                            </label>
+                            <label for="vim" class="normal-key-section">
+                                <span>Vim</span>
+                                <input type="radio" name="vim" id="vim" class="vim" value="vim"
+                                       placeholder="vim">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="editor-section">
+                        <div class="form-label">Editor Options</div>
+                        <div class="editor-option form-field">
+                            <label for="formate-on-save" class="formate-section">
+                                <span>FormatOn Save</span>
+                                <input type="checkbox" class="formate-on-save" id="formate-on-save"
+                                       name="formate-on-save"
+                                       checked>
+                            </label>
+                            <label for="line-number" class="line-number-section">
+                                <span>Line Numbers</span>
+                                <input type="checkbox" id="line-number" name="line-number" checked>
+                            </label>
+                            <label for="line-wrapping" class="line-wrapping-section">
+                                <span>Line Wrapping</span>
+                                <input type="checkbox" id="line-wrapping" name="line-wrapping" checked>
+                            </label>
+                            <label for="code-folding" class="code-folding-section">
+                                <span>Code Folding</span>
+                                <input type="checkbox" id="code-folding" name="code-folding">
+                            </label>
+                            <label for="bracket-highlight" class="bracket-highlight-section">
+                                <span>Bracket/Tags Highlight</span>
+                                <input type="checkbox" id="bracket-highlight" name="bracket-highlight" checked>
+                            </label>
+                            <label for="autocomplete" class="autocomplete-section">
+                                <span>Autocomplete</span>
+                                <input type="checkbox" id="autocomplete" name="autocomplete" checked>
+                            </label>
+                        </div>
+                    </div>
+                    <button id="update-email" type="submit" disabled>Update appearance</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

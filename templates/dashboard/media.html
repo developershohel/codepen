@@ -1,0 +1,211 @@
+{% extends 'dashboard/base.html' %}
+{% load  dynamic %}
+{% load static %}
+{% block content %}
+    <div id="dashboard-widgets-wrap" class="media-widgets-wrap">
+        <div id="widgets-content">
+            <div class="cp-heading">
+                <h1 class="title">Media Library</h1>
+                <button class="add-new">Add New</button>
+            </div>
+            <div class="upload-error-section">
+                <div class="uploading-errors"></div>
+                <button class="close-uploader-error"><span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="media-uploader">
+                <button class="close-uploader"><span class="material-symbols-outlined">close</span>
+                </button>
+                <div class="uploader-inline-content">
+                    <div class="upload-ui">
+                        <h2 class="upload-instructions drop-instructions">Drop files to upload</h2>
+                        <p class="upload-instructions drop-instructions">or</p>
+                        <input type="file" id="input-files" name="files" hidden multiple accept="{{ mime }}">
+                        <button type="button" class="uploader-button" id="upload-button">Select Files</button>
+                    </div>
+                    <div class="upload-ui-info" id="upload-info">
+                        <p class="max-upload-size">Maximum upload file size: 40 MB. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="media-toolbar">
+                <div class="widgets-filter">
+                    <div class="media-view">
+                        <button class="view-list">
+                            <span class="material-symbols-outlined">list</span>
+                        </button>
+                        <button class="view-grid">
+                            <span class="material-symbols-outlined">grid_view</span>
+                        </button>
+                    </div>
+                    <label for="media-mime-type">
+                        <select id="media-mime-type" class="attachment-filters">
+                            <option value="all">All media items</option>
+                            <option value="image">Images</option>
+                            <option value="audio">Audio</option>
+                            <option value="video">Video</option>
+                            <option value="docs">Documents</option>
+                            <option value="sheets">Spreadsheets</option>
+                            <option value="archive">Archives</option>
+                            <option value="unattached">Unattached</option>
+                        </select>
+                    </label>
+                    <label for="media-date-filters" class="screen-reader-text">
+                        <select id="media-date-filters" class="attachment-filters">
+                            <option value="all">All dates</option>
+                            <option value="0">June 2022</option>
+                            <option value="1">May 2022</option>
+                        </select>
+                    </label>
+                    <button type="button" class="delete-media" disabled="disabled">Delete permanently</button>
+                    <button type="button" class="bulk-select">Bulk select</button>
+                    <span class="spinner"><i class="fa fa-spinner"></i> </span>
+                </div>
+                <div class="widgets-search">
+                    <form id="widgets-form" method="post">
+                        <p class="search-box">
+                            <label class="screen-reader-text" for="search-input">Search Posts:</label>
+                            <input type="search" id="search-input" name="s" value="">
+                            <input type="submit" id="search-submit" class="button" value="Search Posts">
+                        </p>
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+            <div class="media-wrapper">
+                <ul class="media-list">
+                    {% for media in media_list %}
+                        {% if media.file_name|file_ext in img_mime_type %}
+                            <li class="media-file">
+                                <div class="file-preview">
+                                    <div class="thumbnail">
+                                        <div class="file">
+                                            <img src="{{ media.file_url }}"
+                                                 alt="{{ media.file_title }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="select"><span class="material-symbols-outlined">check_box_outline_blank</span>
+                                    <input type="checkbox" value="filename" hidden></button>
+                                <div class="progress-bar-section">
+                                    <div class="progress-bar"><span class="progress"></span></div>
+                                </div>
+                                <input type="hidden" id="file-url" name="file_url"
+                                       value="{ id:{{ media.id }}, file_url: {{ media.file_url }} }">
+                            </li>
+                        {% elif media.file_name|file_ext in video_mime_type %}
+                            <li class="media-file">
+                                <div class="file-preview">
+                                    <div class="thumbnail">
+                                        <div class="file">
+                                            <i class="fa-solid fa-file-video"></i>
+                                        </div>
+                                        <div class="filename">{{ media.file_title|strip_filename }}</div>
+                                    </div>
+                                </div>
+                                <button type="button" class="select"><span class="material-symbols-outlined">check_box_outline_blank</span><input
+                                        type="checkbox" value="filename" hidden></button>
+                                <div class="progress-bar-section">
+                                    <div class="progress-bar"><span class="progress"></span></div>
+                                </div>
+                                <input type="hidden" id="file-url" name="file_url"
+                                       value="{ id:{{ media.id }}, file_url: {{ media.file_url }} }">
+                            </li>
+                        {% elif media.file_name|file_ext == '.txt' %}
+                            <li class="media-file">
+                                <div class="file-preview">
+                                    <div class="thumbnail">
+                                        <div class="file">
+                                            <span class="material-symbols-outlined">description</span>
+                                        </div>
+                                        <div class="filename">{{ media.file_title|strip_filename }}</div>
+                                    </div>
+                                </div>
+                                <button type="button" class="select"><span class="material-symbols-outlined">check_box_outline_blank</span><input
+                                        type="checkbox" value="filename" hidden></button>
+                                <div class="progress-bar-section">
+                                    <div class="progress-bar"><span class="progress"></span></div>
+                                </div>
+                                <input type="hidden" id="file-url" name="file_url"
+                                       value="{ id:{{ media.id }}, file_url: {{ media.file_url }} }">
+                            </li>
+                        {% elif media.file_name|file_ext == '.json' %}
+                            <li class="media-file">
+                                <div class="file-preview">
+                                    <div class="thumbnail">
+                                        <div class="file">
+                                            <span class="material-symbols-outlined">data_object</span>
+                                        </div>
+                                        <div class="filename">{{ media.file_title|strip_filename }}</div>
+                                    </div>
+                                </div>
+                                <button type="button" class="select"><span class="material-symbols-outlined">check_box_outline_blank</span><input
+                                        type="checkbox" value="filename" hidden></button>
+                                <div class="progress-bar-section">
+                                    <div class="progress-bar"><span class="progress"></span></div>
+                                </div>
+                                <input type="hidden" id="file-url" name="file_url"
+                                       value="{ id:{{ media.id }}, file_url: {{ media.file_url }} }">
+                            </li>
+                        {% elif media.file_name|file_ext == '.json' %}
+                            <li class="media-file">
+                                <div class="file-preview">
+                                    <div class="thumbnail">
+                                        <div class="file">
+                                            <span class="material-symbols-outlined">code</span>
+                                        </div>
+                                        <div class="filename">{{ media.file_title|strip_filename }}</div>
+                                    </div>
+                                </div>
+                                <button type="button" class="select"><span class="material-symbols-outlined">check_box_outline_blank</span><input
+                                        type="checkbox" value="filename" hidden></button>
+                                <div class="progress-bar-section">
+                                    <div class="progress-bar"><span class="progress"></span></div>
+                                </div>
+                                <input type="hidden" id="file-url" name="file_url"
+                                       value="{ id:{{ media.id }}, file_url: {{ media.file_url }} }">
+                            </li>
+                        {% else %}
+                            <li class="media-file">
+                                <div class="file-preview">
+                                    <div class="thumbnail">
+                                        <div class="file">
+                                            <span class="material-symbols-outlined">description</span>
+                                        </div>
+                                        <div class="filename">{{ media.file_title|strip_filename }}</div>
+                                    </div>
+                                </div>
+                                <button type="button" class="select"><span class="material-symbols-outlined">check_box_outline_blank</span><input
+                                        type="checkbox" value="filename" hidden></button>
+                                <div class="progress-bar-section">
+                                    <div class="progress-bar"><span class="progress"></span></div>
+                                </div>
+                                <input type="hidden" id="file-url" name="file_url"
+                                       value="{ id:{{ media.id }}, file_url: {{ media.file_url }} }">
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="pagination-section">
+                <ul class="pagination">
+                    {% if media_list.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ media_list.previous_page_number }}"><i
+                                class="fa fa-angle-double-left"></i> </a></li>
+                    {% endif %}
+                    {% for page_number in pagination.page_range %}
+                        {% if media_list.number == page_number %}
+                            <li class="page-item"><a class="page-link active" href="?page={{ page_number }}">{{ page_number }}</a></li>
+                            {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if media_list.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ media_list.next_page_number }}"><i
+                                class="fa fa-angle-double-right"></i> </a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

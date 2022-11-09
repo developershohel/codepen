@@ -1,0 +1,65 @@
+{% extends 'dashboard/base.html' %}
+{% load dynamic %}
+{% load static %}
+{% block content %}
+    <div id="dashboard-widgets-wrap" class="account-setting-widgets-wrap">
+        <div class="cp-heading"><h1 class="title">Account Setting</h1></div>
+        <div class="dashboard-widget">
+            <div class="widget-header"><h2 class="header">Username</h2> <i
+                    class="fa fa-angle-up"></i></div>
+            <div class="widget-content account-setting">
+                <div class="username-section">
+                    <label class="form-label">
+                        <span>Username</span>
+                        <input type="text" name="username" id="username" placeholder="Change username"
+                               value="{{ username }}">
+                    </label>
+                    <button id="update-username" type="button" disabled>Update Username</button>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-widget account-setting">
+            <div class="widget-header"><h2 class="header">Email</h2> <i
+                    class="fa fa-angle-up"></i></div>
+            <div class="widget-content">
+                <div class="email-section">
+                    <label class="form-label">
+                        <span>Email</span>
+                        <input type="email" name="email" id="email" placeholder="Change Email"
+                               value="{{ username }}">
+                    </label>
+                    <button id="update-email" type="button" disabled>Update Email</button>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-widget account-setting">
+            <div class="widget-header"><h2 class="header">Update password</h2> <i
+                    class="fa fa-angle-up"></i></div>
+            <div class="widget-content">
+                <div class="password-section">
+                    <label class="form-label">
+                        <span>Current password</span>
+                        <input type="password" name="current-password" id="current-password">
+                    </label>
+                    <label class="form-label">
+                        <span>New password</span>
+                        <input type="password" name="new-password" id="new-password">
+                    </label>
+                    <button id="update-password" type="button" disabled>Update Password</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-widget account-delete">
+            <div class="widget-header"><h2 class="header">Delete Account</h2> <i
+                    class="fa fa-angle-up"></i></div>
+            <div class="widget-content">
+                <div class="delete-section">
+                    <h4 class="delete-title">Delete Account</h4>
+                    <p class="delete-note">Once you delete your account, there is no going back, and you've lost everything. Please Be very sure before proceeding.</p>
+                    <button id="update-username" type="button" disabled>Delete Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

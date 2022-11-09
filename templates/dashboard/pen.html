@@ -1,0 +1,175 @@
+{% extends 'dashboard/base.html' %}
+{% load dynamic %}
+{% block content %}
+    <div id="dashboard-widgets-wrap" class="pen-widgets-wrap">
+        <div id="widgets-content">
+            <div class="cp-heading">
+                <h1 class="title">Posts</h1>
+                <a href="{% url 'pen:pen' request.user.username %}" class="page-title-action">Add New</a>
+            </div>
+            <div class="widgets-filter">
+                <ul class="filter-pen">
+                    <li class="all"><a href="?pen_status=all" class="current" aria-current="page">All <span
+                            class="count">({{ all_pen.count }})</span></a> |
+                    </li>
+                    <li class="publish"><a href="?pen_status=published">Published <span
+                            class="count">({{ publish_pen.count }})</span></a> |
+                    </li>
+                    <li class="private"><a href="?pen_status=private">Private <span
+                            class="count">({{ private_pen.count }})</span></a> |
+                    </li>
+                    <li class="draft"><a href="?pen_status=draft">Draft <span
+                            class="count">({{ draft_pen.count }})</span></a> |
+                    </li>
+                    <li class="trash"><a href="?pen_status=trash">Trash <span
+                            class="count">({{ trash_pen.count }})</span></a>
+                    </li>
+                </ul>
+                <div class="widgets-search">
+                    <form id="widgets-form" method="post">
+                        <p class="search-box">
+                            <label class="screen-reader-text" for="search-input">Search Posts:</label>
+                            <input type="search" id="search-input" name="s" value="">
+                            <input type="submit" id="search-submit" class="button" value="Search Posts">
+                        </p>
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+            <div class="pen-details">
+                <table class="pens">
+                    <thead>
+                    <tr>
+                        <th class="column-select-all">
+                            <input class="select-all-pen" type="checkbox">
+                        </th>
+                        <th scope="col" id="column-id"
+                            class="column-id">
+                            <a href="/dashboard/pens?orderby=id">
+                                <span>ID</span>
+                                <svg id="angle-down-icon" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384 512"
+                                     xml:space="preserve">
+                                    <path class="st0"
+                                          d="M362.7,203.9l-159.1,144c-6.1,5.5-15.3,5.5-21.4,0l-160.9-144c-6.6-6.8-7.1-16-1.2-22.6c6.3-6.9,16.4-6.8,22.6-1.2L192,314.5l149.3-134.4c6.6-5.9,16.7-5.4,22.6,1.2C369.8,187.9,369.3,197.1,362.7,203.9z"></path>
+                                </svg>
+                            </a>
+                        </th>
+                        <th scope="col" id="title"
+                            class="column-title">
+                            <a href="/dashboard/pens?orderby=title">
+                                <span>Title</span>
+                                <svg id="angle-down-icon" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384 512"
+                                     xml:space="preserve">
+                                    <path class="st0"
+                                          d="M362.7,203.9l-159.1,144c-6.1,5.5-15.3,5.5-21.4,0l-160.9-144c-6.6-6.8-7.1-16-1.2-22.6c6.3-6.9,16.4-6.8,22.6-1.2L192,314.5l149.3-134.4c6.6-5.9,16.7-5.4,22.6,1.2C369.8,187.9,369.3,197.1,362.7,203.9z"></path>
+                                </svg>
+                            </a>
+                        </th>
+                        <th scope="col" id="column-author" class="column-author">Author</th>
+                        <th scope="col" id="column-tags" class="column-tags">Tags</th>
+                        <th scope="col" id="column-comments" class="column-comments">
+                            <a href="/dashboard/pens?orderby=comment">
+                                <span>Comments</span>
+                                <svg id="angle-down-icon" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384 512"
+                                     xml:space="preserve">
+                                    <path class="st0"
+                                          d="M362.7,203.9l-159.1,144c-6.1,5.5-15.3,5.5-21.4,0l-160.9-144c-6.6-6.8-7.1-16-1.2-22.6c6.3-6.9,16.4-6.8,22.6-1.2L192,314.5l149.3-134.4c6.6-5.9,16.7-5.4,22.6,1.2C369.8,187.9,369.3,197.1,362.7,203.9z"></path>
+                                </svg>
+                            </a>
+                        </th>
+                        <th scope="col" id="column-love" class="column-love">
+                            <a href="/dashboard/pens?orderby=love">
+                                <span>Love</span>
+                                <svg id="angle-down-icon" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384 512"
+                                     xml:space="preserve">
+                                    <path class="st0"
+                                          d="M362.7,203.9l-159.1,144c-6.1,5.5-15.3,5.5-21.4,0l-160.9-144c-6.6-6.8-7.1-16-1.2-22.6c6.3-6.9,16.4-6.8,22.6-1.2L192,314.5l149.3-134.4c6.6-5.9,16.7-5.4,22.6,1.2C369.8,187.9,369.3,197.1,362.7,203.9z"></path>
+                                </svg>
+                            </a>
+                        </th>
+                        <th scope="col" id="column-view" class="column-view">
+                            <a href="/dashboard/pens?orderby=views">
+                                <span>Views</span>
+                                <svg id="angle-down-icon" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384 512"
+                                     xml:space="preserve">
+                                    <path class="st0"
+                                          d="M362.7,203.9l-159.1,144c-6.1,5.5-15.3,5.5-21.4,0l-160.9-144c-6.6-6.8-7.1-16-1.2-22.6c6.3-6.9,16.4-6.8,22.6-1.2L192,314.5l149.3-134.4c6.6-5.9,16.7-5.4,22.6,1.2C369.8,187.9,369.3,197.1,362.7,203.9z"></path>
+                                </svg>
+                            </a>
+                        </th>
+                        <th scope="col" id="column-date" class="column-date">
+                            <a href="/dashboard/pens?orderby=date">
+                                <span>Date</span>
+                                <svg id="angle-down-icon" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384 512"
+                                     xml:space="preserve">
+                                    <path class="st0"
+                                          d="M362.7,203.9l-159.1,144c-6.1,5.5-15.3,5.5-21.4,0l-160.9-144c-6.6-6.8-7.1-16-1.2-22.6c6.3-6.9,16.4-6.8,22.6-1.2L192,314.5l149.3-134.4c6.6-5.9,16.7-5.4,22.6,1.2C369.8,187.9,369.3,197.1,362.7,203.9z"></path>
+                                </svg>
+                            </a>
+                        </th>
+                        <th class="pen-view">View</th>
+                        <th class="pen-edit">Edit</th>
+                        <th class="pen-delete">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for pen in all_pen|slice:'0-20' %}
+                        <tr>
+                            <td class="select-pen">
+                                <input class="select" type="checkbox">
+                            </td>
+                            <td class="id">{{ pen.id }}</td>
+                            <td class="title">
+                                {% if pen.pen_title|word_count > 20 %}
+                                    {{ pen.pen_title|word_slice:'0:20' }}....
+                                {% else %}
+                                    {{ pen.pen_title }}
+                                {% endif %}
+                            </td>
+                            <td class="username">{{ pen.user.username }}</td>
+                            <td class="tags">
+                                {% for tag in pen.pen_tag.all %}
+                                    <a href="/tag/{{ tag.name }}" title="{{ tag.name }}">{{ tag.name }}</a>
+                                {% endfor %}
+                            </td>
+                            <td class="pen-comments">
+                                {{ pen.pen_comments }}
+                            </td>
+                            <td class="loves">
+                                {{ pen.pen_love.all.count }}
+                            </td>
+                            <td class="views">
+                                {{ pen.pen_view.all.count }}
+                            </td>
+                            {% if pen.pen_modified %}
+                                <td class="date">
+                                    <span>{{ pen.pen_status }}</span><span>{{ pen.pen_modified|date }}</span></td>
+                            {% else %}
+                                <td class="date">
+                                    <span>{{ pen.pen_status }}</span><span>{{ pen.pen_published|date }}</span></td>
+                            {% endif %}
+                            <td class="pen-view">
+                                <a href="/{{ username }}/pens/{{ pen.pen_slug }}" class="view-button">View</a>
+                            </td>
+                            <td class="pen-edit">
+                                <a href="/{{ username }}/pens/edit?pen_id={{ pen.id }}&user_id={{ pen.user_id }}"
+                                   class="edit-button" data-id="{{ pen.id }}">Edit</a>
+                            </td>
+                            <td class="pen-delete">
+                                <a href="/{{ username }}/pens/delete?pen_id={{ pen.id }}&user_id={{ pen.user_id }}"
+                                   class="delete-button" data-id="{{ pen.id }}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

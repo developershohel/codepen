@@ -1,0 +1,10 @@
+<h1>this is profile</h1>
+<ul>
+    {% for data in profile %}
+        <li>{{ user.username }}</li>
+        <li>{{ user.first_name }}</li>
+        <li>{{ user.last_name }}</li>
+        <li>{{ data.screen_name }}</li>
+        <li>{{ data.address }}</li>
+{% endfor %}
+</ul>

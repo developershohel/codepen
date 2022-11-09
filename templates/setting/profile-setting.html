@@ -1,0 +1,203 @@
+{% extends 'dashboard/base.html' %}
+{% load dynamic %}
+{% load static %}
+{% block content %}
+    <div id="dashboard-widgets-wrap" class="profile-setting-widgets-wrap">
+        <div class="cp-heading"><h1 class="title">Profile Setting</h1></div>
+        <div class="dashboard-widget">
+            <div class="widget-header"><h2 class="header">Profile Image</h2> <i
+                    class="fa fa-angle-up"></i></div>
+            <div class="widget-content profile-image-setting" id="profile-image-setting">
+                <div class="profile-banner">
+                    {% if profile and profile.get.banner_img %}
+                        <img class="banner-image"
+                             src="{{ profile.get.banner_img.url }}"
+                             alt="{{ profile.get.screen_name }}">
+                    {% else %}
+                        <img class="banner-image"
+                             src="{% static 'img/banner.jpg' %}"
+                             alt="{{ profile.get.screen_name }}">
+                    {% endif %}
+                    <span class="edit-profile-banner">
+                            <svg id="pen-edit-icon" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 576 512"
+                                 xml:space="preserve">
+                                <path class="st0"
+                                      d="M417.8,315.5l20-20c3.8-3.8,10.2-1.1,10.2,4.2V464c0,26.5-21.5,48-48,48H48c-26.5,0-48-21.5-48-48V112c0-26.5,21.5-48,48-48h292.3c5.3,0,8,6.5,4.2,10.2l-20,20c-1.1,1.1-2.7,1.8-4.2,1.8H48c-8.8,0-16,7.2-16,16v352c0,8.8,7.2,16,16,16h352c8.8,0,16-7.2,16-16V319.7C416,318.1,416.6,316.6,417.8,315.5z M563.7,124.3L251.2,436.8l-99.9,11.1c-13.4,1.5-24.7-9.8-23.2-23.2l11.1-99.9L451.7,12.3c16.4-16.4,43-16.4,59.4,0l52.6,52.6C580.1,81.3,580.1,107.9,563.7,124.3L563.7,124.3z M470.1,172.7L403.4,106L169.8,339.5l-8.3,75.1l75.1-8.3L470.1,172.7L470.1,172.7z M541.1,87.5l-52.6-52.6c-3.8-3.8-10.2-4-14.1,0L426,83.3l66.7,66.7l48.4-48.4C545,97.8,545,91.4,541.1,87.5L541.1,87.5z"></path>
+                            </svg>
+                        </span>
+                    <div class="profile-image">
+                        {% if profile and profile.get.profile_img %}
+                            <img class="user-avatar"
+                                 src="{{ profile.get.profile_img.url }}"
+                                 alt="{{ profile.get.screen_name }}">
+                        {% else %}
+                            <i class="fa fa-user-alt"></i>
+                        {% endif %}
+                        <span class="edit-profile-image">
+                                <svg id="camera-icon" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                     viewBox="0 0 512 512" xml:space="preserve">
+                                    <path class="st0"
+                                          d="M144,288c0-61.9,50.1-112,112-112s112,50.1,112,112s-50.1,112-112,112S144,349.9,144,288z M256,208c-44.2,0-80,35.8-80,80s35.8,80,80,80s80-35.8,80-80S300.2,208,256,208z M362.9,64.8L373.3,96H448c35.3,0,64,28.7,64,64v256c0,35.3-28.7,64-64,64H64c-35.3,0-64-28.7-64-64V160c0-35.3,28.6-64,64-64h74.7l10.4-31.2c6.5-19.6,24.8-32.8,45.5-32.8h122.8C338.1,32,356.4,45.2,362.9,64.8L362.9,64.8z M64,128c-17.7,0-32,14.3-32,32v256c0,17.7,14.3,32,32,32h384c17.7,0,32-14.3,32-32V160c0-17.7-14.3-32-32-32h-97.7l-17.7-53.1c-2.2-6.5-8.3-10.9-15.2-10.9H194.6c-6.9,0-13,4.4-15.2,10.9L161.7,128H64z"></path>
+                                </svg>
+                                <span>Edit profile image</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-widget" id="profile-user-details">
+            <div class="widget-header"><h2 class="header">User details</h2> <i
+                    class="fa fa-angle-up"></i></div>
+            <div class="widget-content profile-user-setting">
+                <form class="user-details-update" method="post">
+                        <div class="firstname-section">
+                            <label class="form-label">
+                                <span>First Name</span>
+                                <input type="text" value="{{ user.get.first_name }}" name="firstname" class="firstname">
+                            </label>
+                        </div>
+                        <div class="lastname-section">
+                            <label class="form-label">
+                                <span>Last Name</span>
+                                <input type="text" value="{{ user.get.last_name }}" name="lastname" class="lastname">
+                            </label>
+                        </div>
+
+                        <div class="screenname-section">
+                            <label class="form-label">
+                                <span>Screen Name</span>
+                                <input type="text" value="{{ profile.get.screen_name }}" name="screenname"
+                                       class="screenname">
+                            </label>
+                        </div>
+                        <div class="birth-section">
+                            <label class="form-label">
+                                <span>Date of birth</span>
+                                <label class="form-label">
+                                    <select id="day" name="day">
+                                        <option value="">Day</option>
+                                        <option value="01">1</option>
+                                        <option value="02">2</option>
+                                        <option value="03">3</option>
+                                        <option value="04">4</option>
+                                        <option value="05">5</option>
+                                        <option value="06">6</option>
+                                        <option value="07">7</option>
+                                        <option value="08">8</option>
+                                        <option value="09">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
+                                    </select>
+                                </label>
+                                <label class="form-label">
+                                    <select id="month" name="month">
+                                        <option value="">Month</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </label>
+                                <label class="form-label">
+                                    <input type="tel" name="year" id="year" placeholder="YYYY">
+                                </label>
+                            </label>
+                        </div>
+
+                        <div class="bio-section" id="about-user">
+                            <label class="form-label">
+                                <span>Biography</span>
+                                <textarea name="bio" class="bio" rows="4">{{ profile.get.bio }}</textarea>
+                            </label>
+                        </div>
+                        <div class="country-section">
+                            <label class="form-label">
+                                <span>Country</span>
+                                <input type="text" value="{{ profile.get.country }}" name="country" class="country">
+                            </label>
+                        </div>
+
+                        <div class="address-section">
+                            <label class="form-label">
+                                <span>Address</span>
+                                <input type="text" value="{{ profile.get.address }}" name="address" class="address">
+                            </label>
+                        </div>
+                        <div class="street-section">
+                            <label class="form-label">
+                                <span>Street</span>
+                                <input type="text" value="{{ profile.get.street }}" name="street" class="street">
+                            </label>
+                        </div>
+
+                        <div class="phone-section">
+                            <label class="form-label">
+                                <span>Phone</span>
+                                <input type="tel" value="{{ profile.get.phone }}" name="phone" class="phone">
+                            </label>
+                        </div>
+                        <div class="organization-section">
+                            <label class="form-label">
+                                <span>Organization</span>
+                                <input type="text" value="{{ profile.get.organization }}" name="organization"
+                                       class="organization">
+                            </label>
+                        </div>
+                    {#                    <div class="profile-links-section">#}
+                    {#                        {% if profile.get.profile_links %}#}
+                    {#                            {% for profile_link in profile.get.profile_links %}#}
+                    {#                                <input type="url" value="{{ profile.get.profile_link }}" name="country" class="country">#}
+                    {#                                {{ profile_link }}#}
+                    {#                            {% endfor %}#}
+                    {#                            {% else %}#}
+                    {#                            <div class="profile-links">#}
+                    {#                            <div class="social-icon">#}
+                    {#                                #}
+                    {#                            </div>#}
+                    {#                            <div class="social-link">#}
+                    {#                                <input type="url" value="" name="country" class="country">#}
+                    {#                            </div>#}
+                    {#                            </div>#}
+                    {#                            <input type="url" value="" name="country" class="country">#}
+                    {#                        {% endif %} #}
+                    {#                        #}
+                    {#                        <button type="button" class="change-country">Change country</button>#}
+                    {#                    </div>#}
+                    <div class="update-button">
+                        <button id="update-user">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

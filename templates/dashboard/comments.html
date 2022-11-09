@@ -1,0 +1,96 @@
+{% extends 'dashboard/base.html' %}
+{% load dynamic %}
+{% block content %}
+    <div id="dashboard-widgets-wrap" class="comments-widgets-wrap">
+        <div id="widgets-content">
+            <div class="cp-heading">
+                <h1 class="title">Comments</h1>
+            </div>
+            <div class="comment-details">
+                <table class="comments">
+                    <thead>
+                    <tr>
+                        <th class="column-select-all">
+                            <input class="select-all-pen" type="checkbox">
+                        </th>
+                        <th scope="col" id="column-id"
+                            class="column-id">
+                            <a href="/dashboard/comments?orderby=id">
+                                <span>ID</span>
+                                <svg id="angle-down-icon" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384 512"
+                                     xml:space="preserve">
+                                    <path class="st0"
+                                          d="M362.7,203.9l-159.1,144c-6.1,5.5-15.3,5.5-21.4,0l-160.9-144c-6.6-6.8-7.1-16-1.2-22.6c6.3-6.9,16.4-6.8,22.6-1.2L192,314.5l149.3-134.4c6.6-5.9,16.7-5.4,22.6,1.2C369.8,187.9,369.3,197.1,362.7,203.9z"></path>
+                                </svg>
+                            </a>
+                        </th>
+                        <th scope="col" id="title"
+                            class="column-title">
+                            <a href="/dashboard/comments?orderby=title">
+                                <span>Title</span>
+                                <svg id="angle-down-icon" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384 512"
+                                     xml:space="preserve">
+                                    <path class="st0"
+                                          d="M362.7,203.9l-159.1,144c-6.1,5.5-15.3,5.5-21.4,0l-160.9-144c-6.6-6.8-7.1-16-1.2-22.6c6.3-6.9,16.4-6.8,22.6-1.2L192,314.5l149.3-134.4c6.6-5.9,16.7-5.4,22.6,1.2C369.8,187.9,369.3,197.1,362.7,203.9z"></path>
+                                </svg>
+                            </a>
+                        </th>
+                        <th scope="col" id="column-author" class="column-author">Author</th>
+                        <th scope="col" id="column-date" class="column-date">
+                            <a href="/dashboard/comments?orderby=date">
+                                <span>Date</span>
+                                <svg id="angle-down-icon" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384 512"
+                                     xml:space="preserve">
+                                    <path class="st0"
+                                          d="M362.7,203.9l-159.1,144c-6.1,5.5-15.3,5.5-21.4,0l-160.9-144c-6.6-6.8-7.1-16-1.2-22.6c6.3-6.9,16.4-6.8,22.6-1.2L192,314.5l149.3-134.4c6.6-5.9,16.7-5.4,22.6,1.2C369.8,187.9,369.3,197.1,362.7,203.9z"></path>
+                                </svg>
+                            </a>
+                        </th>
+                        <th class="pen-view">View</th>
+                        <th class="pen-edit">Edit</th>
+                        <th class="pen-delete">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for comment in all_comments|slice:'0-20' %}
+                        <tr>
+                            <td class="select-comment">
+                                <input class="select" type="checkbox">
+                            </td>
+                            <td class="id">{{ comment.id }}</td>
+                            <td class="title">
+                                {% if comment.comment_content|word_count > 20 %}
+                                    {{ comment.comment_content|word_slice:'0:20' }}....
+                                {% else %}
+                                    {{ comment.comment_content }}
+                                {% endif %}
+                            </td>
+                            <td class="username">{{ comment.user.username }}</td>
+                            {% if comment.comment_modified %}
+                                <td class="date"><span>{{ comment.comment_modified|date }}</span></td>
+                            {% else %}
+                                <td class="date"><span>{{ comment.comment_published|date }}</span></td>
+                            {% endif %}
+                            <td class="comment-view">
+                                <a href="/{{ username }}/pen/{{ comment.pen.pen_slug }}/#comment-{{ comment.id }}"
+                                   class="view-button">View</a>
+                            </td>
+                            <td class="comment-edit">
+                                <a href="/{{ username }}/comments/edit?comment_id={{ comment.id }}&user_id={{ comment.user.user_id }}"
+                                   class="edit-button" data-id="{{ comment.id }}">Edit</a>
+                            </td>
+                            <td class="comment-delete">
+                                <a href="/{{ username }}/comments/delete?comment_id={{ comment.id }}&user_id={{ comment.user.user_id }}"
+                                   class="delete-button" data-id="{{ comment.id }}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

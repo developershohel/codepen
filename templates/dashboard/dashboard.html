@@ -1,0 +1,178 @@
+{% extends 'dashboard/base.html' %}
+{% load dynamic %}
+{% block content %}
+    <div id="dashboard-widgets-wrap" class="dashboard-widgets-wrap">
+        <div class="left-widget">
+            <div class="dashboard-widget">
+                <div class="widget-header"><h2 class="header">At a Glance</h2> <i
+                        class="fa fa-angle-up"></i></div>
+                <div class="widget-content glance">
+                    <a href="/dashboard/pens/?pen_status=all" class="all-pen">
+                        <svg id="pen-edit-icon" xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 576 512"
+                             xml:space="preserve">
+                                <path class="st0"
+                                      d="M417.8,315.5l20-20c3.8-3.8,10.2-1.1,10.2,4.2V464c0,26.5-21.5,48-48,48H48c-26.5,0-48-21.5-48-48V112c0-26.5,21.5-48,48-48h292.3c5.3,0,8,6.5,4.2,10.2l-20,20c-1.1,1.1-2.7,1.8-4.2,1.8H48c-8.8,0-16,7.2-16,16v352c0,8.8,7.2,16,16,16h352c8.8,0,16-7.2,16-16V319.7C416,318.1,416.6,316.6,417.8,315.5z M563.7,124.3L251.2,436.8l-99.9,11.1c-13.4,1.5-24.7-9.8-23.2-23.2l11.1-99.9L451.7,12.3c16.4-16.4,43-16.4,59.4,0l52.6,52.6C580.1,81.3,580.1,107.9,563.7,124.3L563.7,124.3z M470.1,172.7L403.4,106L169.8,339.5l-8.3,75.1l75.1-8.3L470.1,172.7L470.1,172.7z M541.1,87.5l-52.6-52.6c-3.8-3.8-10.2-4-14.1,0L426,83.3l66.7,66.7l48.4-48.4C545,97.8,545,91.4,541.1,87.5L541.1,87.5z"></path>
+                            </svg>
+                        <span>{{ all_pen.count }} Pen</span>
+                    </a>
+                    <a href="/dashboard/pens/?pen_status=published" class="publish-pen">
+                        <svg id="pen-edit-icon" xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 576 512"
+                             xml:space="preserve">
+                                <path class="st0"
+                                      d="M417.8,315.5l20-20c3.8-3.8,10.2-1.1,10.2,4.2V464c0,26.5-21.5,48-48,48H48c-26.5,0-48-21.5-48-48V112c0-26.5,21.5-48,48-48h292.3c5.3,0,8,6.5,4.2,10.2l-20,20c-1.1,1.1-2.7,1.8-4.2,1.8H48c-8.8,0-16,7.2-16,16v352c0,8.8,7.2,16,16,16h352c8.8,0,16-7.2,16-16V319.7C416,318.1,416.6,316.6,417.8,315.5z M563.7,124.3L251.2,436.8l-99.9,11.1c-13.4,1.5-24.7-9.8-23.2-23.2l11.1-99.9L451.7,12.3c16.4-16.4,43-16.4,59.4,0l52.6,52.6C580.1,81.3,580.1,107.9,563.7,124.3L563.7,124.3z M470.1,172.7L403.4,106L169.8,339.5l-8.3,75.1l75.1-8.3L470.1,172.7L470.1,172.7z M541.1,87.5l-52.6-52.6c-3.8-3.8-10.2-4-14.1,0L426,83.3l66.7,66.7l48.4-48.4C545,97.8,545,91.4,541.1,87.5L541.1,87.5z"></path>
+                            </svg>
+                        <span>{{ publish_pen.count }} Publish Pen</span>
+                    </a>
+                    <a href="/dashboard/pens/?pen_status=private" class="private-pen">
+                        <svg id="pen-edit-icon" xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 576 512"
+                             xml:space="preserve">
+                                <path class="st0"
+                                      d="M417.8,315.5l20-20c3.8-3.8,10.2-1.1,10.2,4.2V464c0,26.5-21.5,48-48,48H48c-26.5,0-48-21.5-48-48V112c0-26.5,21.5-48,48-48h292.3c5.3,0,8,6.5,4.2,10.2l-20,20c-1.1,1.1-2.7,1.8-4.2,1.8H48c-8.8,0-16,7.2-16,16v352c0,8.8,7.2,16,16,16h352c8.8,0,16-7.2,16-16V319.7C416,318.1,416.6,316.6,417.8,315.5z M563.7,124.3L251.2,436.8l-99.9,11.1c-13.4,1.5-24.7-9.8-23.2-23.2l11.1-99.9L451.7,12.3c16.4-16.4,43-16.4,59.4,0l52.6,52.6C580.1,81.3,580.1,107.9,563.7,124.3L563.7,124.3z M470.1,172.7L403.4,106L169.8,339.5l-8.3,75.1l75.1-8.3L470.1,172.7L470.1,172.7z M541.1,87.5l-52.6-52.6c-3.8-3.8-10.2-4-14.1,0L426,83.3l66.7,66.7l48.4-48.4C545,97.8,545,91.4,541.1,87.5L541.1,87.5z"></path>
+                            </svg>
+                        <span>{{ private_pen.count }} Private Pen</span>
+                    </a>
+                    <a href="/dashboard/pens/?pen_status=draft" class="draft-pen">
+                        <svg id="pen-edit-icon" xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 576 512"
+                             xml:space="preserve">
+                                <path class="st0"
+                                      d="M417.8,315.5l20-20c3.8-3.8,10.2-1.1,10.2,4.2V464c0,26.5-21.5,48-48,48H48c-26.5,0-48-21.5-48-48V112c0-26.5,21.5-48,48-48h292.3c5.3,0,8,6.5,4.2,10.2l-20,20c-1.1,1.1-2.7,1.8-4.2,1.8H48c-8.8,0-16,7.2-16,16v352c0,8.8,7.2,16,16,16h352c8.8,0,16-7.2,16-16V319.7C416,318.1,416.6,316.6,417.8,315.5z M563.7,124.3L251.2,436.8l-99.9,11.1c-13.4,1.5-24.7-9.8-23.2-23.2l11.1-99.9L451.7,12.3c16.4-16.4,43-16.4,59.4,0l52.6,52.6C580.1,81.3,580.1,107.9,563.7,124.3L563.7,124.3z M470.1,172.7L403.4,106L169.8,339.5l-8.3,75.1l75.1-8.3L470.1,172.7L470.1,172.7z M541.1,87.5l-52.6-52.6c-3.8-3.8-10.2-4-14.1,0L426,83.3l66.7,66.7l48.4-48.4C545,97.8,545,91.4,541.1,87.5L541.1,87.5z"></path>
+                            </svg>
+                        <span>{{ draft_pen.count }} Draft Pen</span>
+                    </a>
+                    <a href="/dashboard/pens/?pen_status=trash" class="trash-pen">
+                        <svg id="pen-edit-icon" xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 576 512"
+                             xml:space="preserve">
+                                <path class="st0"
+                                      d="M417.8,315.5l20-20c3.8-3.8,10.2-1.1,10.2,4.2V464c0,26.5-21.5,48-48,48H48c-26.5,0-48-21.5-48-48V112c0-26.5,21.5-48,48-48h292.3c5.3,0,8,6.5,4.2,10.2l-20,20c-1.1,1.1-2.7,1.8-4.2,1.8H48c-8.8,0-16,7.2-16,16v352c0,8.8,7.2,16,16,16h352c8.8,0,16-7.2,16-16V319.7C416,318.1,416.6,316.6,417.8,315.5z M563.7,124.3L251.2,436.8l-99.9,11.1c-13.4,1.5-24.7-9.8-23.2-23.2l11.1-99.9L451.7,12.3c16.4-16.4,43-16.4,59.4,0l52.6,52.6C580.1,81.3,580.1,107.9,563.7,124.3L563.7,124.3z M470.1,172.7L403.4,106L169.8,339.5l-8.3,75.1l75.1-8.3L470.1,172.7L470.1,172.7z M541.1,87.5l-52.6-52.6c-3.8-3.8-10.2-4-14.1,0L426,83.3l66.7,66.7l48.4-48.4C545,97.8,545,91.4,541.1,87.5L541.1,87.5z"></path>
+                            </svg>
+                        <span>{{ trash_pen.count }} Trash Pen</span>
+                    </a>
+                    <div class="comment-pen">
+                        <a href="/dashboard/comments/">
+                            <svg id="comment-icon" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 viewBox="0 0 512 512" xml:space="preserve">
+                            <path class="st0"
+                                  d="M256,31.1c-141.4,0-255.1,93.1-255.1,208c0,47.6,19.9,91.2,52.9,126.3c-14.9,39.5-45.9,72.9-46.4,73.2c-6.6,7-8.4,17.2-4.6,26c3,9.6,11.6,15.3,21.2,15.3c61.5,0,109.1-25.8,139.1-46.2c28.1,9,60.2,14.2,92.9,14.2c141.4,0,255.1-93.1,255.1-207.1S397.4,31.1,256,31.1z M256,416c-28.2,0-56.2-4.2-83.2-12.8c-9.5-3.1-19.9-1.5-28.1,4.3c-22.1,16.2-58.5,35.3-102.7,39.7c11.1-15.1,29.8-40.5,40.7-69.6l0.1-0.3c4.3-11.3,1.8-23.1-6.4-32.8C47.5,313.1,32.1,277.6,32.1,240c0-97,100.5-176,223.1-176c123.5,0,223.1,79,223.1,176S379.5,416,256,416z M256,216c-13.2,0-24,10.7-24,24c0,13.2,10.8,24,24,24s24-10.8,24-24C280,226.7,269.3,216,256,216z M384,216c-13.2,0-24,10.7-24,24c0,13.2,10.8,24,24,24s24-10.8,24-24C408,226.7,397.3,216,384,216z M128,216c-13.2,0-24,10.7-24,24c0,13.2,10.8,24,24,24s24-10.7,24-24S141.3,216,128,216z"></path>
+                        </svg>
+                            <span>{{ all_comments.count }} Comments</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-widget">
+                <div class="widget-header"><h2 class="header">Recent Pen</h2> <i
+                        class="fa fa-angle-up"></i></div>
+                <div class="widget-content recent-pen">
+                    <ul class="all-pen">
+                        {% for pen in all_pen|slice:'0:5' %}
+                            <li>
+                                <a href="{% url 'pen:single_pen' username pen.pen_slug %}">
+                                    <p class="pen-title">{{ pen.pen_title|word_slice:'0:10' }}</p>
+                                    <span class="pen-published">
+                                    {% if pen.modefied %}
+                                        {{ pen.modified }}
+                                    {% else %}
+                                        {{ pen.pen_published }}
+                                    {% endif %}
+                                </span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="dashboard-widget">
+                <div class="widget-header"><h2 class="header">Recent Comments</h2> <i
+                        class="fa fa-angle-up"></i></div>
+                <div class="widget-content recent-comment">
+                    <ul class="all-comment">
+                        {% for comment in all_comments|slice:'0:5' %}
+                            <li>
+                                <a href="{% url 'pen:single_pen' username comment.pen.pen_slug %}#comment-{{ comment.id }}">
+                                    <p class="comment-content">{{ comment.comment_content|word_slice:'0:10' }}</p>
+                                    <span class="comment-publish">
+                                        {% if comment.comment_modified %}
+                                            {{ comment.comment_modified }}
+                                        {% else %}
+                                            {{ comment.comment_publish }}
+                                        {% endif %}
+                                    </span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="dashboard-widget">
+                <div class="widget-header"><h2 class="header">Recent Login Status</h2> <i
+                        class="fa fa-angle-up"></i></div>
+                <div class="widget-content recent-login-status">
+                    <ul class="login-status">
+                        {% for status in login_status|slice:'0:5' %}
+                            <li>
+                                <a href="{% url 'dashboard:activities' %}#login-{{ status.id }}">
+                                    <span class="login-date">{{ status.user_login }}</span>
+                                    <span class="username">{{ status.user.username }}</span>
+                                    <span class="ip">{{ status.user_ip }}</span>
+                                    {% if status.user_country or status.user_city %}
+                                        <span class="user-location">{{ status.user_city }}, {{ status.user_country }}</span>
+                                    {% endif %}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="right-widget">
+            <div class="dashboard-widget">
+                <div class="widget-header"><h2 class="header">Add Quick Pen</h2> <i
+                        class="fa fa-angle-up"></i></div>
+                <div class="form-section">
+                    <form name="post" action="{% url 'pen:pen' request.user.username %}" method="post" id="quick-press"
+                          class="initial-form hide-if-no-js">
+                        <div class="form-field" id="title-wrap">
+                            <label for="title">
+                                Title </label>
+                            <input type="text" name="title" id="title">
+                        </div>
+
+                        <div class="form-field" id="pen-description">
+                            <label for="description">Description</label>
+                            <textarea name="description" id="description" placeholder="What’s on your mind?"
+                                      class="description" rows="6" cols="15"></textarea>
+                        </div>
+
+                        <div class="form-field">
+                            <select class="pen-status">
+                                <option value="publish" selected>Publish</option>
+                                <option value="draft">Draft</option>
+                            </select>
+                        </div>
+
+                        <div class="form-submit">
+                            <button class="submit">Add Pen</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="dashboard-widget">
+                <div class="widget-header"><h2 class="header">Quick Links</h2> <i
+                        class="fa fa-angle-up"></i></div>
+                <div class="widget-content quick-links">
+                    <ul class="all-links">
+                        <li><a href="https://themezone.live" title="Get all premier themes">Codepen Themes</a></li>
+                        <li><a href="https://blog.codepen.live" title="Get all premier themes">Codepen Blog</a></li>
+                        <li><a href="https://cdn.codepen.live" title="Get all premier themes">Codepen CDN</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
