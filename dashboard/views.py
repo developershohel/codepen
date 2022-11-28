@@ -18,21 +18,19 @@ from .models import Media
 @login_required
 @csrf_exempt
 def dashboard(request):
-    username = request.user.username
-    user_id = request.user.id
-    user = User.objects.all().filter(id=request.user.id)
-    profile = get_profile(username)
-    all_pen = Pen.objects.all().filter(user_id=user_id).order_by('-id')
-    all_comments = Comment.objects.all().filter(user_id=user_id).order_by('-id')
+    user = request.user
+    profile = get_profile(user.username)
+    all_pen = Pen.objects.all().filter(user_id=user.id).order_by('-id')
+    all_comments = Comment.objects.all().filter(user_id=user.id).order_by('-id')
     publish_pen = all_pen.filter(pen_status='published')
     private_pen = all_pen.filter(pen_status='private')
     draft_pen = all_pen.filter(pen_status='draft')
     trash_pen = all_pen.filter(pen_status='trash')
-    login_status = UserLogs.objects.all().filter(user_id=user_id).order_by('-id')
+    login_status = UserLogs.objects.all().filter(user_id=user.id).order_by('-id')
 
     context = {
-        'user_id': user_id,
-        'username': username,
+        'user_id': user.id,
+        'username': user.username,
         'user': user,
         'current_path_name': request.path_info[1:-1],
         'current_path': request.path[1:-1],
@@ -45,28 +43,25 @@ def dashboard(request):
         'login_status': login_status,
         'profile': profile
     }
-
-    render_template = render(request, 'dashboard/dashboard.html', context)
+    render_template = render(request, 'dashboard/home/dashboard.html', context)
     return render_template
 
 
 @login_required
 @csrf_exempt
 def dashboard_pen(request):
-    username = request.user.username
-    user_id = request.user.id
-    user = User.objects.all().filter(id=request.user.id)
-    profile = get_profile(username)
-    all_pen = Pen.objects.all().filter(user_id=user_id)
-    all_comments = Comment.objects.all().filter(user_id=user_id)
+    user = request.user
+    profile = get_profile(user.username)
+    all_pen = Pen.objects.all().filter(user_id=user.id)
+    all_comments = Comment.objects.all().filter(user_id=user.id)
     publish_pen = all_pen.filter(pen_status='published')
     private_pen = all_pen.filter(pen_status='private')
     draft_pen = all_pen.filter(pen_status='draft')
     trash_pen = all_pen.filter(pen_status='trash')
 
     context = {
-        'user_id': user_id,
-        'username': username,
+        'user_id': user.id,
+        'username': user.username,
         'user': user,
         'current_path_name': request.path_info[1:-1],
         'current_path': request.path[1:-1],
@@ -90,10 +85,10 @@ def dashboard_comments(request):
     user_id = request.user.id
     user = User.objects.all().filter(id=request.user.id)
     profile = get_profile(username)
-    all_comments = Comment.objects.all().filter(user_id=user_id)
+    all_comments = Comment.objects.all().filter(user_id=user.id)
 
     context = {
-        'user_id': user_id,
+        'user_id': user.id,
         'username': username,
         'user': user,
         'current_path_name': request.path_info[1:-1],
@@ -182,13 +177,13 @@ def upload_file(request):
 @login_required
 def dashboard_profile(request):
     user_id = request.user.id
-    user = User.objects.all().filter(id=user_id)
-    username = user.get().username
+    user = User.objects.all().filter(id=user.id)
+    username = user.username
     ip = get_client_ip(request)
     profile = get_profile(username)
-    pens = Pen.objects.all().filter(user_id=user_id)
+    pens = Pen.objects.all().filter(user_id=user.id)
     pen_data = PenData.objects.all()
-    comments = Comment.objects.all().filter(user_id=user_id)
+    comments = Comment.objects.all().filter(user_id=user.id)
 
     for pen in pens:
         var = pen.pen_love.all().count
@@ -201,15 +196,15 @@ def dashboard_profile(request):
         user_details = get_client_details_by_ip('103.239.255.44')
 
     context = {
-        'user_id': user_id,
+        'user_id': user.id,
         'username': username,
         'current_path_name': request.path_info[1:-1],
         'current_path': request.path[1:-1],
         'location': user_details['country'],
         'screen_name': screen_name,
         'profile': profile,
-        'follower': user.get().follower.count(),
-        'following': user.get().following.count(),
+        'follower': user.follower.count(),
+        'following': user.following.count(),
         'pens': pens,
         'pen_data': pen_data,
         'comments': comments,
@@ -227,7 +222,7 @@ def activities(request):
     user_id = request.user.id
     profile = get_profile(username)
     context = {
-        'user_id': user_id,
+        'user_id': user.id,
         'username': username,
         'current_path_name': request.path_info[1:-1],
         'current_path': request.path[1:-1],

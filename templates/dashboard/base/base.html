@@ -1,0 +1,100 @@
+{% load dynamic %}
+{% load i18n static %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static "dashboard/base/css/style.css" %}">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="keywords"
+          content="codepen, codepen live, edit html, html online editor,code website, codepen online, code online, js online editor, javascript editor online, online code editor, online code sharing, javascript editor, html code editor, online html, html coding website, web editor, online django editor, django, jquery editor, online django, python, online python editor, online c editor, online java editor, text editor, online text editor, text editor online, code editor online">
+    {% include 'dashboard/base/style.html' %}
+    {% block stylesheet %}{% endblock %}
+    {% block headerscript %}{% endblock %}
+</head>
+{% load i18n %}
+<body class="{% block bodyclass %}{% endblock %}">
+<div id="cp-container">
+    <div class="admin-header-section">
+        {% include 'dashboard/base/header.html' %}
+    </div>
+    <main class="cp-main">
+        {% block sidebar-header %}
+            <div class="admin-sidebar-header">
+                <nav class="admin-header">
+                    <ul class="admin-menu">
+                        <li class="dashboard {% current_menu request.path 'dashboard:dashboard_url' %}"><a href="{% url 'dashboard:dashboard_url' %}">
+                            <svg id="dashboard" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
+                                 xml:space="preserve"><path class="st0" d="M256,72c13.3,0,24,10.8,24,24c0,13.3-10.7,24-24,24c-13.3,0-24-10.7-24-24C232,82.8,242.7,72,256,72z M256,288c17.5,0,33.4,7,44.9,18.4l106.9-64.1c7.5-4.6,17.4-2.1,21.9,5.5c4.6,7.5,2.1,17.4-5.5,21.9l-106.8,64.1c1.7,5.8,2.6,11.9,2.6,18.2c0,35.3-28.7,64-64.9,64c-34.4,0-64-28.7-64-64s29.6-64,64-64H256z M224,352c0,17.7,14.3,32,32,32s32-14.3,32-32s-14.3-32-32-32S224,334.3,224,352z M368,120c13.3,0,24,10.7,24,24s-10.7,24-24,24s-24-10.7-24-24S354.7,120,368,120z M96,280c-13.2,0-24-10.7-24-24c0-13.3,10.8-24,24-24c13.3,0,24,10.7,24,24C120,269.3,109.3,280,96,280z M144,120c13.3,0,24,10.7,24,24s-10.7,24-24,24s-24-10.7-24-24S130.7,120,144,120z M256,512C114.6,512,0,397.4,0,256S114.6,0,256,0s256,114.6,256,256S397.4,512,256,512z M480,256c0-123.7-100.3-224-224-224S32,132.3,32,256s100.3,224,224,224S480,379.7,480,256z"/></svg>
+                            <span>Dashboard</span></a>
+                        </li>
+                        <li class="pen {% current_menu request.path 'dashboard:dashboard_pen' %}">
+                            <a href="{% url 'dashboard:dashboard_pen' %}">
+                                <svg id="pen-edit-icon" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 576 512"
+                                     xml:space="preserve">
+                                <path class="st0"
+                                      d="M417.8,315.5l20-20c3.8-3.8,10.2-1.1,10.2,4.2V464c0,26.5-21.5,48-48,48H48c-26.5,0-48-21.5-48-48V112c0-26.5,21.5-48,48-48h292.3c5.3,0,8,6.5,4.2,10.2l-20,20c-1.1,1.1-2.7,1.8-4.2,1.8H48c-8.8,0-16,7.2-16,16v352c0,8.8,7.2,16,16,16h352c8.8,0,16-7.2,16-16V319.7C416,318.1,416.6,316.6,417.8,315.5z M563.7,124.3L251.2,436.8l-99.9,11.1c-13.4,1.5-24.7-9.8-23.2-23.2l11.1-99.9L451.7,12.3c16.4-16.4,43-16.4,59.4,0l52.6,52.6C580.1,81.3,580.1,107.9,563.7,124.3L563.7,124.3z M470.1,172.7L403.4,106L169.8,339.5l-8.3,75.1l75.1-8.3L470.1,172.7L470.1,172.7z M541.1,87.5l-52.6-52.6c-3.8-3.8-10.2-4-14.1,0L426,83.3l66.7,66.7l48.4-48.4C545,97.8,545,91.4,541.1,87.5L541.1,87.5z"/>
+                            </svg>
+                                <span>Pen's</span>
+                            </a>
+                        </li>
+                         <li class="comment {% current_menu request.path 'dashboard:dashboard_comments' %}">
+                            <a href="{% url 'dashboard:dashboard_comments' %}">
+                                <svg id="comment-icon" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 viewBox="0 0 512 512" xml:space="preserve">
+                            <path class="st0"
+                                  d="M256,31.1c-141.4,0-255.1,93.1-255.1,208c0,47.6,19.9,91.2,52.9,126.3c-14.9,39.5-45.9,72.9-46.4,73.2c-6.6,7-8.4,17.2-4.6,26c3,9.6,11.6,15.3,21.2,15.3c61.5,0,109.1-25.8,139.1-46.2c28.1,9,60.2,14.2,92.9,14.2c141.4,0,255.1-93.1,255.1-207.1S397.4,31.1,256,31.1z M256,416c-28.2,0-56.2-4.2-83.2-12.8c-9.5-3.1-19.9-1.5-28.1,4.3c-22.1,16.2-58.5,35.3-102.7,39.7c11.1-15.1,29.8-40.5,40.7-69.6l0.1-0.3c4.3-11.3,1.8-23.1-6.4-32.8C47.5,313.1,32.1,277.6,32.1,240c0-97,100.5-176,223.1-176c123.5,0,223.1,79,223.1,176S379.5,416,256,416z M256,216c-13.2,0-24,10.7-24,24c0,13.2,10.8,24,24,24s24-10.8,24-24C280,226.7,269.3,216,256,216z M384,216c-13.2,0-24,10.7-24,24c0,13.2,10.8,24,24,24s24-10.8,24-24C408,226.7,397.3,216,384,216z M128,216c-13.2,0-24,10.7-24,24c0,13.2,10.8,24,24,24s24-10.7,24-24S141.3,216,128,216z"></path>
+                        </svg>
+                                <span>Comments</span>
+                            </a>
+                        </li>
+                        <li class="media {% current_menu request.path 'dashboard:dashboard_media' %}"><a href="{% url 'dashboard:dashboard_media' %}">
+                            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 640 512"
+                                 style="enable-background:new 0 0 640 512;" xml:space="preserve"><path class="st0" d="M288,120c13.3,0,24-10.7,24-24s-10.7-24-24-24c-13.3,0-24,10.8-24,24S274.7,120,288,120z M576,0H256c-35.3,0-64,28.6-64,64v224c0,35.4,28.6,64,64,64h320c35.3,0,64-28.6,64-64V64C640,28.6,611.3,0,576,0z M608,288c0,17.6-14.4,32-32,32H256c-17.6,0-32-14.4-32-32V64c0-17.6,14.4-32,32-32h320c17.6,0,32,14.4,32,32V288z M474.6,107.9c-11.3-15.8-38.5-15.9-49.1,0l-44,61.4l-7-8.9c-11.4-14.5-37-14.6-48.4,0l-63.9,80.4c-7.2,9.1-8.2,21.5-2.7,31.5c5.3,8.8,15.6,15.7,26.9,15.7h259.2c11,0,21.2-5.8,26.5-15.1c0,0,0,0,0,0c5.7-9.9,5.1-21.8-1.6-31.1L474.6,107.9z M290.2,255.9l58.2-75.6l20.1,25.7c4.3,5.5,17.6,10.6,25.6-0.5l54.4-78.8l92.7,129.2L290.2,255.9L290.2,255.9z M496,384c-8.8,0-16,7.2-16,16v48c0,17.7-14.3,32-32,32h-32v-80c0-8.8-7.2-16-16-16s-16,7.2-16,16v80H128V192h16c8.8,0,16-7.2,16-16s-7.2-16-16-16H64c-35.3,0-64,28.7-64,64v224c0,35.4,28.6,64,64,64h384c35.4,0,64-28.6,64-64v-48C512,391.2,504.8,384,496,384z M96,480H64c-17.6,0-32-14.4-32-32v-32h64V480z M96,384H32v-96h64V384z M96,256H32v-32c0-17.6,14.4-32,32-32h32V256z"/></svg>
+                            <span>Media</span></a>
+                        </li>
+                        <li class="profile {% current_menu request.path 'dashboard:dashboard_profile' %}"><a href="{% url 'dashboard:dashboard_profile' %}">
+                            <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 384 512"
+                                 style="enable-background:new 0 0 384 512;" xml:space="preserve"><path class="st0" d="M320,0H64C28.6,0,0,28.6,0,64v384c0,35.4,28.6,64,64,64h256c35.4,0,64-28.6,64-64V64C384,28.6,355.3,0,320,0zM352,448c0,17.6-14.4,32-32,32H64c-17.6,0-32-14.4-32-32V64c0-17.6,14.4-32,32-32h256c17.6,0,32,14.4,32,32V448z M192,288c35.4,0,64-28.6,64-64s-28.6-64-64-64s-64,28.7-64,64S156.7,288,192,288z M192,192c17.6,0,32,14.4,32,32s-14.4,32-32,32s-32-14.4-32-32S174.4,192,192,192z M224,320h-64c-44.2,0-80,35.8-80,80c0,8.8,7.2,16,16,16c8.8,0,16-7.2,16-16c0-26.5,21.5-48,48-48h64c26.5,0,48,21.5,48,48c0,8.8,7.2,16,16,16c8.8,0,16-7.2,16-16C304,355.8,268.2,320,224,320z M144,96h96c8.8,0,16-7.2,16-16s-7.2-16-16-16h-96c-8.8,0-16,7.2-16,16S135.2,96,144,96z"/></svg>
+
+                            <span>Profile</span></a>
+                        </li>
+                        <li class="settings {{ current_path_name|split_text:'/:-1' }}"><a href="{% url 'setting:setting_profile' %}">
+                            <svg id="setting-icon" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
+                                 style="enable-background:new 0 0 512 512;" xml:space="preserve"><path class="st0" d="M168,255.1c0-47.7,39.4-88,88-88s88,40.3,88,88c0,49.5-39.4,88.9-88,88.9S168,304.6,168,255.1z M256,199.1c-30.9,0-56,26-56,56c0,31.8,25.1,56,56,56s56-24.2,56-56C312,225.1,286.9,199.1,256,199.1z M65.7,230.6l-40.3-36.8c-11.1-10.1-13.7-26.6-6.2-39.6l30.2-52.4c7.5-13,23.1-19.1,37.4-14.5l52,16.6c13.4-10.3,28.2-18.9,44-25.5l11.7-53.3C197.7,10.5,210.7,0,225.8,0h60.4c15.1,0,28.1,10.5,31.3,25.2l11.7,53.3c14.9,6.5,30.6,15.1,44,25.5l52-16.6c14.3-4.6,29.9,1.5,37.4,14.5l30.2,52.4c7.5,13,5,29.5-6.1,39.6l-40.4,36.8c1.1,8.3,1.7,16.8,1.7,24.5c0,9.5-0.6,18-1.7,26.3l40.4,36.8c11.1,10.1,13.6,26.6,6.1,39.6l-30.2,52.4c-7.5,13-23.1,19-37.4,14.5l-52-16.6c-13.4,10.3-29.1,18.9-44,25.5l-11.7,53.2c-3.2,14.7-16.2,25.2-31.3,25.2h-60.4c-15.1,0-28.1-10.5-31.3-25.2l-11.7-53.2c-15.8-6.6-30.6-15.2-44-25.5l-52,16.6c-14.3,4.5-29.9-1.5-37.4-14.5l-30.2-52.4c-7.5-13-5-29.5,6.2-39.6l40.3-36.8c-1.1-8.3-1.7-16.8-1.7-26.3C64,247.4,64.6,238.9,65.7,230.6L65.7,230.6z M158.4,129.2l-13.3,10.3l-68-21.7l-30.2,52.4l52.7,48l-2.2,16.6c-0.9,6.9-1.4,14-1.4,20.3c0,8.1,0.5,15.2,1.4,22.1l2.2,16.6l-52.7,48l30.2,52.4l68-21.7l13.3,10.3c11.1,8.6,23.5,15.8,36.6,20.3l15.5,7.3l15.3,69.6h60.4l15.3-69.6l14.6-7.3c14-4.5,26.4-11.7,37.5-20.3l13.3-10.3l68,21.7l30.2-52.4l-52.7-48l2.2-16.6c0.9-6.9,1.4-14,1.4-21.2c0-7.2-0.5-14.3-1.4-21.2l-2.2-16.6l52.7-48l-30.2-52.4l-68,21.7l-13.3-10.3c-11.1-8.6-23.5-15.8-37.5-21.2l-14.6-6.4L286.2,32h-60.4l-15.3,69.6L195,108C181.9,113.4,169.5,120.6,158.4,129.2L158.4,129.2z"/></svg>
+                            <span>Settings</span></a>
+                            <ul class="sub-menu">
+                                <li class="profile-setting {% current_menu request.path 'setting:setting_profile' %}-child"><a href="{% url 'setting:setting_profile' %}"> Profile</a> </li>
+                                <li class="account-setting {% current_menu request.path 'setting:setting_account' %}-child"><a href="{% url 'setting:setting_account' %}">Account</a> </li>
+                                <li class="appearance-setting {% current_menu request.path 'setting:setting_appearance' %}-child"><a href="{% url 'setting:setting_appearance' %}">Appearance</a> </li>
+                                <li class="billing-setting {% current_menu request.path 'setting:setting_billing' %}-child"><a href="{% url 'setting:setting_billing' %}">Billing and plans</a> </li>
+                                <li class="notification-setting {% current_menu request.path 'setting:setting_notification' %}-child"><a href="{% url 'setting:setting_notification' %}">Notification</a> </li>
+                                <li class="security-setting {% current_menu request.path 'setting:setting_security' %}-child"><a href="{% url 'setting:setting_security' %}">Security</a> </li>
+                                <li class="block-user-setting {% current_menu request.path 'setting:setting_block_user' %}-child"><a href="{% url 'setting:setting_block_user' %}">Blocked users</a> </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        {% endblock %}
+        {% block content %}{% endblock %}
+    </main>
+    <div class="cp-footer-section">
+        {% include 'dashboard/base/footer.html' %}
+    </div>
+</div>
+{#<script src="https://cdn.jsdelivr.net/gh/developershohel/cdn.codepen.live@main/jquery/jquery.min.js"></script>#}
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'plugins/jquery/jquery-migrate.min.js' %}"></script>
+{% include 'dashboard/base/script.html' %}
+{% block script %}{% endblock %}
+<script src="{% static 'dashboard/base/js/app.js' %}"></script>
+</body>
+</html>

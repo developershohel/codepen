@@ -1,21 +1,11 @@
-import requests
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
+from django.shortcuts import render
 from django.contrib.sites.shortcuts import get_current_site
-from django.views import View
-from django.http import HttpRequest
 from codepen.functions import delete_cookie, get_client_ip, get_client_details_by_ip
 from profiles.models import Profile
-from django.utils.crypto import get_random_string
-from django.http import request as req, HttpRequest, cookie
-import uuid
-from django.contrib.sessions.models import Session
-
-from user.models import User
+from codepen.settings import site_url
 
 
 def index(request):
-    site_url = get_current_site(request)
     auth_user = request.user.is_authenticated
     context = {
         'site_url': site_url,
@@ -37,7 +27,6 @@ def index(request):
 
 
 def work_with_cookies(request):
-    site_url = get_current_site(request)
     auth_user = request.user.is_authenticated
     context = {
         'site_url': site_url,

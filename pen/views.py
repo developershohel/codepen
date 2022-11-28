@@ -14,7 +14,6 @@ from .models import Pen, PenData
 
 
 def pen(request, username):
-    username = username
     context = {
         'all_pens': Pen.objects.all(),
         'apps': apps.get_app_configs()

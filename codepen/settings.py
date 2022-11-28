@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-22phao6w^dllovz6#^=0k$^(g*5c_9(#rb^j9w0p_@&5*yfgbx'
+SECRET_KEY = '22phao6w^dlJfhdsjh&6487lovz6#^=0k$^(g*5c_9(#rb^j9w0p_@&5*yfgbx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -135,9 +135,7 @@ USE_L10N = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/assets')
-]
+
 
 # Media root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')

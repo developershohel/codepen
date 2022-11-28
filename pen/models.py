@@ -16,6 +16,11 @@ def upload_path(instance, filename):
 
 
 class Pen(models.Model):
+    choices = (
+        ('html', 'HTML'), ('javascript', 'JavaScript (JSX)'), ('c', 'C, C++, C#'), ('php', 'PHP'), ('python', 'Python'),
+        ('java', 'Java'), ('kotlin', 'Kotlin'), ('django', 'Django'), ('jinja', 'Jinja2'), ('go', 'Go'),
+        ('groovy', 'Groovy'), ('R', 'R'), ('ruby', 'Ruby'), ('swift', 'Swift'), ('vue', 'Vue.js'), ('xml', 'XML/HTML'))
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     pen_title = models.CharField(max_length=255, null=False, blank=False)
     pen_description = models.TextField(null=True, blank=True)
@@ -26,10 +31,10 @@ class Pen(models.Model):
                                   choices=(('published', 'Published'), ('private', 'Private'), ('draft', "Draft"),
                                            ('trash', 'Trash')),
                                   default='publish')
-    pen_type = models.CharField(max_length=16, null=False, blank=False)
+    pen_type = models.CharField(max_length=16, null=False, blank=False, choices=choices)
     pen_love = models.ManyToManyField(User, related_name='love', blank=True)
     pen_view = models.ManyToManyField(User, related_name='view', blank=True)
-    pen_comments = models.BigIntegerField(blank=True)
+    pen_comments = models.BigIntegerField(blank=True, null=True)
     pen_published = models.DateTimeField(auto_now=True)
     pen_modified = models.DateTimeField(auto_now_add=True)
 

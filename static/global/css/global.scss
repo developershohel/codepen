@@ -1,0 +1,571 @@
+/*
+* Theme Name: CodePen
+* Theme Version: 2.0.0
+ */
+
+:root {
+  --cp-sidebar-width: 188px;
+  --cp-sidebar-fixed-height: 700px;
+  --cp-header-height: 65px;
+  --cp-header-height-small: 53px;
+  --cp-control-bar-height: 29px;
+  --cp-control-space-between: 1.5rem;
+
+  --cp-button-padding: 0.375rem 0.75rem;
+  --cp-input-padding: 0.375rem 0.75rem;
+  --cp-button-border-radius: 0.375rem;
+  --cp-btn-border-width: 1px;
+
+
+  --cp-font-family: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Tahoma, Sans-Serif;
+  --cp-font-family-header: 'Telefon Black', Sans-Serif;
+  --cp-font-family-header-alt: 'Telefon', Sans-Serif;
+  --cp-font-family-monospace: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+
+  --cp-color-1: #fff;
+  --cp-color-2: #efeff1;
+  --cp-color-3: #e9eaed;
+  --cp-color-4: #e3e4e8;
+  --cp-color-5: #d4d6dd;
+  --cp-color-6: #c6c8d2;
+  --cp-color-7: #b7bbc8;
+  --cp-color-8: #aaaebb;
+  --cp-color-9: #9a9cac;
+  --cp-color-10: #84879f;
+  --cp-color-11: #70768f;
+  --cp-color-12: #5a5f72;
+  --cp-color-13: #434756;
+  --cp-color-14: #2c303a;
+  --cp-color-15: #23272e;
+  --cp-color-16: #1d1e25;
+  --cp-color-17: #131316;
+  --cp-color-18: #09090b;
+  --cp-color-19: #030303;
+  --cp-color-20: #000;
+  --cp-color-shadow: rgba(68, 207, 112, .6);
+  --cp-color-green: #44cf70;
+  --cp-color-green-light: #d1ffe0;
+  --cp-color-green-dark: #248a44;
+  --cp-color-yellow: #ffdc42;
+  --cp-color-yellow-light: #f9ea9f;
+  --cp-color-yellow-dark: #c9a70d;
+  --cp-color-purple: #ac63e3;
+  --cp-color-purple-light: #bea0e4;
+  --cp-color-purple-dark: #734ca9;
+  --cp-color-red: #ff3d44;
+  --cp-color-red-very-light: #ffcfcc;
+  --cp-color-red-light: #f09893;
+  --cp-color-red-dark: #a50909;
+  --cp-color-blue: #0fbfff;
+  --cp-color-blue-light: #75daff;
+  --cp-color-blue-dark: #3c89c3;
+  --cp-color-link: #75daff;
+  --cp-color-link-on-white: #1f788e;
+  --cp-color-link-on-black: #53bcf9;
+  --cp-color-pens: #0fbfff;
+
+
+  --bg-color: #2B2A33;
+
+  --header-bg: #30363D;
+  --header-color: #fff;
+  --cp-logo-color: #75daff;
+  --header-hover: #53bcf9;
+  --side-header: #1E1F26;
+  --side-header-border: #30363D;
+  --content-bg: #4C4F5A;
+  --primary-content-bg: #1D1E22;
+  --header-button: #248537;
+  --header-button-hover: #2f9f43;
+
+  --text-primary: #fff;
+
+  --cp-icon-color: #75daff;
+  --cp-icon-hover: #53bcf9;
+
+
+  --pen-bg: #1E1F26;
+  --pen-color: #EEFFFF;
+  --text-color: #545454;
+  --select-color: rgba(97, 97, 97, 0.2);
+  --section-color: rgba(128, 203, 196, 0.2);
+  --active-color: rgba(0, 0, 0, 0.5);
+  --pen-love: rgb(236 72 153);
+
+  --form-bg: #1E1F26;
+  --form-border: #1E1F26;
+  --form-input: #30363D;
+  --form-button: #248537;
+  --form-button-hover: #2f9f43;
+  --form-facebook: #036ce5;
+  --form-twitter: #1da1f2;
+  --form-github: #57606a;
+  --form-google: #4F86EC;
+
+  // Footer color
+  --footer-bg: #394350;
+  --footer-title-color: #ffffff;
+  --footer-text-color: #ffffff;
+  --footer-icon-color: #ffffff;
+  --footer-hv-color: #53bcf9;
+  --copyright-bg-color: #ffffff;
+  --copyright-color: #394350;
+
+  // Button
+  --button-primary: #248537;
+  --button-primary-hover: #2f9f43;
+  --delete: #ff3d44;
+  --delete-hover: #fc4e54;
+
+  // link
+  --link-primary: #75daff;
+  --link-primary-hover: #53bcf9;
+
+  --error: #ff3d44;
+}
+
+@mixin responsive($min,$max) {
+  @media screen and (min-width: #{$min}) and (max-width: #{$max}) {
+    @content;
+  }
+}
+
+@mixin max_width($max) {
+  @media screen and (max-width: #{$max}) {
+    @content;
+  }
+}
+
+@mixin min_width($min) {
+  @media screen and (min-width: #{$min}) {
+    @content;
+  }
+}
+
+@mixin reset-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v128/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 100 700;
+  src: url(https://fonts.gstatic.com/s/materialsymbolsoutlined/v7/kJEhBvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oFsI.woff2) format('woff2');
+}
+
+*, *:after, *:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+}
+
+
+hr {
+  margin: 1rem 0;
+  color: inherit;
+  background-color: currentColor;
+  border: 0;
+  opacity: .25
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: .5rem;
+  font-weight: 500;
+  line-height: 1.2
+}
+
+h1 {
+  font-size: calc(1.375rem + 1.5vw)
+}
+
+h2 {
+  font-size: calc(1.325rem + .9vw)
+}
+
+h3 {
+  font-size: calc(1.3rem + .6vw)
+}
+
+h4 {
+  font-size: calc(1.275rem + .3vw)
+}
+
+h5 {
+  font-size: 1.25rem
+}
+
+h6 {
+  font-size: 1rem
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem
+}
+
+abbr {
+  text-decoration: underline;
+  cursor: help;
+  text-decoration-skip-ink: none
+}
+
+address {
+  margin-bottom: 1rem;
+  font-style: normal;
+  line-height: inherit
+}
+
+ol, ul {
+  padding-left: 2rem
+}
+
+dl, ol, ul {
+  margin-top: 0;
+  margin-bottom: 1rem
+}
+
+ol ol, ol ul, ul ol, ul ul {
+  margin-bottom: 0
+}
+
+dt {
+  font-weight: 700
+}
+
+dd {
+  margin-bottom: .5rem;
+  margin-left: 0
+}
+
+blockquote {
+  margin: 0 0 1rem
+}
+
+b, strong {
+  font-weight: bolder
+}
+
+
+sub, sup {
+  position: relative;
+  font-size: .75em;
+  line-height: 0;
+  vertical-align: baseline
+}
+
+sub {
+  bottom: -.25em
+}
+
+sup {
+  top: -.5em
+}
+
+a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--link-primary-hover);
+}
+
+code, kbd, pre, samp {
+  font-size: 1em;
+  direction: ltr;
+  unicode-bidi: bidi-override
+}
+
+pre {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  overflow: auto;
+  font-size: .875em
+}
+
+pre code {
+  font-size: inherit;
+  color: inherit;
+  word-break: normal
+}
+
+code {
+  font-size: .875em;
+  color: #007fed;
+  word-wrap: break-word
+}
+
+a > code {
+  color: inherit
+}
+
+kbd {
+  padding: .2rem .4rem;
+  font-size: .875em;
+  color: #fff;
+  background-color: #212529;
+  border-radius: .2rem
+}
+
+kbd kbd {
+  padding: 0;
+  font-size: 1em;
+  font-weight: 700
+}
+
+figure {
+  margin: 0 0 1rem
+}
+
+img, svg {
+  vertical-align: middle
+}
+
+table {
+  caption-side: bottom;
+  border-collapse: collapse
+}
+
+caption {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  color: #6c757d;
+  text-align: left
+}
+
+th {
+  text-align: inherit;
+  text-align: -webkit-match-parent
+}
+
+tbody, td, tfoot, th, thead, tr {
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0
+}
+
+label {
+  display: inline-block
+}
+
+button {
+  border-radius: 0
+}
+
+button:focus:not(:focus-visible) {
+  outline: 0
+}
+
+button, input, optgroup, select, textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit
+}
+
+button, select {
+  text-transform: none
+}
+
+[role=button] {
+  cursor: pointer
+}
+
+select {
+  word-wrap: normal
+}
+
+[list]::-webkit-calendar-picker-indicator {
+  display: none
+}
+
+[type=button], [type=reset], [type=submit], button {
+  -webkit-appearance: button
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+  cursor: pointer
+}
+
+::-moz-focus-inner {
+  padding: 0;
+  border-style: none
+}
+
+textarea {
+  resize: vertical
+}
+
+fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0
+}
+
+legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin-bottom: .5rem;
+  font-size: calc(1.275rem + .3vw);
+  line-height: inherit
+}
+
+legend + * {
+  clear: left
+}
+
+::-webkit-inner-spin-button {
+  height: auto
+}
+
+
+::-webkit-search-decoration {
+  -webkit-appearance: none
+}
+
+::-webkit-color-swatch-wrapper {
+  padding: 0
+}
+
+::file-selector-button {
+  font: inherit
+}
+
+::-webkit-file-upload-button {
+  font: inherit;
+  -webkit-appearance: button
+}
+
+output {
+  display: inline-block
+}
+
+iframe {
+  border: 0
+}
+
+summary {
+  display: list-item;
+  cursor: pointer
+}
+
+progress {
+  vertical-align: baseline
+}
+
+[hidden] {
+  display: none !important
+}
+
+button {
+  display: inline-block;
+  padding: var(--cp-button-padding);
+  color: var(--text-primary);
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border-radius: var(--cp-button-border-radius);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn, .input {
+  display: inline-block;
+  padding: var(--cp-button-padding);
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border-radius: var(--cp-button-border-radius);
+  transition: all 0.2s ease-in-out;
+}
+
+input {
+  display: block;
+  width: 100%;
+  color: var(--text-primary);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  appearance: none;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus-visible, button:focus-visible {
+  outline: 0;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  padding: 8px !important;
+  width: 1rem !important;;
+  height: 1rem !important;;
+  appearance: none !important;;
+  cursor: pointer !important;;
+  background-position: 50% !important;;
+  background-repeat: no-repeat !important;;
+  background-size: contain !important;;
+  border: 1px solid var(--text-primary) !important;;
+  vertical-align: top !important;;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;;
+}
+
+input[type="checkbox"] {
+  border-radius: 3px !important;;
+}
+
+input[type="checkbox"]:checked {
+  border-color: var(--link-primary);
+  background-color: var(--link-primary);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+}
+
+input[type="radio"] {
+  border-radius: 25px !important;;
+  width: 1rem !important;
+  height: 1rem !important;
+}
+
+input[type="radio"]:checked {
+  border-radius: 25px;
+  border-color: var(--link-primary);
+  background-color: var(--link-primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-4 -4 8 8%22%3E%3Ccircle r=%222%22 fill=%22%23fff%22/%3E%3C/svg%3E");
+}
+
+svg {
+  transition: fill 0.2s ease-in-out, stroke 0.2s ease-in-out;
+}
