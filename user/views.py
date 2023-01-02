@@ -20,12 +20,13 @@ from .models import User, UserLogs
 username_validator = UnicodeUsernameValidator
 password_validator = CommonPasswordValidator
 
-
 # Create your views here.
 def user_login(request):
     if request.user.is_authenticated:
         return redirect(dashboard_url())
     else:
+        if User:
+            print('ok')
         context = {
             'site_url': site_url,
         }
