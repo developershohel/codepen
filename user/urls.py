@@ -15,4 +15,5 @@ urlpatterns = [
     path('auth/verified-token', views.verified_token, name="auton_token"),
     path('auth/verified-code', views.verified_code, name="auton_code"),
     path('auth/verified-code-resend', views.verified_code_resend, name="verified_code_resend"),
+    path('auth/user-validation', views.user_validation, name='user_validation')
 ]

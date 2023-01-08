@@ -108,7 +108,24 @@ jQuery(document).ready(function ($) {
             }
         })
 
-        $('#first-name, #lname, #username, #email, #password, #c-password').on('input', function () {
+        userName.on('input', function(){
+            userName.attr('value', $(this).val())
+            if(userName){
+                $.ajax({
+                    url: '/auth/user-validation',
+                    method: 'post',
+                    data: {
+                        type: 'username',
+                        user_value: $(this).val()
+                    },
+                    success: function(data){
+                        console.log(data)
+                    }
+                })
+            }
+        })
+
+        $('#first-name, #lname, #password, #c-password').on('input', function () {
             $(this).attr('value', $(this).val())
         })
 
@@ -151,20 +168,21 @@ jQuery(document).ready(function ($) {
             } else {
                 password.parent().next().empty()
             }
+
             if (!cPassword.val()) {
-
                 cPassword.parent().next().html('<span class="error">Confirm password didn\'t empty</span>')
-
             } else {
                 cPassword.parent().next().empty()
             }
 
             if (password.val() && cPassword.val() && password.val() !== cPassword.val()) {
                 cPassword.parent().next().html('<span class="error">Password didn\'t match</span>')
-
             } else {
-                cPassword.parent().next().empty()
+                if(cPassword.val()){
+                    cPassword.parent().next().empty()
+                }
             }
+            
             return false
         })
 

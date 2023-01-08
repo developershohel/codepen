@@ -5,11 +5,13 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.password_validation import CommonPasswordValidator
 from django.contrib.auth.hashers import make_password
 from django.contrib.sites.shortcuts import get_current_site
+from django.views.decorators.csrf import csrf_exempt
+
 from codepen.functions import user_validation, password_validation, email_validation, random_token, random_code, \
     admin_url, make_cookies_password, decode_cookies_password, name_validation, get_client_ip, get_client_details_by_ip, \
     dashboard_url, password_helper_text, home_url
@@ -63,7 +65,7 @@ def user_login(request):
                     else:
                         UserLogs.objects.create(user_id=user_details.get().id, user_login=current_time,
                                                 user_ip=user_ip)
-                    delete_user_log = UserLogs.objects.all().filter(user_login__lte=datetime.now()-timedelta(30))
+                    delete_user_log = UserLogs.objects.all().filter(user_login__lte=datetime.now() - timedelta(30))
 
                     if delete_user_log:
                         delete_user_log.delete()
@@ -491,3 +493,28 @@ def change_password_token(request):
                                           'Something went to wrong to verified your token. Please try again')
                 return login_template
         return login_template
+
+
+@csrf_exempt
+def user_validation(request):
+    if request.method == 'GET':
+        return HttpResponseRedirect(home_url())
+    elif request.method == 'POST':
+        user_value = request.POST.get('user_value')
+        validation_type = request.POST.get('type')
+        print(user_value)
+        print(validation_type)
+        context = {}
+        if validation_type == 'username':
+            print('username ', user_value)
+            if user_value:
+                user = User.objects.all().filter(username=user_value)
+                print('user :', user)
+                if user:
+                    print('problem come here')
+                    context['result'] = user.get().username
+                    return JsonResponse(context)
+                else:
+                    context['result'] = user_value
+                    return JsonResponse(context)
+        return JsonResponse(context)

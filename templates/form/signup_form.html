@@ -22,13 +22,14 @@
                         </svg>
                     </div>
                     <h4 class="form-title">Sign Up to {{ site_url.name }}</h4>
-                <div class="form-error">
-                    {% if auth_error %}<span class="error"> {{ auth_error }}</span>{% endif %}
-                </div>
+                    <div class="form-error">
+                        {% if auth_error %}<span class="error"> {{ auth_error }}</span>{% endif %}
+                    </div>
                     <div>
                         <div class="form-field">
                             <i class="fas fa-user-tie"></i>
-                            <input type="text" name="first_name" id="first-name" placeholder="Enter Your First Name" class="first-name" value="{% if fname %}{{ fname }}{% endif %}" >
+                            <input type="text" name="first_name" id="first-name" placeholder="Enter Your First Name"
+                                   class="first-name" value="{% if fname %}{{ fname }}{% endif %}">
                         </div>
                         <div class="form-error">
                             {% if fname_error %}<span class="error">{{ fname_error }}</span>{% endif %}
@@ -37,7 +38,8 @@
                     <div>
                         <div class="form-field">
                             <i class="fas fa-user-tie"></i>
-                            <input type="text" name="last_name" id="lname" placeholder="Enter Your Last Name" class="last-name" value="{% if lname %}{{ lname }}{% endif %}" >
+                            <input type="text" name="last_name" id="lname" placeholder="Enter Your Last Name"
+                                   class="last-name" value="{% if lname %}{{ lname }}{% endif %}">
                         </div>
                         <div class="form-error">
                             {% if lname_error %}<span class="error">{{ lname_error }}</span>{% endif %}
@@ -46,7 +48,8 @@
                     <div>
                         <div class="form-field">
                             <i class="fas fa-user"></i>
-                            <input type="text" name="username" id="username" placeholder="Enter Your Username" class="username" value="{% if username %}{{ username }}{% endif %}" >
+                            <input type="text" name="username" id="username" placeholder="Enter Your Username"
+                                   class="username" value="{% if username %}{{ username }}{% endif %}">
                         </div>
                         <div class="form-error">
                             {% if username_error %}<span class="error">{{ username_error }}</span>{% endif %}
@@ -55,7 +58,8 @@
                     <div>
                         <div class="form-field">
                             <i class="fas fa-envelope"></i>
-                            <input type="email" name="email" id="email" placeholder="Enter Your Email" class="email" value="{% if email %}{{ email }}{% endif %}" >
+                            <input type="email" name="email" id="email" placeholder="Enter Your Email" class="email"
+                                   value="{% if email %}{{ email }}{% endif %}">
                         </div>
                         <div class="form-error">
                             {% if email_error %}<span class="error">{{ email_error }}</span>{% endif %}
@@ -64,18 +68,22 @@
                     <div>
                         <div class="form-field">
                             <i class="fas fa-lock"></i>
-                            <input type="password" name="password" id="password" placeholder="Enter Your Password" class="password" value="{% if password %}{{ password }}{% endif %}" >
+                            <input type="password" name="password" id="password" placeholder="Enter Your Password"
+                                   class="password" value="{% if password %}{{ password }}{% endif %}">
                         </div>
                         <div class="form-error">
                             {% if password_error %}<span class="error">{{ password_error }}</span>{% endif %}
                         </div>
                     </div>
-                    <div class="form-field">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" name="cpassword" id="c-password" placeholder="Confirm password" class="cpassword" >
-                    </div>
-                    <div class="form-error">
-                        {% if cpassword_error %}<span class="error">{{ cpassword_error }}</span>{% endif %}
+                    <div>
+                        <div class="form-field">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" name="cpassword" id="c-password" placeholder="Confirm password"
+                                   class="cpassword">
+                        </div>
+                        <div class="form-error">
+                            {% if cpassword_error %}<span class="error">{{ cpassword_error }}</span>{% endif %}
+                        </div>
                     </div>
                     <div class="agreement form-field">
                         <div class="agreement-checkbox">

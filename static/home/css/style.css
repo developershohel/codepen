@@ -148,15 +148,15 @@ h1 {
 }
 
 h2 {
-  font-size: calc(1.325rem + .9vw);
+  font-size: calc(1.325rem + 0.9vw);
 }
 
 h3 {
-  font-size: calc(1.3rem + .6vw);
+  font-size: calc(1.3rem + 0.6vw);
 }
 
 h4 {
-  font-size: calc(1.275rem + .3vw);
+  font-size: calc(1.275rem + 0.3vw);
 }
 
 h5 {
@@ -374,7 +374,7 @@ legend {
   width: 100%;
   padding: 0;
   margin-bottom: 0.5rem;
-  font-size: calc(1.275rem + .3vw);
+  font-size: calc(1.275rem + 0.3vw);
   line-height: inherit;
 }
 
@@ -736,10 +736,10 @@ input {
   color: #2d88ff;
 }
 .cd-footer-social-icon .cd-social-media-icon .fa-twitter-square, .cd-footer-social-icon .cd-social-media-icon .fa-twitter {
-  color: #1d9bf0;
+  color: rgb(29, 155, 240);
 }
 .cd-footer-social-icon .cd-social-media-icon .fa-instagram {
-  color: #d62764;
+  color: rgb(214, 39, 100);
 }
 .cd-footer-social-icon .cd-social-media-icon .fa-linkedin {
   color: #0a66c2;
