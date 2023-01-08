@@ -3,9 +3,11 @@ import json
 import random
 import re
 import mimetypes
+import site
 from datetime import date
 from urllib import request as urlrequest
 
+from django.contrib.auth import authenticate
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.serializers import serialize
 from django.http.request import HttpHeaders
@@ -21,7 +23,11 @@ def admin_url():
 
 
 def dashboard_url():
-    return '/dashboard'
+    return reverse('dashboard:dashboard_url')
+
+
+def home_url():
+    return reverse('home:home')
 
 
 def user_auth(self):
@@ -88,7 +94,7 @@ def password_helper_text():
     help_items = format_html_join(
         "", "<li>{}</li>", ((help_text,) for help_text in help_texts)
     )
-    return format_html("<ul>{}</ul>", help_items) if help_items else ""
+    return format_html('<ul class="helper-list">{}</ul>', help_items) if help_items else ""
 
 
 def html_content_list(items):
@@ -550,3 +556,113 @@ def codepen_font_weight():
         '800': 'Extra Bold 800',
         '900': 'Black 900',
     }
+
+
+def datetime_converter(type, second=None, minute=None, hour=None, day=None, week=None, month=None, year=None):
+    if type:
+        value = []
+        result = None
+        if type == 'minute':
+            if second:
+                value.append(int(second)/60)
+            if minute:
+                value.append(int(minute))
+            if hour:
+                value.append(int(hour) * 60)
+            if day:
+                value.append(int(day) * 24 * 60)
+            if week:
+                value.append(int(week) * 7 * 24 * 60)
+            if month:
+                value.append(int(month) * 30 * 24 * 60)
+            if year:
+                value.append(int(year) * 365 * 24 * 60)
+            result = sum(value)
+            return result
+        elif type == 'hour':
+            if second:
+                value.append(int(second)/3600)
+            if minute:
+                value.append(int(minute)/60)
+            if hour:
+                value.append(int(hour))
+            if day:
+                value.append(int(day) * 24)
+            if week:
+                value.append(int(week) * 7 * 24)
+            if month:
+                value.append(int(month) * 30 * 24)
+            if year:
+                value.append(int(year) * 365 * 24)
+            result = sum(value)
+            return result
+        elif type == 'week':
+            if second:
+                value.append(int(second)/604800)
+            if minute:
+                value.append(int(minute)/10080)
+            if hour:
+                value.append(int(hour)/168)
+            if day:
+                value.append(int(day)/7)
+            if week:
+                value.append(int(week))
+            if month:
+                value.append((int(month) * 30)/7)
+            if year:
+                value.append((int(year) * 365)/7)
+            result = sum(value)
+            return result
+        elif type == 'month':
+            if second:
+                value.append(int(second)/2592000)
+            if minute:
+                value.append(int(minute)/43200)
+            if hour:
+                value.append(int(hour)/720)
+            if day:
+                value.append(int(day)/30)
+            if week:
+                value.append((int(week)*7)/30)
+            if month:
+                value.append(int(month))
+            if year:
+                value.append((int(year) * 365)/30)
+            result = sum(value)
+            return result
+        elif type == 'year':
+            if second:
+                value.append(int(second)/31536000)
+            if minute:
+                value.append(int(minute)/525600)
+            if hour:
+                value.append(int(hour)/8760)
+            if day:
+                value.append(int(day)/365)
+            if week:
+                value.append((int(week)*7)/365)
+            if month:
+                value.append((int(month)*30)/365)
+            if year:
+                value.append(int(year))
+            result = sum(value)
+            return result
+        else:
+            if second:
+                value.append(int(second))
+            if minute:
+                value.append(int(minute) * 60)
+            if hour:
+                value.append(int(hour) * 60 * 60)
+            if day:
+                value.append(int(day) * 24 * 60 * 60)
+            if week:
+                value.append(int(week) * 7 * 24 * 60 * 60)
+            if month:
+                value.append(int(month) * 30 * 24 * 60 * 60)
+            if year:
+                value.append(int(year) * 365 * 24 * 60 * 60)
+            result = sum(value)
+            return result
+    else:
+        return ''

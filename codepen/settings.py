@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
+from codepen.functions import datetime_converter
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
 
     # custom app
     'taggit',
+    'corsheaders',
 
     # Django default apps
     'django.contrib.admin',
@@ -48,12 +51,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'django.contrib.sites',
+    'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -122,8 +126,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
 
 USE_TZ = False
@@ -134,8 +136,13 @@ USE_L10N = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Media root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
@@ -156,8 +163,11 @@ EMAIL_HOST_USER = 'sohelhossenbijoy@gmail.com'
 EMAIL_HOST_PASSWORD = 'ngezfvprbxptnerx'
 EMAIL_USE_TLS = True
 
-# site url and name
-site_url = {
-    'name': 'Codepen',
-    'url': 'https://codepen.live'
-}
+CSRF_COOKIE_AGE = datetime_converter('second', month=1)
+SESSION_COOKIE_AGE = datetime_converter('second', month=1)
+COOKIE_MAX_AGE = datetime_converter('second', month=1)
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = 'Strict'
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:8080'
+]

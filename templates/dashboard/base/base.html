@@ -5,7 +5,7 @@
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
 <head>
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static "dashboard/base/css/style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "dashboard/css/style.css" %}">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="keywords"
           content="codepen, codepen live, edit html, html online editor,code website, codepen online, code online, js online editor, javascript editor online, online code editor, online code sharing, javascript editor, html code editor, online html, html coding website, web editor, online django editor, django, jquery editor, online django, python, online python editor, online c editor, online java editor, text editor, online text editor, text editor online, code editor online">
@@ -95,6 +95,6 @@
 <script src="{% static 'plugins/jquery/jquery-migrate.min.js' %}"></script>
 {% include 'dashboard/base/script.html' %}
 {% block script %}{% endblock %}
-<script src="{% static 'dashboard/base/js/app.js' %}"></script>
+<script src="{% static 'dashboard/js/app.js' %}"></script>
 </body>
 </html>

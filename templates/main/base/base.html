@@ -1,37 +1,39 @@
-{% load i18n static %}
+{% load i18n %}
+{% load static %}
 <!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
 <head>
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static "base/css/style.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome/css/all.min.css' %}" id="fontawesome-6">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="keywords"
           content="codepen, codepen live, edit html, html online editor,code website, codepen online, code online, js online editor, javascript editor online, online code editor, online code sharing, javascript editor, html code editor, online html, html coding website, web editor, online django editor, django, jquery editor, online django, python, online python editor, online c editor, online java editor, text editor, online text editor, text editor online, code editor online">
-    {% include 'base/style.html' %}
+    {% include 'main/base/style.html' %}
     {% block stylesheet %}{% endblock %}
-    {% include 'base/header-scripts.html' %}
+    {% include 'main/base/header-scripts.html' %}
     {% block headerscript %}{% endblock %}
 </head>
-{% load i18n %}
 <body class="{% block bodyclass %}{% endblock %}">
 <div id="cp-container">
     <div class="cp-header-section">
-        {% include 'base/header.html' %}
+        {% include 'main/base/header.html' %}
     </div>
     <main class="cp-main">
         {% block content %}{% endblock %}
         {% block sidebar %}{% endblock %}
     </main>
     <div class="cp-footer-section">
-        {% include 'base/footer.html' %}
+        {% include 'main/base/footer.html' %}
     </div>
 </div>
 {#<script src="https://cdn.jsdelivr.net/gh/developershohel/cdn.codepen.live@main/jquery/jquery.min.js"></script>#}
-<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'plugins/jquery/jquery-migrate.min.js' %}"></script>
-{% include 'base/script.html' %}
-{% block script %}{% endblock %}
-<script src="{% static 'base/js/app.js' %}"></script>
+<script src="{% static 'plugins/jquery/jquery.min.js' %}" defer></script>
+<script src="{% static 'plugins/jquery/jquery-migrate.min.js' %}" defer></script>
+{% include 'main/base/script.html' %}
+{% block footerscript %}{% endblock %}
+<script src="{% static 'home/js/app.js' %}" defer></script>
+<script src="{% static 'home/js/form.js' %}" defer></script>
 </body>
 </html>

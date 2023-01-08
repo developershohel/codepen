@@ -1011,6 +1011,7 @@ input {
     button {
       width: 100%;
       position: relative;
+      border: none;
     }
 
     i {
@@ -1161,12 +1162,6 @@ input {
   }
 }
 
-#loginform .remember-field label {
-  margin: 0;
-  padding: 0;
-  position: relative;
-  display: block;
-}
 
 #loginform input[type=checkbox] {
   display: none;
@@ -1174,9 +1169,18 @@ input {
 
 #loginform .remember-field .remember-me {
   color: #fff;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+
+  i {
+    position: relative !important;
+    font-size: 15px;
+  }
 
   span {
-    padding-left: 30px;
+    padding-left: 10px;
     color: #fff;
   }
 }
@@ -1214,8 +1218,6 @@ input {
 .form-helper {
   display: flex;
   flex-flow: column wrap;
-  word-break: break-word;
-  list-style: none;
   margin: 0;
   color: #eb3730;
 
@@ -1226,9 +1228,9 @@ input {
     flex-direction: column;
 
     li {
-      display: inline-flex;
-      align-items: center;
-      padding: 15px 0;
+      display: list-item;
+      padding: 0;
+      margin-bottom: 10px;
     }
 
     li:last-child {
@@ -1281,6 +1283,15 @@ input {
   font-size: 14px;
   line-height: 1.5;
   margin: 0;
+  label{
+    display: flex;
+    align-items: center;
+    i{
+      position: relative !important;
+      left: 0;
+      top: auto;
+    }
+  }
 }
 
 #signup-form .agreement input {
@@ -1299,7 +1310,7 @@ input {
 
 #signup-form .agreement-text {
   cursor: pointer;
-  padding-left: 25px;
+  padding-left: 10px;
 }
 
 .resend-code {

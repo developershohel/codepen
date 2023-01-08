@@ -9,94 +9,94 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.password_validation import CommonPasswordValidator
 from django.contrib.auth.hashers import make_password
+from django.contrib.sites.shortcuts import get_current_site
 from codepen.functions import user_validation, password_validation, email_validation, random_token, random_code, \
     admin_url, make_cookies_password, decode_cookies_password, name_validation, get_client_ip, get_client_details_by_ip, \
-    dashboard_url
+    dashboard_url, password_helper_text, home_url
 from codepen.cp_user import get_user, get_user_by_code, get_user_by_token
 from django.utils.html import strip_tags
-from codepen.settings import site_url, EMAIL_HOST_USER
+from codepen.settings import EMAIL_HOST_USER, COOKIE_MAX_AGE
 from .models import User, UserLogs
 
 username_validator = UnicodeUsernameValidator
 password_validator = CommonPasswordValidator
 
+
 # Create your views here.
 def user_login(request):
-    if request.user.is_authenticated:
-        return redirect(dashboard_url())
-    else:
-        if User:
-            print('ok')
-        context = {
-            'site_url': site_url,
-        }
-        render_template = render(request, 'form/login_form.html', context)
+    site_url = get_current_site(request)
+    context = {
+        'site_url': site_url,
+    }
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            return redirect(dashboard_url())
+        cookies_username = request.COOKIES.get('username')
+        cookies_password = request.COOKIES.get('password')
+        if cookies_username:
+            context['cookies_username'] = cookies_username
+        if cookies_password:
+            context['cookies_password'] = decode_cookies_password(cookies_password)
+        return render(request, 'form/login_form.html', context)
+    elif request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         rememberme = request.POST.get('rememberme')
-        if request.method == "POST":
-            redirect_url = request.GET.get('next')
-            if re.search(r'@', username):
-                user = User.objects.all().filter(email=username)
-                user_email = user.get().email
-            else:
-                user = User.objects.all().filter(username=username)
-                user_email = user.get().email
-                context['user'] = user
-            if user:
-                if user.get().check_password(password):
-                    user_auth = authenticate(request, email=user_email, password=password)
+        print(rememberme)
+        redirect_url = request.GET.get('next')
+        user_details = get_user(username)
+        if user_details:
+            auth_email = user_details.get().email
+            if user_details.get().check_password(password):
+                user_auth = authenticate(request, email=auth_email, password=password)
+                if user_auth is not None:
                     login(request, user_auth)
-                    if user.get().is_authenticated:
-                        user_ip = get_client_ip(request)
-                        user_details = get_client_details_by_ip(user_ip)
-                        if user_details['status'] == 'success':
-                            user_country = user_details['country']
-                            user_city = user_details['city']
-                            current_time = timezone.now()
-                            UserLogs.objects.create(user_id=user.get().id, user_country=user_country,
-                                                    user_city=user_city,
-                                                    user_login=current_time, user_ip=user_ip)
-                        else:
-                            UserLogs.objects.create(user_id=user.get().id, user_login=datetime.now(), user_ip=user_ip)
-                        delete_user_log = UserLogs.objects.all().filter(
-                            user_login__range=[str(timezone.now() - timedelta(365)),
-                                               str(timezone.now() - timedelta(30))])
-                        if delete_user_log:
-                            delete_user_log.delete()
-                        if redirect_url:
-                            login_template = HttpResponseRedirect(redirect_url)
-                        else:
-                            login_template = HttpResponseRedirect(dashboard_url())
-                        login_template.delete_cookie('success')
-                        login_template.delete_cookie('auth_error')
-                        if rememberme:
-                            hash_password = make_cookies_password(password)
-                            login_template.set_cookie('password', hash_password)
-                            login_template.set_cookie('username', username)
-                        else:
-                            login_template.delete_cookie('password')
-                            login_template.delete_cookie('username')
-                        return login_template
-                else:
-                    context['invalid_password'] = 'password did not match'
-                    render_template = render(request, 'form/login_form.html', context)
+                    user_ip = get_client_ip(request)
+                    user_details_by_ip = get_client_details_by_ip(user_ip)
+                    current_time = datetime.now()
+                    if user_details_by_ip['status'] == 'success':
+                        user_country = user_details_by_ip['country']
+                        user_city = user_details_by_ip['city']
+                        UserLogs.objects.create(user_id=user_details.get().id, user_country=user_country,
+                                                user_city=user_city,
+                                                user_login=current_time, user_ip=user_ip)
+                    else:
+                        UserLogs.objects.create(user_id=user_details.get().id, user_login=current_time,
+                                                user_ip=user_ip)
+                    delete_user_log = UserLogs.objects.all().filter(user_login__lte=datetime.now()-timedelta(30))
+
+                    if delete_user_log:
+                        delete_user_log.delete()
+                    login_template = HttpResponseRedirect(dashboard_url())
+                    login_template.delete_cookie('success')
+                    login_template.delete_cookie('auth_error')
+                    if rememberme:
+                        hash_password = make_cookies_password(password)
+                        login_template.set_cookie('password', hash_password, max_age=COOKIE_MAX_AGE)
+                        login_template.set_cookie('username', username, max_age=COOKIE_MAX_AGE)
+                    else:
+                        login_template.delete_cookie('password')
+                        login_template.delete_cookie('username')
+                    if redirect_url:
+                        login_template = HttpResponseRedirect(redirect_url)
+                    return login_template
+            else:
+                context['invalid_password'] = 'password did not match'
+                render_template = render(request, 'form/login_form.html', context)
+                return render_template
+        else:
+            if re.search(r'@', username):
+                context['invalid_username'] = f"{username} is incorrect email or didn't exists"
             else:
                 context['invalid_username'] = f"{username} is incorrect username or didn't exists"
-                render_template = render(request, 'form/login_form.html', context)
-        else:
-            cookies_username = request.COOKIES.get('username')
-            cookies_password = request.COOKIES.get('password')
-            if cookies_username:
-                context['cookies_username'] = cookies_username
-            if cookies_password:
-                context['cookies_password'] = decode_cookies_password(cookies_password)
-            render_template = render(request, 'form/login_form.html', context)
-            return render_template
+        render_template = render(request, 'form/login_form.html', context)
         return render_template
+    else:
+        return HttpResponseRedirect(home_url())
 
 
 def signup(request):
+    site_url = get_current_site(request)
     if request.user.is_authenticated:
         return redirect(dashboard_url())
     else:
@@ -206,6 +206,7 @@ def user_logout(request):
 
 
 def verified_code(request):
+    site_url = get_current_site(request)
     if request.user.is_authenticated:
         return redirect('dashboard_url')
     else:
@@ -261,6 +262,7 @@ def verified_token(request):
 
 
 def verified_code_resend(request):
+    site_url = get_current_site(request)
     if request.user.is_authenticated:
         return redirect('dashboard_url')
     else:
@@ -306,6 +308,7 @@ def verified_code_resend(request):
 
 
 def forgot_password(request):
+    site_url = get_current_site(request)
     if request.user.is_authenticated:
         return redirect('dashboard_url')
     else:
@@ -351,6 +354,7 @@ def forgot_password(request):
 
 
 def change_password(request):
+    site_url = get_current_site(request)
     context = {
         'site_url': site_url,
         'form_name': 'Change Password'
@@ -393,6 +397,7 @@ def change_password(request):
 
 
 def change_password_code(request):
+    site_url = get_current_site(request)
     if request.user.is_authenticated:
         return redirect('dashboard_url')
     else:
@@ -421,6 +426,7 @@ def change_password_code(request):
 
 
 def change_password_resend_code(request):
+    site_url = get_current_site(request)
     if request.user.is_authenticated:
         return redirect('dashboard_url')
     else:

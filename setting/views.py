@@ -23,7 +23,7 @@ def profile_setting(request):
         'profile': profile,
     }
 
-    render_template = render(request, 'setting/profile-setting.html', context)
+    render_template = render(request, 'dashboard/setting/profile-setting.html', context)
     return render_template
 
 
@@ -40,7 +40,7 @@ def pen_setting(request):
         'profile': profile
     }
 
-    render_template = render(request, 'setting/profile-setting.html', context)
+    render_template = render(request, 'dashboard/setting/profile-setting.html', context)
     return render_template
 
 
@@ -57,7 +57,7 @@ def account_setting(request):
         'profile': profile
     }
 
-    render_template = render(request, 'setting/account-setting.html', context)
+    render_template = render(request, 'dashboard/setting/account-setting.html', context)
     return render_template
 
 
@@ -74,7 +74,7 @@ def billing_setting(request):
         'profile': profile
     }
 
-    render_template = render(request, 'setting/profile-setting.html', context)
+    render_template = render(request, 'dashboard/setting/profile-setting.html', context)
     return render_template
 
 
@@ -97,7 +97,7 @@ def appearance_setting(request):
         'fonts': codepen_font
     }
 
-    render_template = render(request, 'setting/appearance-setting.html', context)
+    render_template = render(request, 'dashboard/setting/appearance-setting.html', context)
     return render_template
 
 
@@ -114,7 +114,7 @@ def notification_setting(request):
         'profile': profile
     }
 
-    render_template = render(request, 'setting/profile-setting.html', context)
+    render_template = render(request, 'dashboard/setting/profile-setting.html', context)
     return render_template
 
 
@@ -131,7 +131,7 @@ def security_setting(request):
         'profile': profile
     }
 
-    render_template = render(request, 'setting/profile-setting.html', context)
+    render_template = render(request, 'dashboard/setting/profile-setting.html', context)
     return render_template
 
 
@@ -148,5 +148,5 @@ def block_user_setting(request):
         'profile': profile
     }
 
-    render_template = render(request, 'setting/profile-setting.html', context)
+    render_template = render(request, 'dashboard/setting/profile-setting.html', context)
     return render_template

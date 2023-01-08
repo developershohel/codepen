@@ -148,15 +148,15 @@ h1 {
 }
 
 h2 {
-  font-size: calc(1.325rem + 0.9vw);
+  font-size: calc(1.325rem + .9vw);
 }
 
 h3 {
-  font-size: calc(1.3rem + 0.6vw);
+  font-size: calc(1.3rem + .6vw);
 }
 
 h4 {
-  font-size: calc(1.275rem + 0.3vw);
+  font-size: calc(1.275rem + .3vw);
 }
 
 h5 {
@@ -374,7 +374,7 @@ legend {
   width: 100%;
   padding: 0;
   margin-bottom: 0.5rem;
-  font-size: calc(1.275rem + 0.3vw);
+  font-size: calc(1.275rem + .3vw);
   line-height: inherit;
 }
 
@@ -887,6 +887,7 @@ input {
 #form form button {
   width: 100%;
   position: relative;
+  border: none;
 }
 #form form i {
   color: var(--cp-icon-color);
@@ -1010,22 +1011,23 @@ input {
   color: var(--header-hover);
 }
 
-#loginform .remember-field label {
-  margin: 0;
-  padding: 0;
-  position: relative;
-  display: block;
-}
-
 #loginform input[type=checkbox] {
   display: none;
 }
 
 #loginform .remember-field .remember-me {
   color: #fff;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+}
+#loginform .remember-field .remember-me i {
+  position: relative !important;
+  font-size: 15px;
 }
 #loginform .remember-field .remember-me span {
-  padding-left: 30px;
+  padding-left: 10px;
   color: #fff;
 }
 
@@ -1058,8 +1060,6 @@ input {
 .form-helper {
   display: flex;
   flex-flow: column wrap;
-  word-break: break-word;
-  list-style: none;
   margin: 0;
   color: #eb3730;
 }
@@ -1070,9 +1070,9 @@ input {
   flex-direction: column;
 }
 .form-helper ul li {
-  display: inline-flex;
-  align-items: center;
-  padding: 15px 0;
+  display: list-item;
+  padding: 0;
+  margin-bottom: 10px;
 }
 .form-helper ul li:last-child {
   margin-bottom: 0;
@@ -1117,6 +1117,15 @@ input {
   line-height: 1.5;
   margin: 0;
 }
+#signup-form .agreement label {
+  display: flex;
+  align-items: center;
+}
+#signup-form .agreement label i {
+  position: relative !important;
+  left: 0;
+  top: auto;
+}
 
 #signup-form .agreement input {
   display: none;
@@ -1134,7 +1143,7 @@ input {
 
 #signup-form .agreement-text {
   cursor: pointer;
-  padding-left: 25px;
+  padding-left: 10px;
 }
 
 .resend-code {

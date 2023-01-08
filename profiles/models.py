@@ -24,7 +24,7 @@ class Profile(models.Model):
     street = models.CharField(max_length=64, blank=False, null=False)
     phone = models.CharField(max_length=15, blank=False, null=False)
     organization = models.CharField(max_length=255, blank=True, null=True)
-    profile_links = models.JSONField()
+    profile_links = models.JSONField(blank=True, null=True)
     profile_register = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     profile_modified = models.DateTimeField(auto_now=True, null=True, blank=True)
 

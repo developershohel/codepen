@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from codepen.cp_user import get_profile
+from codepen.cp_user import get_profile, get_user
 from codepen.functions import create_file_directory, get_mime_type, new_name, get_client_ip, \
     get_client_details_by_ip
 from codepen.settings import MEDIA_URL
@@ -74,16 +74,15 @@ def dashboard_pen(request):
         'profile': profile
     }
 
-    render_template = render(request, 'dashboard/pen.html', context)
+    render_template = render(request, 'dashboard/pen/pen.html', context)
     return render_template
 
 
 @login_required
 @csrf_exempt
 def dashboard_comments(request):
-    username = request.user.username
-    user_id = request.user.id
-    user = User.objects.all().filter(id=request.user.id)
+    user = request.user
+    username = user.username
     profile = get_profile(username)
     all_comments = Comment.objects.all().filter(user_id=user.id)
 
@@ -97,24 +96,25 @@ def dashboard_comments(request):
         'profile': profile
     }
 
-    render_template = render(request, 'dashboard/comments.html', context)
+    render_template = render(request, 'dashboard/comment/comments.html', context)
     return render_template
 
 
 @login_required
 @csrf_exempt
 def dashboard_media(request):
+    user = request.user
     mime_type = get_mime_type()
     img_mime_type = ['.gif', '.jpg', '.jpe', '.jpeg', '.png', 'webp', '.svg']
     video_mime_type = ['.mp4', '.mpeg', '.m1v', '.mpa', '.mpe', '.mpg', '.mov', '.qt', '.webm', '.avi', '.movie']
-    username = request.user.username
+    username = user.username
     profile = get_profile(username)
     all_media_list = Media.objects.all().order_by('-id')
     paginate_media = Paginator(all_media_list, 36)
     current_page = request.GET.get('page')
     media_list = paginate_media.get_page(current_page)
     context = {
-        'user_id': request.user.id,
+        'user_id': user.id,
         'username': username,
         'current_path_name': request.path_info[1:-1],
         'current_path': request.path[1:-1],
@@ -126,7 +126,7 @@ def dashboard_media(request):
         'pagination': paginate_media,
         'profile': profile
     }
-    render_template = render(request, 'dashboard/media.html', context)
+    render_template = render(request, 'dashboard/media/media.html', context)
     return render_template
 
 
@@ -176,14 +176,13 @@ def upload_file(request):
 
 @login_required
 def dashboard_profile(request):
-    user_id = request.user.id
-    user = User.objects.all().filter(id=user.id)
-    username = user.username
+    user = get_user(request.user.id)
+    username = user.get().username
     ip = get_client_ip(request)
     profile = get_profile(username)
-    pens = Pen.objects.all().filter(user_id=user.id)
+    pens = Pen.objects.all().filter(user_id=user.get().id)
     pen_data = PenData.objects.all()
-    comments = Comment.objects.all().filter(user_id=user.id)
+    comments = Comment.objects.all().filter(user_id=user.get().id)
 
     for pen in pens:
         var = pen.pen_love.all().count
@@ -196,15 +195,15 @@ def dashboard_profile(request):
         user_details = get_client_details_by_ip('103.239.255.44')
 
     context = {
-        'user_id': user.id,
+        'user_id': user.get().id,
         'username': username,
         'current_path_name': request.path_info[1:-1],
         'current_path': request.path[1:-1],
         'location': user_details['country'],
         'screen_name': screen_name,
         'profile': profile,
-        'follower': user.follower.count(),
-        'following': user.following.count(),
+        'follower': user.get().follower.count(),
+        'following': user.get().following.count(),
         'pens': pens,
         'pen_data': pen_data,
         'comments': comments,
@@ -212,22 +211,22 @@ def dashboard_profile(request):
     if profile:
         context['social_links'] = profile.get().profile_links
 
-    render_template = render(request, 'dashboard/profile.html', context)
+    render_template = render(request, 'dashboard/profile/profile.html', context)
     return render_template
 
 
 @login_required
 def activities(request):
-    username = request.user.username
-    user_id = request.user.id
+    user = get_user(request.user.id)
+    username = user.get().username
     profile = get_profile(username)
     context = {
-        'user_id': user.id,
+        'user_id': user.get().id,
         'username': username,
         'current_path_name': request.path_info[1:-1],
         'current_path': request.path[1:-1],
         'profile': profile
     }
 
-    render_template = render(request, 'dashboard/profile.html', context)
+    render_template = render(request, 'dashboard/profile/profile.html', context)
     return render_template

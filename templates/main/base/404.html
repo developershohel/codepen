@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %}
+{% extends 'main/base/base.html' %}
 {% load static %}
 {% block content %}
 <div class="pn-404-error">
@@ -7,24 +7,24 @@
         <div class="container">
             <div class="astronaut row">
                 <div class="man-astronaut col-lg-3 col-md-3 col-sm-3">
-                    <img src="{% static 'base/img/404/man-astronaut.png' %}"
+                    <img src="{% static 'img/404/man-astronaut.png' %}"
                          alt="404 error">
                 </div>
                 <div class="text-404 col-lg-6 col-md-6 col-sm-6">
-                    <img src="{% static 'base/img/404/404.png' %}"
+                    <img src="{% static 'img/404/404.png' %}"
                          alt="404 error" class="image-404">
-                    <img src="{% static 'base/img/404/404-astronaut.png' %}"
+                    <img src="{% static 'img/404/404-astronaut.png' %}"
                          class="astronaut-404" alt="404 error">
                 </div>
                 <div class="woman-astronaut col-lg-3 col-md-3 col-sm-3">
-                    <img src="{% static 'base/img/404/woman-astronaut.png' %}"
+                    <img src="{% static 'img/404/woman-astronaut.png' %}"
                          alt="404 error">
                 </div>
             </div>
         </div>
 
         <div class="content-404">
-            <h2>This page is outside of the Universe</h2>
+            <h2>This page is outside the Universe</h2>
             <p class="font-lg text-inverted paragraph-readable push-center">The page you are trying to access does
                 not exist or has been moved.<br>Try going back to our homepage.</p>
             <a href="/" class="btn btn-primary mb-3">Go to

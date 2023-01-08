@@ -38,7 +38,7 @@ class User(AbstractUser, PermissionsMixin):
     password_validator = CommonPasswordValidator
     username = models.CharField(max_length=100, null=False, blank=False, unique=True, validators=[username_validator],
                                 help_text=_(
-                                    "Required. 150 characters or fewer. Letters, digits and _ only."
+                                    "Required 150 characters or fewer. Letters, digits and _ only."
                                 ))
     email = models.EmailField(max_length=100, null=False, blank=False, unique=True)
     password = models.CharField(max_length=255, null=False, blank=False,
@@ -55,7 +55,7 @@ class User(AbstractUser, PermissionsMixin):
     user_type = models.IntegerField(null=False, blank=False, default=0)
     user_trail = models.BooleanField(null=True, blank=True, default=False)
     user_status = models.BooleanField(null=True, blank=True, default=False)
-    user_activation_key = models.CharField(max_length=255,  blank=False, null=False)
+    user_activation_key = models.CharField(max_length=255, blank=False, null=False)
     user_verification_code = models.IntegerField(blank=False, null=False, default=0)
     user_registered = models.DateTimeField(auto_now_add=True)
     user_modified = models.DateTimeField(auto_now=True)
