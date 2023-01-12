@@ -109,7 +109,7 @@ def dashboard_media(request):
     video_mime_type = ['.mp4', '.mpeg', '.m1v', '.mpa', '.mpe', '.mpg', '.mov', '.qt', '.webm', '.avi', '.movie']
     username = user.username
     profile = get_profile(username)
-    all_media_list = Media.objects.all().order_by('-id')
+    all_media_list = Media.objects.all().filter(user_id=user.id).order_by('-id')
     paginate_media = Paginator(all_media_list, 36)
     current_page = request.GET.get('page')
     media_list = paginate_media.get_page(current_page)

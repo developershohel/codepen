@@ -1216,9 +1216,10 @@ input {
 }
 
 .form-helper {
-  display: flex;
+  display: none;
   flex-flow: column wrap;
-  margin: 0;
+  margin: 0 0 20px 0;
+  padding: 0 20px;
   color: #eb3730;
 
   ul {

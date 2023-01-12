@@ -66,5 +66,4 @@ node_modules/
 .env
 .idea
 venv
-codepen/__pycache__
-**/__pycache__
+

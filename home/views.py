@@ -1,8 +1,10 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.sites.shortcuts import get_current_site
-from codepen.functions import delete_cookie, get_client_ip, get_client_details_by_ip
+from codepen.functions import delete_cookie, get_client_ip, get_client_details_by_ip, home_url
 from profiles.models import Profile
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
 
 
 def index(request):
@@ -36,4 +38,13 @@ def work_with_cookies(request):
     }
     templates = render(request, 'main/home/index.html', context)
     return templates
+
+
+def check_sent_email(request):
+    sent_main = send_mail('Test', 'Test django message', 'sohelhossenbijoy@gmail.com', ['sohelhossenbijoy@gmail.com'])
+    if sent_main:
+        print('ok')
+        return HttpResponseRedirect(home_url())
+    else:
+        return HttpResponseRedirect(home_url())
 

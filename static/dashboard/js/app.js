@@ -59,7 +59,7 @@ jQuery(document).ready(function ($) {
                 let file_name = file[i].name
                 let file_size = file[i].size
                 let fileExtension = get_extension(file_name)
-                if (file_size.length < 100) {
+                if (file_name.length < 100) {
                     if (check_extension(fileExtension) === true) {
                         if (file_size > 10 * 1024 * 1024) {
                             uploadingError.parent().fadeIn()
@@ -125,8 +125,7 @@ if (penDetailsWheel !== null) {
 }
 
 function get_extension(file) {
-    let file_name = `${file}`
-    return file_name.split('.').pop()
+    return file.split('.').pop()
 }
 
 function check_extension(file) {

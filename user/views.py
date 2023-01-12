@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from codepen.functions import user_validation, password_validation, email_validation, random_token, random_code, \
     admin_url, make_cookies_password, decode_cookies_password, name_validation, get_client_ip, get_client_details_by_ip, \
-    dashboard_url, password_helper_text, home_url
+    dashboard_url, password_helper_text, home_url, user_auth
 from codepen.cp_user import get_user, get_user_by_code, get_user_by_token
 from django.utils.html import strip_tags
 from codepen.settings import EMAIL_HOST_USER, COOKIE_MAX_AGE
@@ -44,7 +44,6 @@ def user_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         rememberme = request.POST.get('rememberme')
-        print(rememberme)
         redirect_url = request.GET.get('next')
         user_details = get_user(username)
         if user_details:
@@ -99,104 +98,100 @@ def user_login(request):
 
 def signup(request):
     site_url = get_current_site(request)
-    if request.user.is_authenticated:
-        return redirect(dashboard_url())
-    else:
+    if request.method == 'GET':
+        if user_auth(request):
+            return redirect(dashboard_url())
+        context = {
+            'site_url': site_url,
+            'password_helper': password_helper_text()
+        }
+        return render(request, 'form/signup_form.html', context)
+    elif request.method == "POST":
         context = {
             'site_url': site_url,
         }
-        render_template = render(request, 'form/signup_form.html', context)
-        if request.method == "POST":
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        cpassword = request.POST.get('cpassword')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
 
-            username = request.POST.get('username')
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            cpassword = request.POST.get('cpassword')
-            first_name = request.POST.get('first_name')
-            last_name = request.POST.get('last_name')
-
-            if username and user_validation(username):
-                user = get_user(username)
-                if user:
-                    context['username_error'] = f'{username} already exists.'
-                else:
-                    context['username'] = username
-                    username = username
+        if username and user_validation(username):
+            user = get_user(username)
+            if user:
+                context['username_error'] = f'{username} already exists.'
             else:
-                context['username_error'] = "Username validation error."
-
-            if email and email_validation(email):
-                user_email = get_user(email)
-                if user_email:
-                    context['email_error'] = f'{email} already exits.'
-                else:
-                    context['email'] = email
-                    email = email
-            else:
-                context['email_error'] = "Email validation error."
-
-            if password != cpassword:
-                context['password_error'] = "Those passwords didn't match. Try again."
-            elif password and not password_validation(password):
-                context['password_error'] = "Your field password didn't match our password validation rules"
-            else:
-                context['password'] = password
-                password = password
-
-            if first_name and not name_validation(first_name):
-                context['fname_error'] = "First name validation error"
-            else:
-                context['fname'] = first_name
-                first_name = first_name
-
-            if last_name and not name_validation(last_name):
-                context['lname_error'] = "First name validation error"
-            else:
-                context['lname'] = last_name
-                last_name = last_name
-
-            if username and user_validation(username) and not get_user(username) and email and email_validation(
-                    email) and not get_user(email) and password and password_validation(
-                password) and password == cpassword and first_name and last_name:
-                create_user = User.objects.create_user(username=username, email=email, password=password,
-                                                       first_name=first_name, last_name=last_name)
-                if create_user:
-                    verified_code = random_code(111111, 999999)
-                    verified_token = random_token(32)
-                    get_date = date.today()
-                    year = get_date.strftime("%Y")
-                    update_user = get_user(username)
-                    update_user.update(user_activation_key=verified_token, user_verification_code=verified_code)
-                    email_context = {
-                        'site_url': site_url,
-                        'username': first_name,
-                        'email': email,
-                        'verified_code': verified_code,
-                        'verified_token_url': f'{site_url.domain}/auth/verified-token?token={verified_token}',
-                        'year': year
-                    }
-                    template = render_to_string('form/login_email_template.html', email_context)
-                    email_template = strip_tags(template)
-                    subject = f'{first_name} verify your {site_url.name} account'
-
-                    mail = EmailMultiAlternatives(subject, email_template, EMAIL_HOST_USER, [email])
-                    mail.fail_silently = True
-                    mail.attach_alternative(template, 'text/html')
-                    mail.send()
-                    if mail:
-                        signup_template = HttpResponseRedirect('/auth/verified-code')
-                        signup_template.set_cookie('success',
-                                                   'Your account create successfully. Please verify your account')
-                        return signup_template
-                else:
-                    context['auth_error'] = "Something went to wrong to create your account. Please try again"
-            else:
-                context[
-                    'auth_error'] = "Something went to wrong to create your account. Please check the error and try again"
-                render_template = render(request, 'form/signup_form.html', context)
-                return render_template
+                context['username'] = username
         else:
-            return render_template
+            context['username_error'] = "Username only contain Letters, digits and _ only."
+
+        if email and email_validation(email):
+            user_email = get_user(email)
+            if user_email:
+                context['email_error'] = f'{email} already exits.'
+            else:
+                context['email'] = email
+        else:
+            context['email_error'] = "Invalid email address."
+
+        if password != cpassword:
+            context['password_error'] = "Those passwords didn't match."
+        elif password and not password_validation(password):
+            context['password_error'] = password_helper_text()
+        else:
+            context['password'] = password
+
+        if first_name and not name_validation(first_name):
+            context['fname_error'] = "First name validation error"
+        else:
+            context['fname'] = first_name
+
+        if last_name and not name_validation(last_name):
+            context['lname_error'] = "Last name validation error"
+        else:
+            context['lname'] = last_name
+
+        if username and user_validation(username) and not get_user(username) and email and email_validation(email) and not get_user(email) and password and password_validation(password) and password == cpassword and first_name and last_name:
+            create_user = User.objects.create_user(username=username, email=email, password=password,
+                                                   first_name=first_name, last_name=last_name)
+            if create_user:
+                verified_code = random_code(111111, 999999)
+                verified_token = random_token(32)
+                get_date = date.today()
+                year = get_date.strftime("%Y")
+                update_user = get_user(username)
+                update_user.update(user_activation_key=verified_token, user_verification_code=verified_code)
+                email_context = {
+                    'site_url': site_url,
+                    'username': first_name,
+                    'email': email,
+                    'verified_code': verified_code,
+                    'verified_token_url': f'{site_url.domain}/auth/verified-token?token={verified_token}',
+                    'year': year
+                }
+                template = render_to_string('form/login_email_template.html', email_context)
+                email_template = strip_tags(template)
+                subject = f'{first_name} verify your {site_url.name} account'
+
+                mail = EmailMultiAlternatives(subject, email_template, EMAIL_HOST_USER, [email])
+                mail.fail_silently = True
+                mail.attach_alternative(template, 'text/html')
+
+                if mail.send():
+                    signup_template = HttpResponseRedirect('/auth/verified-code')
+                    signup_template.set_cookie('success',
+                                               'Your account create successfully. Please verify your account')
+                    return signup_template
+            else:
+                context['auth_error'] = "Something went to wrong to create your account. Please try again"
+        else:
+            context[
+                'auth_error'] = "Something went to wrong to create your account. Please check the error and try again"
+        render_template = render(request, 'form/signup_form.html', context)
+        return render_template
+    else:
+        return redirect(home_url())
 
 
 def user_logout(request):
@@ -298,9 +293,12 @@ def verified_code_resend(request):
                 mail = EmailMultiAlternatives(subject, email_template, EMAIL_HOST_USER, [email])
                 mail.fail_silently = True
                 mail.attach_alternative(template, 'text/html')
-                mail.send()
-                code_template.set_cookie('success', 'Your verification code sent successfully')
-                return code_template
+                if mail.send():
+                    code_template.set_cookie('success', 'Your verification code sent successfully')
+                    return code_template
+                else:
+                    render_template = render(request, 'form/forgot-password.html', context)
+                    return render_template
             else:
                 context['username_error'] = f"{username} didn't exists. Check your email and try again."
                 render_template = render(request, 'form/forgot-password.html', context)
@@ -344,9 +342,12 @@ def forgot_password(request):
                 mail = EmailMultiAlternatives(subject, email_template, EMAIL_HOST_USER, [email])
                 mail.fail_silently = True
                 mail.attach_alternative(template, 'text/html')
-                mail.send()
-                forgot_layout.set_cookie('success', f'Please type the password resend code send to {email}')
-                return forgot_layout
+                if mail.send():
+                    forgot_layout.set_cookie('success', f'Please type the password resend code send to {email}')
+                    return forgot_layout
+                else:
+                    render_template = render(request, 'form/forgot-password.html', context)
+                    return render_template
             else:
                 context['username_error'] = f"{username} didn't exists. Check your username and try again."
                 render_template = render(request, 'form/forgot-password.html', context)
@@ -359,7 +360,8 @@ def change_password(request):
     site_url = get_current_site(request)
     context = {
         'site_url': site_url,
-        'form_name': 'Change Password'
+        'form_name': 'Change Password',
+        'form_helper': password_helper_text()
     }
     render_template = render(request, 'form/change-password.html', context)
     if request.method == "POST":
@@ -462,9 +464,12 @@ def change_password_resend_code(request):
                 mail = EmailMultiAlternatives(subject, email_template, EMAIL_HOST_USER, [email])
                 mail.fail_silently = True
                 mail.attach_alternative(template, 'text/html')
-                mail.send()
-                code_template.set_cookie('success', f'Please type the password resend code send to {email}')
-                return code_template
+                if mail.send():
+                    code_template.set_cookie('success', f'Please type the password resend code send to {email}')
+                    return code_template
+                else:
+                    render_template = render(request, 'form/forgot-password.html', context)
+                    return render_template
             else:
                 context['username_error'] = f"{username} didn't exists. Check your username and try again."
                 render_template = render(request, 'form/forgot-password.html', context)
@@ -496,25 +501,37 @@ def change_password_token(request):
 
 
 @csrf_exempt
-def user_validation(request):
+def check_user_validation(request):
     if request.method == 'GET':
         return HttpResponseRedirect(home_url())
     elif request.method == 'POST':
         user_value = request.POST.get('user_value')
-        validation_type = request.POST.get('type')
         print(user_value)
-        print(validation_type)
+        validation_type = request.POST.get('type')
         context = {}
         if validation_type == 'username':
-            print('username ', user_value)
             if user_value:
-                user = User.objects.all().filter(username=user_value)
-                print('user :', user)
+                user = get_user(user_value)
+                print(user)
                 if user:
-                    print('problem come here')
                     context['result'] = user.get().username
+                    context['user_exit'] = True
                     return JsonResponse(context)
                 else:
                     context['result'] = user_value
+                    context['user_exit'] = False
+                    return JsonResponse(context)
+        elif validation_type == 'email':
+            if user_value:
+                user = get_user(user_value)
+                if user:
+                    context['result'] = user.get().username
+                    context['email_exit'] = True
+                    return JsonResponse(context)
+                else:
+                    context['result'] = user_value
+                    context['email_exit'] = False
                     return JsonResponse(context)
         return JsonResponse(context)
+    else:
+        return redirect(home_url())

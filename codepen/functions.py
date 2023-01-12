@@ -33,6 +33,8 @@ def home_url():
 def user_auth(self):
     if self.user.is_authenticated:
         return True
+    else:
+        return False
 
 
 def upload_path(instance, filename):
