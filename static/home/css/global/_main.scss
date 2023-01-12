@@ -1,0 +1,15 @@
+.cp-main{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+
+  .cp-header-section{
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+  .main-content{
+    flex: 0 0 80%;
+    max-with: 80%;
+  }
+}

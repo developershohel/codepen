@@ -1,0 +1,458 @@
+// Form section
+.form-breaker {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  color: var(--cp-logo-color);
+  margin: 15px auto;
+
+  hr {
+    width: 100%;
+    margin: 0 15px;
+    opacity: 1;
+    border: 1px solid var(--cp-logo-color);
+  }
+
+  span {
+    font-size: 20px;
+  }
+}
+
+.social-media-login {
+  color: #fff;
+
+  button:first-child {
+    margin-top: 15px;
+  }
+
+  > button {
+    margin-bottom: 15px;
+
+    i {
+      color: #fff !important;
+    }
+
+    span {
+      color: #fff;
+    }
+  }
+
+  .google-login {
+    background-color: var(--form-google);
+    border-color: var(--form-google);
+  }
+
+  .facebook-login {
+    background-color: var(--form-facebook);
+    border-color: var(--form-facebook);
+  }
+
+  .twitter-login {
+    background-color: var(--form-twitter);
+    border-color: var(--form-twitter);
+  }
+
+  .github-login {
+    background-color: var(--form-github);
+    border-color: var(--form-github);
+  }
+}
+
+.form-section {
+  padding: 3%;
+}
+
+#form {
+  display: flex;
+  background-color: var(--form-bg);
+  border: 1px solid var(--form-border);
+  color: var(--text-primary);
+  border-radius: 5px;
+  width: 400px;
+  min-width: 360px;
+  height: auto;
+  margin: 0 auto;
+  justify-content: center;
+
+
+  form {
+    width: 100%;
+    height: 100%;
+    padding: 10%;
+
+    > div {
+      display: block;
+      position: relative;
+
+      div {
+        position: relative;
+      }
+    }
+
+    input[type=text], input[type=password], input[type=email], input[type=tel] {
+      background-color: var(--form-input);
+      color: #fff;
+      caret-color: var(--cp-logo-color);
+      border: 1px solid var(--cp-logo-color);
+      width: 100%;
+      padding: 8px 15%;
+      position: relative;
+      filter: none !important;
+    }
+
+    input[type=text]:focus-visible, input[type=password]:focus-visible, input[type=email]:focus-visible, input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=tel]:focus-visible, input[type=tel]:focus {
+      border-color: var(--header-hover);
+      outline: none;
+      caret-color: var(--header-hover);
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+      -webkit-text-fill-color: #fff;
+      -webkit-box-shadow: 0 0 0 1000px var(--form-input) inset;
+      transition: background-color 5000s ease-in-out 0s;
+      user-focus-pointer: #fff;
+    }
+
+    input[type=checkbox] {
+      width: 20px;
+      height: 20px;
+      float: left;
+    }
+
+    button {
+      width: 100%;
+      position: relative;
+      border: none;
+    }
+
+    i {
+      color: var(--cp-icon-color);
+      position: absolute;
+      z-index: 999;
+      left: 5%;
+      top: 28%;
+      font-size: 20px;
+    }
+
+    #have-account {
+      font-size: 16px;
+      color: #fff;
+      text-align: center;
+      margin: 0;
+    }
+
+    #have-account a {
+      padding-left: 5px;
+      color: var(--cp-icon-color);
+      text-decoration: none;
+    }
+
+    #have-account a:hover {
+      color: #00b9eb;
+    }
+
+    .submit {
+      padding: 20px 0;
+      margin: 0;
+    }
+
+    .submit button {
+      width: 100%;
+      position: relative;
+    }
+
+    .form-logo {
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .form-title {
+      color: var(--cp-logo-color);
+      font-size: 24px;
+      margin: 25px auto;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .form-title:hover {
+      color: var(--header-hover);
+    }
+
+    .form-field {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .svg-checkbox {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 3px;
+
+      #circle {
+        display: none;
+        fill: var(--cp-icon-color);;
+      }
+
+      #border {
+        fill: none;
+        stroke: var(--cp-icon-color);;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      #right {
+        display: none;
+        fill: #FFFFFF;
+      }
+    }
+
+    .form-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-flow: row nowrap;
+
+      a {
+        color: var(--cp-logo-color);
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+      }
+
+      a:hover {
+        color: var(--header-hover);
+      }
+    }
+
+    .form-submit {
+      margin: 15px auto;
+
+      button {
+        background-color: var(--form-button);
+        color: #fff;
+        border: 1px solid var(--form-button);
+        transition: background-color 0.2s ease-in-out;
+      }
+
+      button:hover {
+        background-color: var(--form-button-hover);
+        border-color: var(--form-button-hover)
+      }
+    }
+  }
+
+  form:not(.form-title) {
+    .form-logo {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+#loginform .submit {
+  padding: 20px 0;
+}
+
+#loginform .form-title {
+  margin-bottom: 0;
+}
+
+#loginform .remember-field {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  cursor: pointer;
+
+  a {
+    color: var(--cp-logo-color);
+    transition: color 0.2s ease-in-out;
+  }
+
+  a:hover {
+    color: var(--header-hover);
+  }
+}
+
+
+#loginform input[type=checkbox] {
+  display: none;
+}
+
+#loginform .remember-field .remember-me {
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+
+  i {
+    position: relative !important;
+    font-size: 15px;
+  }
+
+  span {
+    padding-left: 10px;
+    color: #fff;
+  }
+}
+
+.form-success {
+  display: block;
+  list-style: none;
+  margin: 0;
+  color: var(--cp-logo-color);
+  text-align: center;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline-flex;
+      align-items: center;
+      padding: 15px 0;
+    }
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  span {
+    display: block;
+    margin-bottom: 15px;
+  }
+}
+
+.form-helper {
+  display: none;
+  flex-flow: column wrap;
+  margin: 0 0 20px 0;
+  padding: 0 20px;
+  color: #eb3730;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+    li {
+      display: list-item;
+      padding: 0;
+      margin-bottom: 10px;
+    }
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  span {
+    display: block;
+    margin-bottom: 15px;
+  }
+}
+
+.form-error {
+  display: flex;
+  flex-flow: column wrap;
+  list-style: none;
+  margin: 0;
+  color: #eb3730;
+  word-break: break-word;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+    li {
+      display: inline-flex;
+      align-items: center;
+      padding: 15px 0;
+    }
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  span {
+    display: block;
+    margin-bottom: 15px;
+  }
+}
+
+
+#signup-form .agreement {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  label{
+    display: flex;
+    align-items: center;
+    i{
+      position: relative !important;
+      left: 0;
+      top: auto;
+    }
+  }
+}
+
+#signup-form .agreement input {
+  display: none;
+}
+
+#signup-form .agreement a {
+  color: var(--cp-logo-color);
+  text-decoration: none;
+}
+
+#signup-form .agreement a:hover,
+#signup-form #have-account a:hover {
+  color: var(--header-hover);
+}
+
+#signup-form .agreement-text {
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.resend-code {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    display: block;
+    color: #fff;
+  }
+
+  a {
+    color: var(--cp-logo-color);
+    display: block;
+  }
+
+  a:hover {
+    color: var(--header-hover);
+  }
+}
+
+#loginform .form-success span {
+  margin-top: 20px;
+}

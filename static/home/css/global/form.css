@@ -1,0 +1,396 @@
+.form-breaker {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  color: var(--cp-logo-color);
+  margin: 15px auto;
+}
+.form-breaker hr {
+  width: 100%;
+  margin: 0 15px;
+  opacity: 1;
+  border: 1px solid var(--cp-logo-color);
+}
+.form-breaker span {
+  font-size: 20px;
+}
+
+.social-media-login {
+  color: #fff;
+}
+.social-media-login button:first-child {
+  margin-top: 15px;
+}
+.social-media-login > button {
+  margin-bottom: 15px;
+}
+.social-media-login > button i {
+  color: #fff !important;
+}
+.social-media-login > button span {
+  color: #fff;
+}
+.social-media-login .google-login {
+  background-color: var(--form-google);
+  border-color: var(--form-google);
+}
+.social-media-login .facebook-login {
+  background-color: var(--form-facebook);
+  border-color: var(--form-facebook);
+}
+.social-media-login .twitter-login {
+  background-color: var(--form-twitter);
+  border-color: var(--form-twitter);
+}
+.social-media-login .github-login {
+  background-color: var(--form-github);
+  border-color: var(--form-github);
+}
+
+.form-section {
+  padding: 3%;
+}
+
+#form {
+  display: flex;
+  background-color: var(--form-bg);
+  border: 1px solid var(--form-border);
+  color: var(--text-primary);
+  border-radius: 5px;
+  width: 400px;
+  min-width: 360px;
+  height: auto;
+  margin: 0 auto;
+  justify-content: center;
+}
+#form form {
+  width: 100%;
+  height: 100%;
+  padding: 10%;
+}
+#form form > div {
+  display: block;
+  position: relative;
+}
+#form form > div div {
+  position: relative;
+}
+#form form input[type=text], #form form input[type=password], #form form input[type=email], #form form input[type=tel] {
+  background-color: var(--form-input);
+  color: #fff;
+  caret-color: var(--cp-logo-color);
+  border: 1px solid var(--cp-logo-color);
+  width: 100%;
+  padding: 8px 15%;
+  position: relative;
+  filter: none !important;
+}
+#form form input[type=text]:focus-visible, #form form input[type=password]:focus-visible, #form form input[type=email]:focus-visible, #form form input[type=text]:focus, #form form input[type=password]:focus, #form form input[type=email]:focus, #form form input[type=tel]:focus-visible, #form form input[type=tel]:focus {
+  border-color: var(--header-hover);
+  outline: none;
+  caret-color: var(--header-hover);
+}
+#form form input:-webkit-autofill,
+#form form input:-webkit-autofill:hover,
+#form form input:-webkit-autofill:focus,
+#form form textarea:-webkit-autofill,
+#form form textarea:-webkit-autofill:hover,
+#form form textarea:-webkit-autofill:focus,
+#form form select:-webkit-autofill,
+#form form select:-webkit-autofill:hover,
+#form form select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: 0 0 0 1000px var(--form-input) inset;
+  transition: background-color 5000s ease-in-out 0s;
+  user-focus-pointer: #fff;
+}
+#form form input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+  float: left;
+}
+#form form button {
+  width: 100%;
+  position: relative;
+  border: none;
+}
+#form form i {
+  color: var(--cp-icon-color);
+  position: absolute;
+  z-index: 999;
+  left: 5%;
+  top: 28%;
+  font-size: 20px;
+}
+#form form #have-account {
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+}
+#form form #have-account a {
+  padding-left: 5px;
+  color: var(--cp-icon-color);
+  text-decoration: none;
+}
+#form form #have-account a:hover {
+  color: #00b9eb;
+}
+#form form .submit {
+  padding: 20px 0;
+  margin: 0;
+}
+#form form .submit button {
+  width: 100%;
+  position: relative;
+}
+#form form .form-logo {
+  text-align: center;
+  margin: 0 auto;
+}
+#form form .form-title {
+  color: var(--cp-logo-color);
+  font-size: 24px;
+  margin: 25px auto;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+#form form .form-title:hover {
+  color: var(--header-hover);
+}
+#form form .form-field {
+  position: relative;
+  margin-bottom: 20px;
+}
+#form form .svg-checkbox {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 3px;
+}
+#form form .svg-checkbox #circle {
+  display: none;
+  fill: var(--cp-icon-color);
+}
+#form form .svg-checkbox #border {
+  fill: none;
+  stroke: var(--cp-icon-color);
+  stroke-miterlimit: 10;
+  stroke-width: 2px;
+}
+#form form .svg-checkbox #right {
+  display: none;
+  fill: #FFFFFF;
+}
+#form form .form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row nowrap;
+}
+#form form .form-footer a {
+  color: var(--cp-logo-color);
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+#form form .form-footer a:hover {
+  color: var(--header-hover);
+}
+#form form .form-submit {
+  margin: 15px auto;
+}
+#form form .form-submit button {
+  background-color: var(--form-button);
+  color: #fff;
+  border: 1px solid var(--form-button);
+  transition: background-color 0.2s ease-in-out;
+}
+#form form .form-submit button:hover {
+  background-color: var(--form-button-hover);
+  border-color: var(--form-button-hover);
+}
+#form form:not(.form-title) .form-logo {
+  margin-bottom: 20px;
+}
+
+#loginform .submit {
+  padding: 20px 0;
+}
+
+#loginform .form-title {
+  margin-bottom: 0;
+}
+
+#loginform .remember-field {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  cursor: pointer;
+}
+#loginform .remember-field a {
+  color: var(--cp-logo-color);
+  transition: color 0.2s ease-in-out;
+}
+#loginform .remember-field a:hover {
+  color: var(--header-hover);
+}
+
+#loginform input[type=checkbox] {
+  display: none;
+}
+
+#loginform .remember-field .remember-me {
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+}
+#loginform .remember-field .remember-me i {
+  position: relative !important;
+  font-size: 15px;
+}
+#loginform .remember-field .remember-me span {
+  padding-left: 10px;
+  color: #fff;
+}
+
+.form-success {
+  display: block;
+  list-style: none;
+  margin: 0;
+  color: var(--cp-logo-color);
+  text-align: center;
+}
+.form-success ul {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+.form-success ul li {
+  display: inline-flex;
+  align-items: center;
+  padding: 15px 0;
+}
+.form-success ul li:last-child {
+  margin-bottom: 0;
+}
+.form-success span {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.form-helper {
+  display: none;
+  flex-flow: column wrap;
+  margin: 0 0 20px 0;
+  padding: 0 20px;
+  color: #eb3730;
+}
+.form-helper ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.form-helper ul li {
+  display: list-item;
+  padding: 0;
+  margin-bottom: 10px;
+}
+.form-helper ul li:last-child {
+  margin-bottom: 0;
+}
+.form-helper span {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.form-error {
+  display: flex;
+  flex-flow: column wrap;
+  list-style: none;
+  margin: 0;
+  color: #eb3730;
+  word-break: break-word;
+}
+.form-error ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.form-error ul li {
+  display: inline-flex;
+  align-items: center;
+  padding: 15px 0;
+}
+.form-error ul li:last-child {
+  margin-bottom: 0;
+}
+.form-error span {
+  display: block;
+  margin-bottom: 15px;
+}
+
+#signup-form .agreement {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+#signup-form .agreement label {
+  display: flex;
+  align-items: center;
+}
+#signup-form .agreement label i {
+  position: relative !important;
+  left: 0;
+  top: auto;
+}
+
+#signup-form .agreement input {
+  display: none;
+}
+
+#signup-form .agreement a {
+  color: var(--cp-logo-color);
+  text-decoration: none;
+}
+
+#signup-form .agreement a:hover,
+#signup-form #have-account a:hover {
+  color: var(--header-hover);
+}
+
+#signup-form .agreement-text {
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.resend-code {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+}
+.resend-code span {
+  display: block;
+  color: #fff;
+}
+.resend-code a {
+  color: var(--cp-logo-color);
+  display: block;
+}
+.resend-code a:hover {
+  color: var(--header-hover);
+}
+
+#loginform .form-success span {
+  margin-top: 20px;
+}
+
+/*# sourceMappingURL=form.css.map */

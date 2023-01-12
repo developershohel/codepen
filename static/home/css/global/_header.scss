@@ -1,0 +1,159 @@
+
+// Header
+.cp-header-section {
+  background-color: var(--header-bg);
+  padding: 15px 25px;
+  position: relative;
+
+  a {
+    color: var(--cp-logo-color);
+  }
+
+  a:hover {
+    color: var(--header-hover);
+  }
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+}
+.logo-section {
+    width: 100%;
+}
+#cp-logo {
+  max-height: 35px;
+}
+
+#cp-logo .st0 {
+  fill: none;
+  stroke: var(--cp-logo-color);
+  stroke-width: 4.45;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.2s ease-in-out;
+}
+
+#cp-logo .st1 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: var(--cp-logo-color);
+  transition: fill 0.2s ease-in-out;
+}
+
+#cp-logo:hover {
+  .st0 {
+    stroke: var(--header-hover);
+  }
+
+  .st1 {
+    fill: var(--header-hover);
+  }
+}
+
+.header-search .search-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .search-field {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+  }
+
+  input {
+    width: 100%;
+    padding: var(--cp-input-padding);
+  }
+
+  .submit {
+    padding: var(--cp-button-padding);
+    border: none;
+    font-size: 20px;
+  }
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .main-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-flow: row nowrap;
+    margin: 0;
+
+    li {
+      display: inline-flex;
+      align-items: center;
+
+      .user-menu {
+        display: none;
+        flex-flow: column nowrap;
+        align-items: flex-start;
+        padding: 15px 0;
+        width: 200px;
+        background-color: var(--side-header);
+        height: auto;
+        margin: 0;
+        position: absolute;
+        right: 20px;
+        top: 100%;
+        overflow-y: auto;
+
+        li {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 15px;
+          width: 100%;
+          transition: background-color 0.2s ease-in-out;
+
+          a {
+            display: flex;
+            align-items: center;
+
+            span {
+              margin-right: 15px;
+            }
+          }
+        }
+
+        li:hover {
+          background-color: var(--header-bg);
+        }
+      }
+    }
+
+    .user-avatar {
+      border: none;
+      background-color: #fff;
+      border-radius: 3px;
+      padding: 0;
+
+      .user-image {
+        max-height: 50px;
+        object-fit: fill;
+      }
+    }
+  }
+
+  .login-button, .signup-button {
+    background-color: var(--header-button);
+    border: none;
+    color: #fff;
+  }
+
+  .login-button:hover, .signup-button:hover {
+    background-color: var(--header-button-hover);
+    color: #fff;
+  }
+
+  .signup-button {
+    margin-right: 15px;
+  }
+}

@@ -13,9 +13,9 @@ def index(request):
     context = {
         'site_url': site_url,
         'auth_user': auth_user,
-        'ip': get_client_details_by_ip('103.239.255.44'),
-        'line': request.GET.get('line-number')
+        # 'ip': get_client_details_by_ip('103.239.255.44'),
     }
+
     if auth_user:
         user = request.user
         user_id = user.id

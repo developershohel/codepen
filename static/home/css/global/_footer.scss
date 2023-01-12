@@ -1,0 +1,169 @@
+// Footer Section
+.cd-footer-section {
+  .cd-dynamic-widget {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-gap: 25px;
+  }
+
+  .dynamic-widget:first-child {
+    grid-column: 1/2;
+  }
+
+  .dynamic-widget:nth-child(2) {
+    grid-column: 2/3;
+  }
+
+  .dynamic-widget:nth-child(3) {
+    grid-column: 3/4;
+  }
+
+  .dynamic-widget:nth-child(4) {
+    grid-column: 4/5;
+  }
+
+  .cd-static-widget:first-child {
+    grid-area: logo;
+  }
+
+  .cd-static-widget {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1.5fr;
+    grid-auto-flow: dense;
+    grid-gap: 25px;
+    justify-items: center;
+  }
+
+  .cd-footer-resources {
+    grid-column: 1/2;
+  }
+
+
+  .cd-footer-community {
+    grid-column: 2/3;
+  }
+
+  .cd-footer-company {
+    grid-column: 3/4;
+  }
+
+  .cd-footer-follow-us {
+    grid-column: 4/5;
+    text-align: center;
+  }
+
+  .cd-widget {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+.cd-footer-content-section {
+  background-color: var(--footer-bg);
+  padding: 35px;
+  color: var(--footer-text-color);
+  font-size: 16px;
+
+  a {
+    color: var(--footer-text-color) !important;
+  }
+
+
+  .cd-footer-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0 auto 16px auto;
+  }
+}
+
+
+.cd-footer-menu-section, .cd-footer-social-icon-section {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.footer-menu {
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+
+
+    a {
+      transition: all 0.2s ease-in-out;
+      padding: 5px 0 5px 0 !important;
+    }
+
+    a:hover {
+      transform: translateX(4px);
+      color: var(--footer-hv-color) !important;
+    }
+
+  }
+}
+
+.cd-footer-social-icon {
+
+  .cd-social-media-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include reset-list ;
+
+    .fa-facebook, .fa-facebook-square {
+      color: #2d88ff;
+    }
+
+    .fa-twitter-square, .fa-twitter {
+      color: rgb(29, 155, 240);
+    }
+
+    .fa-instagram {
+      color: rgba(214, 39, 100, 159.69);
+    }
+
+    .fa-linkedin {
+      color: #0a66c2
+    }
+
+    .fa-youtube-square, .fa-youtube, .fa-youtube-play {
+      color: #FF0000;
+    }
+  }
+
+  a {
+    padding-right: 10px;
+    font-size: 26px;
+
+    i {
+      transition: all 0.2s ease-in-out;
+    }
+
+    i:hover {
+      transform: scale3d(1.2, 1.2, 1.5);
+    }
+  }
+}
+
+// Copyright section
+.cd-copyright-section {
+  background-color: var(--copyright-bg-color);
+  color: var(--copyright-color);
+  text-align: center;
+  padding: 10px 0;
+  font-size: 16px;
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--copyright-color);
+  }
+}
