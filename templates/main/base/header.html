@@ -70,6 +70,7 @@
                         <hr class="breaker">
                     </li>
                     <li><a href="//support.codepen.live/"><i class="fa-regular fa-circle-question"></i>Support</a></li>
+                    {% if request.user.is_authenticated %}
                     <li>
                         <a href="/settings/"><i class="fa-solid fa-gear"></i>Settings</a>
                     </li>
@@ -77,6 +78,7 @@
                         <a id="logout" href="{% url 'user:logout_url' %}"><i
                                 class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
                     </li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>

@@ -16,3 +16,102 @@
     width: 100%;
   }
 }
+
+.main-content {
+  padding-top: 3rem;
+}
+
+.banner-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.banner-content {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.banner-highlight {
+  color: var(--header-button-hover)
+}
+
+.banner-heading {
+  font-size: 36px;
+  margin-bottom: 25px;
+  font-weight: bolder;
+}
+
+.banner-editor-bg {
+  background-color: var(--content-bg);
+  border-radius: 15px;
+  height: 400px;
+  width: 85%;
+  margin: 0 0 80px 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-flow: column;
+
+  textarea {
+    background-color: var(--primary-content-bg);
+    border-radius: 5px;
+    width: 100%;
+    height: 140px;
+    resize: none;
+    border-color: var(--text-primary)
+  }
+}
+
+.banner-editor {
+  flex: 0 0 50%;
+  max-width: 50%;
+  position: relative;
+}
+
+.banner-editor-wrapper {
+  position: relative;
+  max-width: 100%;
+
+  .editor-stamp {
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    z-index: 999;
+
+    i {
+      margin-right: 5px
+    }
+  }
+
+  .banner-editor-icon {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    z-index: 999;
+  }
+}
+
+.banner-html-editor, .banner-sass-editor, .banner-js-editor {
+  position: relative;
+  width: 95%;
+  height: 150px;
+}
+
+.banner-html-editor > div {
+  position: absolute;
+  top: -25px;
+  right: -40px;
+}
+
+.banner-sass-editor > div {
+  position: absolute;
+  right: -75px;
+  top: 0;
+}
+
+.banner-js-editor > div {
+  position: absolute;
+  right: -40px;
+  top: 25px;
+}
