@@ -66,4 +66,12 @@ node_modules/
 .env
 .idea
 venv
-
+__pycache__
+codepen/__pycache__
+home/__pycache__
+dashboard/__pycache__
+pen/__pycache__
+profiles/__pycache__
+setting/__pycache__
+terms/__pycache__
+user/__pycache__

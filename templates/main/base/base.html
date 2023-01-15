@@ -21,68 +21,25 @@
         <div class="cp-header-section">
             {% include 'main/base/header.html' %}
         </div>
-        <div class="main-content">
-            {% block content %}
-                <div class="top-header-section">
-                    <div class="middle-header">
-                        {% include 'main/base/search.html' %}
-                    </div>
-                    <div class="right-header">
-                        <nav role="navigation" class="main-nav">
-                            <ul class="main-menu">
-                                {% if auth_user %}
-                                    <li class="nav-item">
-                                        <button class="user-avatar" id="user-{{ user.username }}">
-                                            <img src="{{ user_image.url }}" alt="{{ user.name }}" class="user-image">
-                                        </button>
-                                        <ul class="user-menu">
-                                            <li><a href="/your-pen/"><span
-                                                    class="material-symbols-outlined">edit_note</span>Your Pen</a></li>
-                                            <li><a href="/profile/"><span
-                                                    class="material-symbols-outlined">gbadge</span>Profile</a>
-                                            </li>
-                                            <li class="new-pen">
-                                                <a href="/pen/"><span class="material-symbols-outlined">edit</span>New
-                                                    Pen</a>
-                                            </li>
-                                            <li>
-                                                <a href="/project/"><span
-                                                        class="material-symbols-outlined">assignment</span>New
-                                                    Project</a>
-                                            </li>
-                                            <li>
-                                                <a href="/plan"> <span class="material-symbols-outlined">upgrade</span>Upgrade
-                                                    to</a>
-                                            </li>
-                                            <li>
-                                                <a href="//docs.codepen.live/"><span
-                                                        class="material-symbols-outlined">docs</span>Documentation</a>
-                                            </li>
-                                            <li><a href="//support.codepen.live/"><span
-                                                    class="material-symbols-outlined">support</span>Support</a></li>
-                                            <li>
-                                                <a href="/settings/"><span
-                                                        class="material-symbols-outlined">settings</span>Settings</a>
-                                            </li>
-                                            <li>
-                                                <a id="logout" href="{% url 'user:logout_url' %}"><span
-                                                        class="material-symbols-outlined">logout</span>Log
-                                                    Out</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                {% else %}
-                                    <li class="signup"><a class="signup-button btn" href="{% url 'user:signup_url' %}">SignUp</a>
-                                    </li>
-                                    <li class="login"><a href="{% url 'user:login_url' %}" class="login-button btn">Login</a>
-                                    </li>
-                                {% endif %}
-
-                            </ul>
-                        </nav>
-                    </div>
+        <div class="main-content-wrapper">
+            <div class="top-header-section">
+                <div class="header-search-box">
+                    {% include 'main/base/search.html' %}
                 </div>
-            {% endblock %}
+                <div class="header-user-menu">
+                    <nav role="navigation" class="top-header-main-nav">
+                        <ul class="top-header-main-menu">
+                            {% if not request.user.is_authenticated %}
+                                <li class="signup"><a class="signup-button btn" href="{% url 'user:signup_url' %}">SignUp</a></li>
+                                <li class="login"><a href="{% url 'user:login_url' %}" class="login-button btn">Login</a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="main-content-wrap">
+                {% block content %}{% endblock %}
+            </div>
         </div>
     </main>
     <div class="cp-footer-section">

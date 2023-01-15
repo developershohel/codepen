@@ -13,7 +13,7 @@ from codepen.settings import BASE_DIR
 from .models import Pen, PenData
 
 
-def pen(request, username):
+def new_pen(request):
     context = {
         'all_pens': Pen.objects.all(),
         'apps': apps.get_app_configs()
@@ -30,7 +30,7 @@ def pen(request, username):
     # proc.stdout.close()
     context['script_response'] = proc.stdout.read().decode()
     os.chdir(cwd)
-    renter_template = render(request, 'pen/index.html', context)
+    renter_template = render(request, 'main/pen/index.html', context)
     return renter_template
 
 
@@ -47,15 +47,15 @@ def single_pen(request, username, slug):
         if pen_data:
             context['pen_data'] = pen_data
 
-    renter_template = render(request, 'pen/single.html', context)
+    renter_template = render(request, 'main/pen/single.html', context)
     return renter_template
 
 
-def pen_edit(request, username):
+def pen_edit(request, username, pen_id):
     return HttpResponse('ok')
 
 
-def pen_delete(request, username):
+def pen_delete(request, username, pen_id):
     return HttpResponse('ok')
 
 

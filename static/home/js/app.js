@@ -2,6 +2,16 @@ jQuery(document).ready(function ($) {
     $('.user-avatar').on('click', function () {
         $(this).next().slideToggle()
     })
+
+    $('.main-menu').find('.current-child').children('.fa-angle-down').on('click', function (){
+        $(this).next('.sub-menu').toggleClass('expanded')
+        $(this).next('.sub-menu').slideToggle()
+        if ($(this).next('.sub-menu').hasClass('expanded')){
+            $(this).css({transform: 'rotate(180deg)'})
+        }else {
+            $(this).css({transform: 'rotate(0deg)'})
+        }
+    })
 })
 
 function scrollH(e) {

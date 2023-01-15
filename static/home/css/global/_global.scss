@@ -473,6 +473,7 @@ button {
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
+  border: 1px solid transparent;
   border-radius: var(--cp-button-border-radius);
   transition: all 0.2s ease-in-out;
 }
@@ -485,6 +486,7 @@ button {
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
+  border: 1px solid transparent;
   border-radius: var(--cp-button-border-radius);
   transition: all 0.2s ease-in-out;
 }
@@ -497,10 +499,46 @@ input {
   font-weight: 400;
   line-height: 1.5;
   appearance: none;
+  border: 1px solid transparent;
   border-radius: 0.375rem;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
+input:-webkit-autofill {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+input[type="search" i]:enabled:read-write:-webkit-any(:focus, :hover)::-webkit-search-cancel-button {
+  opacity: 0 !important;
+}
+
 :focus-visible, :focus {
   outline: 0 !important;
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--header-button-hover) var(--bg-color);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--header-button);
+  border-radius: 25px;
+  border: 1px solid var(--header-button);
+  transition: all 0.3s ease-in-out;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--header-button-hover);
+  border-color: var(--header-button-hover);
 }

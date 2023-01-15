@@ -114,12 +114,12 @@ if (uploaderContainer !== null) {
 const penDetailsWheel = document.querySelector('.pens, .comments');
 const penBodyDetailsWheel = document.querySelector('.pens tbody, .comments tbody');
 if (penDetailsWheel !== null) {
-    penDetailsWheel.addEventListener('wheel', function (e) {
+    penBodyDetailsWheel.addEventListener('wheel', function (e) {
         const race = 50; // How many pixels to scroll
         if (e.deltaY > 0) // Scroll right
-            penDetailsWheel.scrollTop += race;
+            penBodyDetailsWheel.scrollTop += race;
         else // Scroll left
-            penDetailsWheel.scrollTop -= race;
+            penBodyDetailsWheel.scrollTop -= race;
         e.preventDefault();
     });
 }

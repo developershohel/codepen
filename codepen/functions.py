@@ -226,26 +226,89 @@ def codepen_platform():
         ('groovy', 'Groovy'), ('R', 'R'), ('ruby', 'Ruby'), ('swift', 'Swift'), ('vue', 'Vue.js'), ('xml', 'XML/HTML'))
 
 
+def pen_platform():
+    context = {
+        'html': {
+            'name': "HTML",
+            'icon': 'fa-brands fa-html5',
+        },
+        'javascript': {
+            'name': "JavaScript",
+            'icon': 'fa-brands fa-js',
+        },
+        'c': {
+            'name': "C, C++, C#",
+            'icon': 'fa-solid fa-c',
+        },
+        'php': {
+            'name': "PHP",
+            'icon': 'fa-brands fa-php',
+        },
+        'python': {
+            'name': "Python",
+            'icon': 'fa-brands fa-python',
+        },
+        'java': {
+            'name': "Java",
+            'icon': 'fa-brands fa-java',
+        },
+        'kotlin': {
+            'name': "Kotlin",
+            'icon': '',
+        },
+        'django': {
+            'name': "Django",
+            'icon': '',
+        },
+        'go': {
+            'name': "Go",
+            'icon': 'fa-brands fa-golang',
+        },
+        'R': {
+            'name': "R",
+            'icon': '',
+        },
+        'ruby': {
+            'name': "Ruby",
+            'icon': '',
+        },
+        'swift': {
+            'name': "Swift",
+            'icon': 'fa-brands fa-swift',
+        },
+        'vue': {
+            'name': "Vue.js",
+            'icon': 'fa-brands fa-vuejs',
+        },
+        'xml': {
+            'name': "XML",
+            'icon': 'fa-solid fa-code',
+        }
+    }
+    return context
+
+
 def codepen_theme():
-    return (('3024-day', '3024 day'), ('3024-night', '3024 night'), ('abbott', 'Abbott'), ('abcdef', 'Abcdef'),
-            ('ambiance-mobile', 'Ambiance mobile'), ('ambiance', 'Ambiance'), ('ayu-dark', 'Ayu dark'),
-            ('ayu-mirage', 'Ayu mirage'), ('base16-dark', 'Base16 dark'), ('base16-light', 'Base16 light'),
-            ('bespin', 'Bespin'), ('blackboard', 'Blackboard'), ('cobalt', 'Bobalt'), ('colorforth', 'Colorforth'),
-            ('darcula', 'Darcula'), ('duotone-dark', 'Duotone dark'),
-            ('duotone-light', 'Duotone light'), ('eclipse', 'Eclipse'), ('elegant', 'Elegant'),
-            ('erlang-dark', 'Erlang dark'), ('gruvbox-dark', 'Qruvbox dark'), ('hopscotch', 'Hopscotch'),
-            ('icecoder', 'Icecoder'), ('idea', 'Idea'), ('isotope', 'Isotope'), ('juejin', 'Juejin'),
-            ('lesser-dark', 'Lesser dark'), ('liquibyte', 'Liquibyte'), ('lucario', 'Lucario'),
-            ('material-darker', 'Material darker'), ('material-ocean', 'Material ocean'),
-            ('material-palenight', 'Material palenight'), ('material', 'Material'), ('mbo', 'MBO'),
-            ('mdn-like', 'MDN like'), ('midnight', 'Midnight'), ('monokai', 'Monokai'), ('moxer', 'Moxer'),
-            ('neat', 'Neat'), ('neo', 'Neo'), ('night', 'Night'), ('nord', 'Nord'), ('oceanic-next', 'Oceanic next'),
-            ('panda-syntax', 'Panda syntax'), ('paraiso-dark', 'Paraiso dark'), ('paraiso-light', 'Paraiso light'),
-            ('pastel-on-dark', 'Pastel on dark'), ('railscasts', 'Railscasts'), ('rubyblue', 'Rubyblue'),
-            ('seti', 'Seti'),
-            ('shadowfox', 'Shadowfox'), ('solarized', 'Solarized'), ('ssms', 'SSMS'), ('the-matrix', 'The matrix'),
-            ('twilight', 'twilight'), ('vibrant-ink', 'Vibrant ink'), ('xq-dark', 'XQ dark'), ('xq-light', 'XQ light'),
-            ('yeti', 'Yeti'), ('yonce', 'Yonce'), ('zenburn', 'Zenburn'))
+    return (
+        ('3024-day', '3024 day'), ('3024-night', '3024 night'), ('abbott', 'Abbott'), ('abcdef', 'Abcdef'),
+        ('ambiance-mobile', 'Ambiance mobile'), ('ambiance', 'Ambiance'), ('ayu-dark', 'Ayu dark'),
+        ('ayu-mirage', 'Ayu mirage'), ('base16-dark', 'Base16 dark'), ('base16-light', 'Base16 light'),
+        ('bespin', 'Bespin'), ('blackboard', 'Blackboard'), ('cobalt', 'Bobalt'), ('colorforth', 'Colorforth'),
+        ('darcula', 'Darcula'), ('duotone-dark', 'Duotone dark'),
+        ('duotone-light', 'Duotone light'), ('eclipse', 'Eclipse'), ('elegant', 'Elegant'),
+        ('erlang-dark', 'Erlang dark'), ('gruvbox-dark', 'Qruvbox dark'), ('hopscotch', 'Hopscotch'),
+        ('icecoder', 'Icecoder'), ('idea', 'Idea'), ('isotope', 'Isotope'), ('juejin', 'Juejin'),
+        ('lesser-dark', 'Lesser dark'), ('liquibyte', 'Liquibyte'), ('lucario', 'Lucario'),
+        ('material-darker', 'Material darker'), ('material-ocean', 'Material ocean'),
+        ('material-palenight', 'Material palenight'), ('material', 'Material'), ('mbo', 'MBO'),
+        ('mdn-like', 'MDN like'), ('midnight', 'Midnight'), ('monokai', 'Monokai'), ('moxer', 'Moxer'),
+        ('neat', 'Neat'), ('neo', 'Neo'), ('night', 'Night'), ('nord', 'Nord'), ('oceanic-next', 'Oceanic next'),
+        ('panda-syntax', 'Panda syntax'), ('paraiso-dark', 'Paraiso dark'), ('paraiso-light', 'Paraiso light'),
+        ('pastel-on-dark', 'Pastel on dark'), ('railscasts', 'Railscasts'), ('rubyblue', 'Rubyblue'),
+        ('seti', 'Seti'),
+        ('shadowfox', 'Shadowfox'), ('solarized', 'Solarized'), ('ssms', 'SSMS'), ('the-matrix', 'The matrix'),
+        ('twilight', 'twilight'), ('vibrant-ink', 'Vibrant ink'), ('xq-dark', 'XQ dark'), ('xq-light', 'XQ light'),
+        ('yeti', 'Yeti'), ('yonce', 'Yonce'), ('zenburn', 'Zenburn'))
 
 
 def codepen_icon():
@@ -566,7 +629,7 @@ def datetime_converter(type, second=None, minute=None, hour=None, day=None, week
         result = None
         if type == 'minute':
             if second:
-                value.append(int(second)/60)
+                value.append(int(second) / 60)
             if minute:
                 value.append(int(minute))
             if hour:
@@ -583,9 +646,9 @@ def datetime_converter(type, second=None, minute=None, hour=None, day=None, week
             return result
         elif type == 'hour':
             if second:
-                value.append(int(second)/3600)
+                value.append(int(second) / 3600)
             if minute:
-                value.append(int(minute)/60)
+                value.append(int(minute) / 60)
             if hour:
                 value.append(int(hour))
             if day:
@@ -600,51 +663,51 @@ def datetime_converter(type, second=None, minute=None, hour=None, day=None, week
             return result
         elif type == 'week':
             if second:
-                value.append(int(second)/604800)
+                value.append(int(second) / 604800)
             if minute:
-                value.append(int(minute)/10080)
+                value.append(int(minute) / 10080)
             if hour:
-                value.append(int(hour)/168)
+                value.append(int(hour) / 168)
             if day:
-                value.append(int(day)/7)
+                value.append(int(day) / 7)
             if week:
                 value.append(int(week))
             if month:
-                value.append((int(month) * 30)/7)
+                value.append((int(month) * 30) / 7)
             if year:
-                value.append((int(year) * 365)/7)
+                value.append((int(year) * 365) / 7)
             result = sum(value)
             return result
         elif type == 'month':
             if second:
-                value.append(int(second)/2592000)
+                value.append(int(second) / 2592000)
             if minute:
-                value.append(int(minute)/43200)
+                value.append(int(minute) / 43200)
             if hour:
-                value.append(int(hour)/720)
+                value.append(int(hour) / 720)
             if day:
-                value.append(int(day)/30)
+                value.append(int(day) / 30)
             if week:
-                value.append((int(week)*7)/30)
+                value.append((int(week) * 7) / 30)
             if month:
                 value.append(int(month))
             if year:
-                value.append((int(year) * 365)/30)
+                value.append((int(year) * 365) / 30)
             result = sum(value)
             return result
         elif type == 'year':
             if second:
-                value.append(int(second)/31536000)
+                value.append(int(second) / 31536000)
             if minute:
-                value.append(int(minute)/525600)
+                value.append(int(minute) / 525600)
             if hour:
-                value.append(int(hour)/8760)
+                value.append(int(hour) / 8760)
             if day:
-                value.append(int(day)/365)
+                value.append(int(day) / 365)
             if week:
-                value.append((int(week)*7)/365)
+                value.append((int(week) * 7) / 365)
             if month:
-                value.append((int(month)*30)/365)
+                value.append((int(month) * 30) / 365)
             if year:
                 value.append(int(year))
             result = sum(value)

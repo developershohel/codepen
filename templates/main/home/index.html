@@ -1,4 +1,36 @@
 {% extends 'main/base/base.html' %}
 {% block content %}
-    <h1>Content</h1>
+    <div class="main-content">
+        <div class="banner-section">
+            <div class="banner-content">
+                <h1 class="banner-heading"><span class="banner-highlight">#1</span> All in one Online code editor</h1>
+                <div class="banner-description"><p class="description">CodePen is a social development environment for
+                    front-end designers and developers. Build and deploy a website, show off your work, build test cases
+                    to learn and debug, and find inspiration.</p></div>
+                <div class="signup"><a class="signup-button btn" href="{% url 'user:signup_url' %}">SignUp</a></div>
+            </div>
+            <div class="banner-editor">
+                <div class="banner-editor-bg">
+                    <div class="banner-html-editor">
+                        <div class="banner-editor-wrapper">
+                            <spam class="banner-editor-icon"><i class="fa fa-angle-down"></i></spam>
+                            <textarea cols="50" rows="9" id="banner-html-editor" class="banner-html-editor"></textarea>
+                        </div>
+                    </div>
+                    <div class="banner-sass-editor">
+                        <div class="banner-editor-wrapper">
+                            <spam class="banner-editor-icon"><i class="fa fa-angle-down"></i></spam>
+                            <textarea cols="50" rows="9" id="banner-html-editor" class="banner-html-editor"></textarea>
+                        </div>
+                    </div>
+                    <div class="banner-js-editor">
+                        <div class="banner-editor-wrapper">
+                            <spam class="banner-editor-icon"><i class="fa fa-angle-down"></i></spam>
+                            <textarea cols="50" rows="9" id="banner-html-editor" class="banner-html-editor"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
