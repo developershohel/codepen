@@ -1,8 +1,15 @@
-#pen-filter {
+#pen-filter-wrapper {
   flex-direction: column;
   align-items: flex-start;
 
-  .filter-profile {
+  ul {
+    display: inline-flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .filter-wrap {
     width: 100%;
     border-bottom: 2px solid var(--side-header-border);
     background-color: var(--side-header);
@@ -19,32 +26,27 @@
       }
 
       a:hover {
-        color: var(--link-primary-hover);
+        color: var(--cp-logo-color);
       }
     }
 
     li.active {
       a {
-        color: var(--link-primary);
+        color: var(--cp-logo-color);
       }
     }
   }
 
-  .filter-content {
+  .pen-filter-content {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     background-color: var(--header-bg);
-
-    .widgets-search {
-      padding-right: 10px;
-    }
-
   }
 
-  .filter-list {
+  .pen-filter-list {
     li {
       margin: 0;
 
@@ -56,13 +58,13 @@
       }
 
       a:hover {
-        color: var(--link-primary-hover);
+        color: var(--cp-logo-color);
       }
     }
 
     li.active {
       a {
-        color: var(--link-primary);
+        color: var(--cp-logo-color);
       }
     }
   }
@@ -75,68 +77,6 @@
   position: absolute;
   bottom: 35px;
   transition: opacity 0.2s ease-in-out;
-}
-
-.profile-banner-content {
-  position: absolute;
-  top: 25%;
-  bottom: 0;
-  text-align: center;
-  width: 100%;
-
-  .profile-name {
-    font-size: 3rem;
-  }
-
-  #profile-badges {
-    font-size: 20px;
-    vertical-align: text-top;
-  }
-
-  #profile-username {
-    font-size: 16px;
-  }
-}
-
-#profile-status {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  padding: 10px 25px;
-  background-color: var(--header-bg);
-
-  .profile-image {
-    position: absolute;
-    left: 45%;
-    bottom: 0;
-    width: 140px;
-    height: 140px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    i {
-      font-size: 140px;
-    }
-  }
-
-  .profile-links {
-    font-size: 24px;
-  }
-}
-
-#profile-location-and-bio {
-  text-align: center;
-  padding: 20px 0;
-
-  .profile-bio {
-    font-size: 20px;
-  }
 }
 
 #pen-content-wrapper {
@@ -187,7 +127,7 @@
       }
 
       .pen-details:hover {
-        color: var(--link-primary-hover);
+        color: var(--cp-logo-color);
       }
 
       img {
@@ -219,7 +159,7 @@
             margin: 0;
 
             a {
-              color: var(--link-primary);
+              color: var(--cp-logo-color);
               text-transform: capitalize;
               transition: color 0.2s ease-in-out;
             }
@@ -228,13 +168,13 @@
 
         i {
           font-size: 26px;
-          color: var(--link-primary);
+          color: var(--cp-logo-color);
           transition: color 0.2s ease-in-out;
           cursor: pointer;
         }
 
         .title a:hover, i:hover {
-          color: var(--link-primary-hover);
+          color: var(--cp-logo-color);
         }
 
         .pen-option-menu {
@@ -263,7 +203,7 @@
           }
 
           .collection:hover {
-            background-color: var(--link-primary);
+            background-color: var(--cp-logo-color);
           }
 
           .private:hover {
@@ -325,7 +265,7 @@
 
       .pen-comment:hover {
         i {
-          color: var(--link-primary-hover);;
+          color: var(--cp-logo-color);
         }
       }
     }
@@ -335,11 +275,13 @@
 // Load more Button
 .load-more-wrapper {
   text-align: center;
-  margin: 0 auto;
+  margin: 25px auto;
+  color: var(--text-primary);
 
   button {
-    background-color: var(--button-primary);
-    border: 1px solid var(--button-primary);
+    background-color: var(--header-button);
+    border: 1px solid var(--header-button);
+    color: var(--text-primary);
 
     span {
       margin-left: 5px;
@@ -358,8 +300,8 @@
   }
 
   button:hover {
-    background-color: var(--button-primary-hover);
-    border-color: var(--button-primary-hover);
+    background-color: var(--header-button-hover);
+    border-color: var(--header-button-hover);
   }
 
   @keyframes loading-spinner {
