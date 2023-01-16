@@ -7,16 +7,16 @@ jQuery(document).ready(function ($) {
     if ($('.sub-menu').find('.current-child').length > 0) {
         $('.sub-menu').css({display: 'flex'}).parent().addClass('current')
     }
+    $('.fa-ellipsis').on('click', function () {
+        $(this).next('ul').fadeToggle()
+    })
     // File upload
     const uploader = $('.media-uploader'),
         uploaderButton = uploader.find("#upload-button"),
         uploaderInput = uploader.find("#input-files"),
         uploadingError = $('.uploading-errors'),
         mediaList = $('.media-list');
-    // uploaderButton.on('click', function () {
-    //     uploaderInput.click()
-    // })
-    //
+
     uploaderInput.on("change", function (e) {
         let get_file = e.target.files;
         if (get_file.length > 0) {
@@ -111,15 +111,14 @@ if (uploaderContainer !== null) {
         uploaderContainer.style.borderColor = 'var(--content-bg)'
     });
 }
-const penDetailsWheel = document.querySelector('.pens, .comments');
-const penBodyDetailsWheel = document.querySelector('.pens tbody, .comments tbody');
+const penDetailsWheel = document.querySelector('table.pens, table.comments');
 if (penDetailsWheel !== null) {
-    penBodyDetailsWheel.addEventListener('wheel', function (e) {
-        const race = 50; // How many pixels to scroll
+    penDetailsWheel.addEventListener('wheel', function (e) {
+        let race = 50; // How many pixels to scroll
         if (e.deltaY > 0) // Scroll right
-            penBodyDetailsWheel.scrollTop += race;
+            penDetailsWheel.scrollLeft += race;
         else // Scroll left
-            penBodyDetailsWheel.scrollTop -= race;
+            penDetailsWheel.scrollLeft -= race;
         e.preventDefault();
     });
 }
