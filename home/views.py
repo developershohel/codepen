@@ -24,6 +24,7 @@ def index(request):
             user = get_user(request.user.id)
             pen = Pen.objects.all().filter(user_id=user.get().id)
             context['pens'] = pen
+            context['username'] = user.get().username
             return render(request, 'main/home/index.html', context)
         else:
             return render(request, 'main/home/index.html', context)

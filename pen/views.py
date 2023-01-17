@@ -1,6 +1,7 @@
 import os
 import subprocess
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -61,3 +62,7 @@ def pen_delete(request, username, pen_id):
 
 def tag(request, tag_name):
     return HttpResponse('ok')
+
+
+def pen_filter(request):
+    return None

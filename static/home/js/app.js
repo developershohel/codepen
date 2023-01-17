@@ -3,14 +3,17 @@ jQuery(document).ready(function ($) {
         $(this).next().slideToggle()
     })
 
-    $('.main-menu').find('.current-child').children('.fa-angle-down').on('click', function (){
+    $('.main-menu').find('.current-child').children('.fa-angle-down').on('click', function () {
         $(this).next('.sub-menu').toggleClass('expanded')
         $(this).next('.sub-menu').slideToggle()
-        if ($(this).next('.sub-menu').hasClass('expanded')){
+        if ($(this).next('.sub-menu').hasClass('expanded')) {
             $(this).css({transform: 'rotate(180deg)'})
-        }else {
+        } else {
             $(this).css({transform: 'rotate(0deg)'})
         }
+    });
+    $('.fa-ellipsis').on('click', function () {
+        $(this).next('ul').fadeToggle()
     })
 })
 

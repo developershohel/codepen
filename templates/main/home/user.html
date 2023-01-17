@@ -18,12 +18,18 @@
                                 href="{% url 'dashboard:dashboard_profile_pens' %}?popular">Popular</a></li>
                         <li class="all-pens"><a href="{% url 'dashboard:dashboard_profile_pens' %}?public">Trending</a>
                         </li>
-                        <li class="all-pens"><a href="{% url 'dashboard:dashboard_profile_pens' %}?draft">Pen by
-                            Languages</a></li>
-                        <li class="popular-pens"><a href="{% url 'dashboard:dashboard_profile_pens' %}?loved">Loved</a>
+                        <li class="all-pens">
+                            <select id="pen-by-languages">
+                                {% for key, values in codepen_platform.items %}
+                                    <option class="languages" value="{{ key }}" {% if key == 'html' %}selected="selected"{% endif %}>
+                                        <a href="{% url 'pen:pen_filter' %}?languages={{ key }}" class="menu-link"><i class="{{ values.icon }}"></i> {{ values.name }}</a>
+                                    </option>
+                                {% endfor %}
+                            </select>
                         </li>
-                        <li class="popular-pens"><a
-                                href="{% url 'dashboard:dashboard_profile_pens' %}?viewed">Viewed</a></li>
+                        <li class="popular-pens"><a href="{% url 'dashboard:dashboard_profile_pens' %}?loved">Most Loved</a>
+                        </li>
+                        <li class="popular-pens"><a href="{% url 'dashboard:dashboard_profile_pens' %}?viewed">Most Viewed</a></li>
                     </ul>
                 </div>
             </div>
@@ -68,9 +74,9 @@
                         <div class="pen-content">
                             <header class="pen-header">
                                 <div class="pen-title">
-                                    <h2 class="title" title="tailwindcss">
+                                    <h2 class="title" title="{{ pen.pen_title }}">
                                         {% if pen.pen_title|length > 30 %}
-                                            <a href="/{{ username }}/pen/{{ pen.pen_slug }}">{{ pen.pen_title|slice:'0:30' }}...</a>
+                                            <a href="/ {% url 'pen:single_pen'  username  pen.pen_slug %}">{{ pen.pen_title|slice:'0:30' }}...</a>
                                         {% else %}
                                             <a href="/{{ username }}/pen/{{ pen.pen_slug }}">{{ pen.pen_title }}</a>
                                         {% endif %}
@@ -92,7 +98,7 @@
                                 </div>
                             </header>
                             <footer class="pen-footer">
-                                <button title="Love" class="pen-love">
+                                <button title="Love" class="pen-love" id="pen-love">
                                     <i class="fa-regular fa-heart"></i>
                                     <span class="love">{{ pen.pen_love.all.count }}</span>
                                 </button>
@@ -108,7 +114,6 @@
                         </div>
                     </article>
                 {% endfor %}
-
             </div>
             <div class="load-more-wrapper loading-spinner">
                 <button type="button" class="load-more"><i class="fa fa-spinner"></i> <span>More pen</span></button>

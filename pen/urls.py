@@ -7,5 +7,6 @@ urlpatterns = [
     path('<slug:username>/pen/<slug:slug>/', views.single_pen, name='single_pen'),
     path('<slug:username>/pen/edit/', views.pen_edit, name="pen_edit"),
     path('<slug:username>/pen/delete/', views.pen_delete, name="pen_delete"),
+    path('pen-filter/', views.pen_filter, name="pen_filter"),
     path('tag/<slug:tag_name>/', views.tag, name="tag")
 ]

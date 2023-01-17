@@ -86,6 +86,8 @@
   --section-color: rgba(128, 203, 196, 0.2);
   --active-color: rgba(0, 0, 0, 0.5);
 
+  --pen-love: rgb(236 72 153);
+  --pen-love-hover: #ED328F;
   --form-bg: #1E1F26;
   --form-border: #1E1F26;
   --form-input: #30363D;
@@ -95,7 +97,18 @@
   --form-twitter: #1da1f2;
   --form-github: #57606a;
   --form-google: #4F86EC;
+  
+  // Button
+  --button-primary: #248537;
+  --button-primary-hover: #2f9f43;
+  --delete: #ff3d44;
+  --delete-hover: #fc4e54;
 
+  // link
+  --link-primary: #75daff;
+  --link-primary-hover: #53bcf9;
+
+  --error: #ff3d44;
   // Footer color
   --footer-bg: #394350;
   --footer-title-color: #ffffff;

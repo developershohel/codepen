@@ -49,6 +49,8 @@
   .pen-filter-list {
     li {
       margin: 0;
+      display: flex;
+      align-items: center;
 
       a {
         margin: 0;
@@ -68,6 +70,17 @@
       }
     }
   }
+}
+
+#pen-by-languages {
+  background-color: var(--header-bg);
+  border: none;
+  color: #fff;
+}
+
+#pen-by-languages:focus, #pen-by-languages:focus-visible, #pen-by-languages:focus-within {
+  border: none;
+  background-color: var(--header-bg);
 }
 
 #pen-plan {
@@ -174,7 +187,7 @@
         }
 
         .title a:hover, i:hover {
-          color: var(--cp-logo-color);
+          color: var(--header-hover);
         }
 
         .pen-option-menu {
@@ -188,11 +201,12 @@
           padding: 0;
 
           .pen-option button {
+            color: var(--text-primary);
             text-align: left;
             width: 100%;
             border: none;
             border-radius: 0;
-            background-color: transparent;
+            background-color: var(--bg-color);
             border-bottom: 1px solid var(--text-primary) !important;
             padding: 8px 15px;
             transition: background-color 0.2s ease-in-out;
@@ -228,11 +242,7 @@
         padding: 4px 12px;
         display: inline-flex;
         align-items: center;
-
-        i {
-          color: var(--pen-love);
-          transition: color 0.3s ease-in-out;
-        }
+        color: var(--pen-love);
 
         span:last-child {
           margin-left: 5px;
@@ -240,7 +250,7 @@
       }
 
       .pen-love:hover {
-        color: var(--pen-love);
+        color: var(--pen-love-hover);
       }
 
       .pen-comment, .pen-view {
@@ -253,20 +263,22 @@
         span:last-child {
           margin-left: 5px;
         }
+      }
 
-        i {
-          color: var(--button-primary-hover);
-        }
+      .pen-view {
+        color: var(--header-button)
       }
 
       .pen-view:hover {
-        color: var(--button-primary-hover);
+        color: var(--header-button-hover);
+      }
+
+      .pen-comment {
+        color: var(--cp-logo-color)
       }
 
       .pen-comment:hover {
-        i {
-          color: var(--cp-logo-color);
-        }
+        color: var(--header-hover)
       }
     }
   }
