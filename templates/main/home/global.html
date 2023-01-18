@@ -1,6 +1,7 @@
 <div class="banner-section">
     <div class="banner-content">
-        <h1 class="banner-heading"><span class="banner-highlight">#1</span> Start Coding With <span id="animated-text">HTML</span></h1>
+        <h1 class="banner-heading"><span class="banner-highlight">#1</span> Start Coding With <span id="animated-text">HTML</span>
+        </h1>
         <div class="banner-description"><p class="description">CodePen is a social development environment for
             front-end designers and developers. Build and deploy a website, show off your work, build test cases
             to learn and debug, and find inspiration.</p></div>
@@ -33,10 +34,30 @@
     </div>
 </div>
 <div class="services-section-wrapper">
-    <h1 class="services-header">Our Services & Benefit</h1>
     <div class="services-content-wrap">
-        <div class="services-content"></div>
-        <div class="services-content"></div>
-        <div class="services-content"></div>
+        <div class="services-content">
+            <span class="services-icon"><i class="fa-solid fa-shapes"></i></span>
+            <h4 class="services-header">Build & Test</h4>
+            <p class="services-description">Get work done quicker by building out entire projects or isolating code to
+                test features and animations. Want to keep it all under wraps? Upgrade to a PRO account to keep your
+                work private.</p>
+            <a href="{% url 'pen:new_pen' %}" class="btn services-button">Try Now</a>
+        </div>
+        <div class="services-content">
+            <span class="services-icon"><i class="fa-regular fa-file-lines"></i></span>
+            <h4 class="services-header">Practice & Practice All languages</h4>
+            <p class="services-description">Get work done quicker by building out entire projects or isolating code to
+                test features and animations. Want to keep it all under wraps? Upgrade to a PRO account to keep your
+                work private.</p>
+            <a href="{% url 'pen:new_pen' %}" class="btn services-button">Try Now</a>
+        </div>
+        <div class="services-content">
+            <span class="services-icon"><i class="fa-solid fa-square-share-nodes"></i></span>
+            <h4 class="services-header">Share your talent</h4>
+            <p class="services-description">Get work done quicker by building out entire projects or isolating code to
+                test features and animations. Want to keep it all under wraps? Upgrade to a PRO account to keep your
+                work private.</p>
+            <a href="{% url 'pen:new_pen' %}" class="btn services-button">Try Now</a>
+        </div>
     </div>
 </div>

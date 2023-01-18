@@ -825,6 +825,8 @@ input[type=search i]:enabled:read-write:-webkit-any(:focus, :hover)::-webkit-sea
   height: 140px;
   resize: none;
   border-color: var(--text-primary);
+  padding: 35px 10px;
+  color: var(--text-primary);
 }
 
 .banner-editor {
@@ -875,6 +877,62 @@ input[type=search i]:enabled:read-write:-webkit-any(:focus, :hover)::-webkit-sea
   position: absolute;
   right: -40px;
   top: 25px;
+}
+
+.services-section-wrapper {
+  margin-bottom: 50px;
+}
+
+.services-content-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: max-content;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+.services-content-wrap .services-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-flow: column nowrap;
+  padding: 25px;
+  background-color: var(--content-bg);
+  height: 100%;
+}
+.services-content-wrap .services-button {
+  background-color: var(--header-button);
+  padding: 8px 24px;
+  border: 1px solid var(--header-button);
+  border-radius: 3px;
+}
+.services-content-wrap .services-button:hover {
+  background-color: var(--header-button-hover);
+  border-color: var(--header-button-hover);
+}
+.services-content-wrap .services-icon {
+  font-size: 70px;
+}
+.services-content-wrap .services-icon i {
+  color: var(--cp-icon-color);
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+.services-content-wrap .services-icon i:hover {
+  color: var(--cp-icon-hover);
+}
+.services-content-wrap .services-header {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: var(--cp-icon-color);
+  text-transform: capitalize;
+  text-align: center;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+.services-content-wrap .services-header:hover {
+  color: var(--cp-icon-hover);
 }
 
 .form-breaker {
