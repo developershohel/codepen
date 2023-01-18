@@ -15,6 +15,9 @@ jQuery(document).ready(function ($) {
     $('.fa-ellipsis').on('click', function () {
         $(this).next('ul').fadeToggle()
     })
+    $('.pen-header-author-image').on('click', function () {
+        $(this).next('.main-menu-wrap').slideToggle().addClass('expanded')
+    })
 })
 
 function scrollH(e) {

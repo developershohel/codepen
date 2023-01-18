@@ -10,8 +10,11 @@ from django.contrib.auth.models import Permission
 from django.apps import apps
 from django.urls import reverse
 
+from codepen.functions import pen_platform, home_url
 from codepen.settings import BASE_DIR
 from .models import Pen, PenData
+
+from codepen.cp_user import get_user, get_profile
 
 
 def new_pen(request):
@@ -36,20 +39,25 @@ def new_pen(request):
 
 
 def single_pen(request, username, slug):
-    context = {
-        'site_url': get_current_site(request)
-    }
-    get_pen = Pen.objects.all().filter(pen_slug=slug)
-    if get_pen:
-        context['pens'] = get_pen
-        pen_id = get_pen.get().id
-        pen_data = PenData.objects.all().filter(pen_id=pen_id)
-
-        if pen_data:
-            context['pen_data'] = pen_data
-
-    renter_template = render(request, 'main/pen/single.html', context)
-    return renter_template
+    if request.method == 'GET':
+        if not username or not slug:
+            return HttpResponseRedirect(home_url())
+        pens = Pen.objects.all().filter(pen_slug=slug)
+        context = {
+            'site_url': get_current_site(request),
+            'codepen_platform': pen_platform,
+            'pens': pens
+        }
+        user = get_user(username)
+        if user:
+            context['user'] = user
+            profile = get_profile(username)
+            if profile:
+                context['profile'] = profile
+        renter_template = render(request, 'main/pen/single.html', context)
+        return renter_template
+    else:
+        return HttpResponseRedirect(home_url())
 
 
 def pen_edit(request, username, pen_id):

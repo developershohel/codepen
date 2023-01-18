@@ -109,6 +109,9 @@
   --link-primary-hover: #53bcf9;
 
   --error: #ff3d44;
+
+  --gradient-color: linear-gradient(to right, rgb(16, 115, 203), rgb(242, 0, 145) 166.667%)opacity();
+
   // Footer color
   --footer-bg: #394350;
   --footer-title-color: #ffffff;
@@ -494,7 +497,6 @@ button {
 .btn, .input {
   display: inline-block;
   padding: var(--cp-button-padding);
-  text-align: center;
   text-decoration: none;
   vertical-align: middle;
   cursor: pointer;
@@ -554,4 +556,24 @@ input[type="search" i]:enabled:read-write:-webkit-any(:focus, :hover)::-webkit-s
 *::-webkit-scrollbar-thumb:hover {
   background-color: var(--header-button-hover);
   border-color: var(--header-button-hover);
+}
+.menu{
+  display: flex;
+  align-items: center;
+  list-style: none;
+
+  li{
+    display: flex;
+    align-items: center;
+
+    a{
+      display: block;
+      width: 100%;
+      padding: 4px 12px;
+      color: var(--text-primary);
+    }
+  }
+  li:last-child{
+    margin-right: 0;
+  }
 }
