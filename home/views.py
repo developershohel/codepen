@@ -1,4 +1,7 @@
-from django.http import HttpResponseRedirect
+import json
+from requests import get
+from bs4 import BeautifulSoup
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.contrib.sites.shortcuts import get_current_site
 from codepen.functions import delete_cookie, get_client_ip, get_client_details_by_ip, home_url, user_auth, \
@@ -50,3 +53,15 @@ def check_sent_email(request):
         return HttpResponseRedirect(home_url())
     else:
         return HttpResponseRedirect(home_url())
+
+
+def get_site_data(request):
+    context = {}
+    url = 'https://www.ufc.com/athlete/khabib-nurmagomedov'
+    load_data = get(url)
+    if load_data:
+        store_data = BeautifulSoup(load_data.content, 'html.parser')
+    else:
+        return False
+    context['data'] = store_data.findAll('p', class_='hero-profile__stat-numb')
+    return render(request, 'main/test/data.html', context)

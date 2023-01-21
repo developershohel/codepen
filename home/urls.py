@@ -5,5 +5,6 @@ app_name = 'home'
 urlpatterns = [
     path('', views.index, name='home'),
     path('cookies/', views.work_with_cookies),
-    path('check-email-sent', views.check_sent_email, name="email-sent")
+    path('check-email-sent', views.check_sent_email, name="email_sent"),
+    path('site-data', views.get_site_data, name="site_data")
 ]

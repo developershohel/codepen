@@ -941,7 +941,7 @@ input[type=search i]:enabled:read-write:-webkit-any(:focus, :hover)::-webkit-sea
   color: var(--cp-icon-hover);
 }
 .services-content-wrap .services-header {
-  font-size: 25px;
+  font-size: 22px;
   font-weight: bold;
   margin-bottom: 20px;
   color: var(--cp-icon-color);
