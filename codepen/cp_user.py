@@ -1,6 +1,7 @@
 from codepen.functions import email_validation, user_validation
 from user.models import User
 from profiles.models import Profile
+from pen.models import Pen
 
 
 def get_user(value):
@@ -72,3 +73,17 @@ def get_profile(value):
             return False
     else:
         return False
+
+
+def trending_pens():
+    all_pens = Pen.objects.all()
+    pen_list = {}
+    for pen in all_pens:
+        pen_love = pen.pen_love.count()
+        pen_view = pen.pen_view.count()
+        if pen_love and pen_view:
+            pen_avg = pen_love / pen_view
+            pen_ratio = round(pen_avg, 2) * 100
+            pen_list[pen.id] = pen_ratio
+    trending_pen = sorted(pen_list, reverse=True)[:100]
+    return trending_pen

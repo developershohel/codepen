@@ -4,8 +4,8 @@ import random
 import re
 import mimetypes
 import site
+import requests
 from datetime import date
-from urllib import request as urlrequest
 
 from django.contrib.auth import authenticate
 from django.contrib.sites.shortcuts import get_current_site
@@ -178,9 +178,9 @@ def get_client_ip(request):
 
 def get_client_details_by_ip(ip):
     url = 'http://ip-api.com/json/' + str(ip)
-    load_url = urlrequest.urlopen(url)
+    load_url = requests.get(url)
     if load_url:
-        load_data = load_url.read()
+        load_data = load_url.content
         get_json = json.loads(load_data)
         if get_json:
             return get_json
@@ -731,3 +731,4 @@ def datetime_converter(type, second=None, minute=None, hour=None, day=None, week
             return result
     else:
         return ''
+

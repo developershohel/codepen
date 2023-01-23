@@ -1,12 +1,11 @@
 import json
 from requests import get
-from bs4 import BeautifulSoup
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.contrib.sites.shortcuts import get_current_site
 from codepen.functions import delete_cookie, get_client_ip, get_client_details_by_ip, home_url, user_auth, \
     codepen_platform, pen_platform
-from codepen.cp_user import get_user
+from codepen.cp_user import get_user, trending_pens
 from profiles.models import Profile
 from pen.models import Pen
 from django.contrib.sites.shortcuts import get_current_site
@@ -16,9 +15,15 @@ from django.core.mail import send_mail
 def index(request):
     site_url = get_current_site(request)
     ip = get_client_details_by_ip('103.239.255.44')
+    pen = Pen.objects.all()[: 2]
+    trending_pen = trending_pens()
+    print(trending_pen)
+    print(Pen.objects.all().filter(id=trending_pen[0]))
+    pen_view = pen
     context = {
         'site_url': site_url,
         'codepen_platform': pen_platform,
+        'pens': trending_pen
     }
     if ip:
         context['country'] = ip['countryCode']
@@ -54,14 +59,3 @@ def check_sent_email(request):
     else:
         return HttpResponseRedirect(home_url())
 
-
-def get_site_data(request):
-    context = {}
-    url = 'https://www.ufc.com/athlete/khabib-nurmagomedov'
-    load_data = get(url)
-    if load_data:
-        store_data = BeautifulSoup(load_data.content, 'html.parser')
-    else:
-        return False
-    context['data'] = store_data.findAll('p', class_='hero-profile__stat-numb')
-    return render(request, 'main/test/data.html', context)
