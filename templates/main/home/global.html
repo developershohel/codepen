@@ -68,6 +68,7 @@
         <h1 class="heading-title">Trending Pen</h1>
         <a class="view-all-pen" href=""><span>View All</span><i class="fa-solid fa-angle-double-right"></i> </a>
     </div>
+    <button type="button" class="prev-pen-button btn"><i class="fa-solid fa-angle-left"></i></button>
     <div class="home-trending-pen-wrap">
         <div class="pen-content" id="pen-content-wrapper">
             {% for pen_id in trending_pens %}
@@ -113,7 +114,7 @@
                                 <div class="pen-title">
                                     <h2 class="title" title="{{ pen.pen_title }}">
                                         {% if pen.pen_title|length > 30 %}
-                                            <a href="/ {% url 'pen:single_pen'  username  pen.pen_slug %}">{{ pen.pen_title|slice:'0:30' }}...</a>
+                                            <a href="{{ pen.get_absolute_url }}">{{ pen.pen_title|slice:'0:30' }}...</a>
                                         {% else %}
                                             <a href="/{{ username }}/pen/{{ pen.pen_slug }}">{{ pen.pen_title }}</a>
                                         {% endif %}
@@ -154,12 +155,14 @@
             {% endfor %}
         </div>
     </div>
+<button type="button" class="next-pen-button btn"><i class="fa-solid fa-angle-right"></i></button>
 </section>
 <section class="home-popular-pen-wrapper">
     <div class="popular-pen-header pen-heading">
         <h1 class="heading-title">Top 100 Trending Pen</h1>
         <a class="view-all-pen" href=""><span>View All</span><i class="fa-solid fa-angle-double-right"></i> </a>
     </div>
+<button type="button" class="prev-pen-button btn"><i class="fa-solid fa-angle-left"></i></button>
     <div class="home-popular-pen-wrap">
         <div class="pen-content" id="pen-content-wrapper">
             {% for pen_id in trending_pens %}
@@ -205,9 +208,9 @@
                                 <div class="pen-title">
                                     <h2 class="title" title="{{ pen.pen_title }}">
                                         {% if pen.pen_title|length > 30 %}
-                                            <a href="/ {% url 'pen:single_pen'  username  pen.pen_slug %}">{{ pen.pen_title|slice:'0:30' }}...</a>
+                                            <a href="{{ pen.get_absolute_url }}">{{ pen.pen_title|slice:'0:30' }}...</a>
                                         {% else %}
-                                            <a href="/{{ username }}/pen/{{ pen.pen_slug }}">{{ pen.pen_title }}</a>
+                                            <a href="{{ pen.get_absolute_url }}">{{ pen.pen_title }}</a>
                                         {% endif %}
                                     </h2>
                                 </div>
@@ -246,4 +249,5 @@
             {% endfor %}
         </div>
     </div>
+<button type="button" class="next-pen-button btn"><i class="fa-solid fa-angle-right"></i></button>
 </section>

@@ -171,3 +171,4 @@ SESSION_COOKIE_SAMESITE = 'Strict'
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8080'
 ]
+BASE_URL = 'http://127.0.0.1:8080/'

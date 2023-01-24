@@ -97,7 +97,7 @@
   --form-twitter: #1da1f2;
   --form-github: #57606a;
   --form-google: #4F86EC;
-  
+
   // Button
   --button-primary: #248537;
   --button-primary-hover: #2f9f43;
@@ -178,6 +178,7 @@ body {
   line-height: 1.5;
   color: var(--text-primary);
   background-color: var(--bg-color);
+  overflow-x: hidden;
 }
 
 
@@ -557,26 +558,30 @@ input[type="search" i]:enabled:read-write:-webkit-any(:focus, :hover)::-webkit-s
   background-color: var(--header-button-hover);
   border-color: var(--header-button-hover);
 }
-.menu{
+
+.menu {
   display: flex;
   align-items: center;
   list-style: none;
 
-  li{
+  li {
     display: flex;
     align-items: center;
 
-    a{
+    a {
       display: block;
       width: 100%;
       padding: 4px 12px;
       color: var(--text-primary);
     }
   }
-  li:last-child{
+
+  li:last-child {
     margin-right: 0;
   }
 }
-section{
+
+section {
   margin-bottom: 50px;
+  position: relative;
 }

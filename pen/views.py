@@ -38,11 +38,11 @@ def new_pen(request):
     return renter_template
 
 
-def single_pen(request, username, slug):
+def single_pen(request, username, pen_slug):
     if request.method == 'GET':
-        if not username or not slug:
+        if not username or not pen_slug:
             return HttpResponseRedirect(home_url())
-        pens = Pen.objects.all().filter(pen_slug=slug)
+        pens = Pen.objects.all().filter(pen_slug=pen_slug)
         context = {
             'site_url': get_current_site(request),
             'codepen_platform': pen_platform,

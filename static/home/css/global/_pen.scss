@@ -93,16 +93,17 @@
 }
 
 #pen-content-wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   gap: 25px;
-  grid-auto-rows: 300px;
   background-color: transparent !important;
   border: none !important;
   margin-top: 25px;
 
   article {
     background-color: var(--content-bg);
+    padding: 15px 15px 25px 15px;
+    height: 350px;
+    flex: 0 0 30%;
 
     .pen-preview {
       position: relative;
@@ -157,7 +158,6 @@
 
     .pen-content {
       position: relative;
-      padding: 0 15px;
 
       .pen-header {
         display: flex;
@@ -521,4 +521,33 @@
       background-color: var(--button-primary-hover);
     }
   }
+}
+
+.home-trending-pen-wrap, .home-popular-pen-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.prev-pen-button, .next-pen-button {
+  background-color: var(--cp-icon-color);
+  color: #fff;
+  padding: 8px 18px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.prev-pen-button:hover, .next-pen-button:hover, .prev-pen-button:focus, .next-pen-button:focus {
+  background-color: var(--cp-icon-hover);
+}
+
+.prev-pen-button {
+  position: absolute;
+  top: 210px;
+  left: -22px;
+}
+
+.next-pen-button {
+  position: absolute;
+  top: 210px;
+  right: 15px;
 }

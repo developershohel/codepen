@@ -2,6 +2,7 @@ import datetime
 from django.db import models
 from django.utils.html import format_html
 from codepen.functions import change_button, delete_button
+from codepen.settings import BASE_URL
 from user.models import User
 from taggit.managers import TaggableManager
 from datetime import date
@@ -63,6 +64,8 @@ class Pen(models.Model):
         self.pen_thumbnail.delete()
         super().delete(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return f'{BASE_URL}{self.user.username}/pen/{self.pen_slug}'
 
 class PenData(models.Model):
     pen = models.OneToOneField(Pen, on_delete=models.CASCADE)
