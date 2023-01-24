@@ -20,16 +20,14 @@
                         </li>
                         <li class="all-pens">
                             <select id="pen-by-languages">
+                                <option value="" selected="selected">Select Language</option>
                                 {% for key, values in codepen_platform.items %}
-                                    <option class="languages" value="{{ key }}" {% if key == 'html' %}selected="selected"{% endif %}>
+                                    <option class="languages" value="{{ key }}">
                                         <a href="{% url 'pen:pen_filter' %}?languages={{ key }}" class="menu-link"><i class="{{ values.icon }}"></i> {{ values.name }}</a>
                                     </option>
                                 {% endfor %}
                             </select>
                         </li>
-                        <li class="popular-pens"><a href="{% url 'dashboard:dashboard_profile_pens' %}?loved">Most Loved</a>
-                        </li>
-                        <li class="popular-pens"><a href="{% url 'dashboard:dashboard_profile_pens' %}?viewed">Most Viewed</a></li>
                     </ul>
                 </div>
             </div>

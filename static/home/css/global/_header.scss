@@ -5,6 +5,7 @@
 
   a {
     color: var(--text-primary);
+
     .country {
       color: var(--header-button-hover);
     }
@@ -109,7 +110,6 @@
     padding: 0;
     border-radius: 5px;
     background: var(--content-bg);
-    border-top: 1px solid var(--header-button-hover);
 
     li {
       display: inline-flex;
@@ -131,6 +131,18 @@
         }
       }
 
+      .start-coding {
+        border-radius: 5px !important;
+        justify-content: center;
+        border: 2px solid var(--button-primary);
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          border-radius: 5px !important;
+          border-color: var(--button-primary-hover);
+        }
+      }
+
       .fa-angle-down {
         position: absolute;
         right: 5px;
@@ -141,6 +153,16 @@
 
       .fa-angle-down:hover {
         color: var(--cp-logo-color);
+      }
+
+      &:first-child a {
+        border-top: 2px solid var(--button-primary);
+        border-radius: 5px 5px 0 0;
+        transition: border-top-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+      }
+
+      &:first-child a:hover {
+        border-top-color: var(--button-primary-hover);
       }
     }
 

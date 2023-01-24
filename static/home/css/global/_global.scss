@@ -110,7 +110,7 @@
 
   --error: #ff3d44;
 
-  --gradient-color: linear-gradient(to right, rgb(16, 115, 203), rgb(242, 0, 145) 166.667%)opacity();
+  --gradient-color: linear-gradient(to right, var(--link-primary-hover), var(--pen-love));
 
   // Footer color
   --footer-bg: #394350;
@@ -576,4 +576,7 @@ input[type="search" i]:enabled:read-write:-webkit-any(:focus, :hover)::-webkit-s
   li:last-child{
     margin-right: 0;
   }
+}
+section{
+  margin-bottom: 50px;
 }

@@ -1,4 +1,5 @@
-<div class="banner-section">
+{% load dynamic %}
+<section class="banner-section">
     <div class="banner-content">
         <h1 class="banner-heading">Start Coding With <br/> <span id="animated-text">HTML</span>
         </h1>
@@ -27,13 +28,14 @@
                 <div class="banner-editor-wrapper">
                     <span class="editor-stamp"><i class="fa fa-gear"></i>Python</span>
                     <spam class="banner-editor-icon"><i class="fa fa-angle-down"></i></spam>
-                    <textarea cols="50" rows="5" id="banner-html-editor" class="banner-html-editor"></textarea>
+                    <label for="banner-html-editor"></label><textarea cols="50" rows="5" id="banner-html-editor"
+                                                                      class="banner-html-editor"></textarea>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="services-section-wrapper">
+</section>
+<section class="services-section-wrapper">
     <div class="services-content-wrap">
         <div class="services-content">
             <span class="services-icon"><i class="fa-solid fa-shapes"></i></span>
@@ -60,95 +62,188 @@
             <a href="{% url 'pen:new_pen' %}" class="btn services-button">Try Now</a>
         </div>
     </div>
-</div>
-
-<div class="home-trending-pen-wrapper">
-    <div class="trending-header"><h1 class="trending-title">Trending Pen's</h1></div>
+</section>
+<section class="home-trending-pen-wrapper">
+    <div class="trending-header pen-heading">
+        <h1 class="heading-title">Trending Pen</h1>
+        <a class="view-all-pen" href=""><span>View All</span><i class="fa-solid fa-angle-double-right"></i> </a>
+    </div>
     <div class="home-trending-pen-wrap">
         <div class="pen-content" id="pen-content-wrapper">
-            {% for pen in pens %}
-                <article class="single-item single-pen" id="pen-{{ pen.id }}">
-                    <div class="pen-preview-wrapper">
-                        <div class="pen-preview">
-                            <a class="pen-link" href="/{{ username }}/pen/{{ pen.pen_slug }}">
-                                <div class="preview-source">
-                                    {% if pen.pen_type == 'html' or pen.pen_type == 'javascript' %}
-                                        <iframe src="/{{ username }}/details/{{ pen.pen_slug }}"></iframe>
-                                    {% elif pen.pen_type == 'cpp' %}
-                                        <i class="fa-solid fa-square-c"></i>
-                                    {% elif pen.pen_type == 'php' %}
-                                        <i class="fa-brands fa-php"></i>
-                                    {% elif pen.pen_type == 'python' %}
-                                        <i class="fa-brands fa-python"></i>
-                                    {% elif pen.pen_type == 'java' %}
-                                        <i class="fa-brands fa-java"></i>
-                                    {% elif pen.pen_type == 'r' %}
-                                        <i class="fa-brands fa-r-project"></i>
-                                    {% elif pen.pen_type == 'go' %}
-                                        <i class="fa-brands fa-golang"></i>
-                                    {% elif pen.pen_type == 'ruby' %}
-                                        <i class="fa-solid fa-gem"></i>
-                                    {% elif pen.pen_type == 'vue' %}
-                                        <i class="fa-brands fa-vuejs"></i>
-                                    {% elif pen.pen_type == 'react' %}
-                                        <i class="fa-brands fa-react"></i>
-                                    {% elif pen.pen_type == 'xml' %}
-                                        <i class="fa-brands fa-html5"></i>
-                                    {% elif pen.pen_type == 'javascript' %}
-                                        <i class="fa-brands fa-js-square"></i>
-                                    {% else %}
-                                        <i class="fa-solid fa-file-code"></i>
-                                    {% endif %}
-                                </div>
-                            </a>
+            {% for pen_id in trending_pens %}
+                {% for pen in pen_id|trending_pen_filter %}
+                    <article class="single-item single-pen" id="pen-{{ pen.id }}">
+                        <div class="pen-preview-wrapper">
+                            <div class="pen-preview">
+                                <a class="pen-link" href="/{{ username }}/pen/{{ pen.pen_slug }}">
+                                    <div class="preview-source">
+                                        {% if pen.pen_type == 'html' or pen.pen_type == 'javascript' %}
+                                            <i class="fa-solid fa-square-c"></i>
+                                        {% elif pen.pen_type == 'cpp' %}
+                                            <i class="fa-solid fa-square-c"></i>
+                                        {% elif pen.pen_type == 'php' %}
+                                            <i class="fa-brands fa-php"></i>
+                                        {% elif pen.pen_type == 'python' %}
+                                            <i class="fa-brands fa-python"></i>
+                                        {% elif pen.pen_type == 'java' %}
+                                            <i class="fa-brands fa-java"></i>
+                                        {% elif pen.pen_type == 'r' %}
+                                            <i class="fa-brands fa-r-project"></i>
+                                        {% elif pen.pen_type == 'go' %}
+                                            <i class="fa-brands fa-golang"></i>
+                                        {% elif pen.pen_type == 'ruby' %}
+                                            <i class="fa-solid fa-gem"></i>
+                                        {% elif pen.pen_type == 'vue' %}
+                                            <i class="fa-brands fa-vuejs"></i>
+                                        {% elif pen.pen_type == 'react' %}
+                                            <i class="fa-brands fa-react"></i>
+                                        {% elif pen.pen_type == 'xml' %}
+                                            <i class="fa-brands fa-html5"></i>
+                                        {% elif pen.pen_type == 'javascript' %}
+                                            <i class="fa-brands fa-js-square"></i>
+                                        {% else %}
+                                            <i class="fa-solid fa-file-code"></i>
+                                        {% endif %}
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="pen-content">
-                        <header class="pen-header">
-                            <div class="pen-title">
-                                <h2 class="title" title="{{ pen.pen_title }}">
-                                    {% if pen.pen_title|length > 30 %}
-                                        <a href="/ {% url 'pen:single_pen'  username  pen.pen_slug %}">{{ pen.pen_title|slice:'0:30' }}...</a>
-                                    {% else %}
-                                        <a href="/{{ username }}/pen/{{ pen.pen_slug }}">{{ pen.pen_title }}</a>
-                                    {% endif %}
-                                </h2>
-                            </div>
-                            <div class="pen-option-wrap">
-                                <i class="fa-solid fa-ellipsis"></i>
-                                <ul class="pen-option-menu">
-                                    <li class="pen-option">
-                                        <button class="collection" data-id="{{ pen.id }}">Add to Collection</button>
-                                    </li>
-                                    <li class="pen-option">
-                                        <button class="private" data-id="{{ pen.id }}">Make Private</button>
-                                    </li>
-                                    <li class="pen-option">
-                                        <button class="delete" data-id="{{ pen.id }}">Delete</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </header>
-                        <footer class="pen-footer">
-                            <button title="Love" class="pen-love" id="pen-love">
-                                <i class="fa-regular fa-heart"></i>
-                                <span class="love">{{ pen.pen_love.all.count }}</span>
-                            </button>
-                            <a href="/{{ username }}/pen/details/{{ pen.pen_slug }}/" class="pen-comment">
-                                <i class="fa-regular fa-comment-dots"></i>
-                                <span class="comments">{{ pen.pen_comments }}</span>
-                            </a>
-                            <a href="/{{ username }}/pen/full/{{ pen.pen_slug }}" class="pen-view">
-                                <i class="fa-regular fa-eye"></i>
-                                <span class="view">{{ pen.pen_view.all.count }}</span>
-                            </a>
-                        </footer>
-                    </div>
-                </article>
+                        <div class="pen-content">
+                            <header class="pen-header">
+                                <div class="pen-title">
+                                    <h2 class="title" title="{{ pen.pen_title }}">
+                                        {% if pen.pen_title|length > 30 %}
+                                            <a href="/ {% url 'pen:single_pen'  username  pen.pen_slug %}">{{ pen.pen_title|slice:'0:30' }}...</a>
+                                        {% else %}
+                                            <a href="/{{ username }}/pen/{{ pen.pen_slug }}">{{ pen.pen_title }}</a>
+                                        {% endif %}
+                                    </h2>
+                                </div>
+                                <div class="pen-option-wrap">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                    <ul class="pen-option-menu">
+                                        <li class="pen-option">
+                                            <button class="collection" data-id="{{ pen.id }}">Add to Collection</button>
+                                        </li>
+                                        <li class="pen-option">
+                                            <button class="private" data-id="{{ pen.id }}">Make Private</button>
+                                        </li>
+                                        <li class="pen-option">
+                                            <button class="delete" data-id="{{ pen.id }}">Delete</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </header>
+                            <footer class="pen-footer">
+                                <button title="Love" class="pen-love" id="pen-love">
+                                    <i class="fa-regular fa-heart"></i>
+                                    <span class="love">{{ pen.pen_love.all.count }}</span>
+                                </button>
+                                <a href="/{{ username }}/pen/details/{{ pen.pen_slug }}/" class="pen-comment">
+                                    <i class="fa-regular fa-comment-dots"></i>
+                                    <span class="comments">{{ pen.pen_comments }}</span>
+                                </a>
+                                <a href="/{{ username }}/pen/full/{{ pen.pen_slug }}" class="pen-view">
+                                    <i class="fa-regular fa-eye"></i>
+                                    <span class="view">{{ pen.pen_view.all.count }}</span>
+                                </a>
+                            </footer>
+                        </div>
+                    </article>
+                {% endfor %}
             {% endfor %}
         </div>
-        <div class="load-more-wrapper loading-spinner">
-            <button type="button" class="load-more"><i class="fa fa-spinner"></i> <span>More pen</span></button>
+    </div>
+</section>
+<section class="home-popular-pen-wrapper">
+    <div class="popular-pen-header pen-heading">
+        <h1 class="heading-title">Top 100 Trending Pen</h1>
+        <a class="view-all-pen" href=""><span>View All</span><i class="fa-solid fa-angle-double-right"></i> </a>
+    </div>
+    <div class="home-popular-pen-wrap">
+        <div class="pen-content" id="pen-content-wrapper">
+            {% for pen_id in trending_pens %}
+                {% for pen in pen_id|trending_pen_filter %}
+                    <article class="single-item single-pen" id="pen-{{ pen.id }}">
+                        <div class="pen-preview-wrapper">
+                            <div class="pen-preview">
+                                <a class="pen-link" href="/{{ username }}/pen/{{ pen.pen_slug }}">
+                                    <div class="preview-source">
+                                        {% if pen.pen_type == 'html' or pen.pen_type == 'javascript' %}
+                                            <iframe src="/{{ username }}/details/{{ pen.pen_slug }}"></iframe>
+                                        {% elif pen.pen_type == 'cpp' %}
+                                            <i class="fa-solid fa-square-c"></i>
+                                        {% elif pen.pen_type == 'php' %}
+                                            <i class="fa-brands fa-php"></i>
+                                        {% elif pen.pen_type == 'python' %}
+                                            <i class="fa-brands fa-python"></i>
+                                        {% elif pen.pen_type == 'java' %}
+                                            <i class="fa-brands fa-java"></i>
+                                        {% elif pen.pen_type == 'r' %}
+                                            <i class="fa-brands fa-r-project"></i>
+                                        {% elif pen.pen_type == 'go' %}
+                                            <i class="fa-brands fa-golang"></i>
+                                        {% elif pen.pen_type == 'ruby' %}
+                                            <i class="fa-solid fa-gem"></i>
+                                        {% elif pen.pen_type == 'vue' %}
+                                            <i class="fa-brands fa-vuejs"></i>
+                                        {% elif pen.pen_type == 'react' %}
+                                            <i class="fa-brands fa-react"></i>
+                                        {% elif pen.pen_type == 'xml' %}
+                                            <i class="fa-brands fa-html5"></i>
+                                        {% elif pen.pen_type == 'javascript' %}
+                                            <i class="fa-brands fa-js-square"></i>
+                                        {% else %}
+                                            <i class="fa-solid fa-file-code"></i>
+                                        {% endif %}
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="pen-content">
+                            <header class="pen-header">
+                                <div class="pen-title">
+                                    <h2 class="title" title="{{ pen.pen_title }}">
+                                        {% if pen.pen_title|length > 30 %}
+                                            <a href="/ {% url 'pen:single_pen'  username  pen.pen_slug %}">{{ pen.pen_title|slice:'0:30' }}...</a>
+                                        {% else %}
+                                            <a href="/{{ username }}/pen/{{ pen.pen_slug }}">{{ pen.pen_title }}</a>
+                                        {% endif %}
+                                    </h2>
+                                </div>
+                                <div class="pen-option-wrap">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                    <ul class="pen-option-menu">
+                                        <li class="pen-option">
+                                            <button class="collection" data-id="{{ pen.id }}">Add to Collection</button>
+                                        </li>
+                                        <li class="pen-option">
+                                            <button class="private" data-id="{{ pen.id }}">Make Private</button>
+                                        </li>
+                                        <li class="pen-option">
+                                            <button class="delete" data-id="{{ pen.id }}">Delete</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </header>
+                            <footer class="pen-footer">
+                                <button title="Love" class="pen-love" id="pen-love">
+                                    <i class="fa-regular fa-heart"></i>
+                                    <span class="love">{{ pen.pen_love.all.count }}</span>
+                                </button>
+                                <a href="/{{ username }}/pen/details/{{ pen.pen_slug }}/" class="pen-comment">
+                                    <i class="fa-regular fa-comment-dots"></i>
+                                    <span class="comments">{{ pen.pen_comments }}</span>
+                                </a>
+                                <a href="/{{ username }}/pen/full/{{ pen.pen_slug }}" class="pen-view">
+                                    <i class="fa-regular fa-eye"></i>
+                                    <span class="view">{{ pen.pen_view.all.count }}</span>
+                                </a>
+                            </footer>
+                        </div>
+                    </article>
+                {% endfor %}
+            {% endfor %}
         </div>
     </div>
-</div>
+</section>

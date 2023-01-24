@@ -15,15 +15,10 @@ from django.core.mail import send_mail
 def index(request):
     site_url = get_current_site(request)
     ip = get_client_details_by_ip('103.239.255.44')
-    pen = Pen.objects.all()[: 2]
-    trending_pen = trending_pens()
-    print(trending_pen)
-    print(Pen.objects.all().filter(id=trending_pen[0]))
-    pen_view = pen
+
     context = {
         'site_url': site_url,
         'codepen_platform': pen_platform,
-        'pens': trending_pen
     }
     if ip:
         context['country'] = ip['countryCode']
@@ -35,6 +30,8 @@ def index(request):
             context['username'] = user.get().username
             return render(request, 'main/home/index.html', context)
         else:
+            trending_pen = trending_pens()[:6]
+            context['trending_pens'] = trending_pen
             return render(request, 'main/home/index.html', context)
     else:
         return HttpResponseRedirect(home_url())

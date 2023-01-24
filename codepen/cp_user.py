@@ -85,5 +85,26 @@ def trending_pens():
             pen_avg = pen_love / pen_view
             pen_ratio = round(pen_avg, 2) * 100
             pen_list[pen.id] = pen_ratio
-    trending_pen = sorted(pen_list, reverse=True)[:100]
-    return trending_pen
+    return sorted(pen_list, reverse=True)
+
+
+def popular_pens():
+    all_pens = Pen.objects.all()
+    pen_list = {}
+    for pen in all_pens:
+        pen_love = pen.pen_love.count()
+        if pen_love:
+            pen_list[pen.id] = pen_love
+    return sorted(pen_list, reverse=True)
+
+
+def most_views():
+    all_pens = Pen.objects.all()
+    pen_list = {}
+    for pen in all_pens:
+        pen_views = pen.pen_view.count()
+        if pen_views:
+            pen_list[pen.id] = pen_views
+    return sorted(pen_list, reverse=True)
+
+

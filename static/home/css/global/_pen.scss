@@ -487,3 +487,38 @@
     }
   }
 }
+
+.pen-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .heading-title {
+    color: var(--text-primary);
+    width: fit-content;
+    padding: 0 0 10px 0;
+    font-size: 22px;
+    border-bottom: 8px double var(--button-primary);
+
+    &:hover {
+      border-bottom-color: var(--button-primary-hover);
+    }
+  }
+
+  .view-all-pen {
+    display: inline-block;
+    color: var(--text-primary);
+    background-color: var(--button-primary);
+    padding: 5px 25px;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 25px;
+
+    i {
+      margin-left: 5px;
+    }
+
+    &:hover {
+      background-color: var(--button-primary-hover);
+    }
+  }
+}

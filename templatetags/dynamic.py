@@ -4,12 +4,14 @@ from django import template
 from django.template.defaultfilters import stringfilter
 from django.urls import reverse
 
+from pen.models import Pen
+
 register = template.Library()
 
 
 @register.filter('filter_by_id')
-def filter_by_id(value, filed):
-    db_filter = value.filter(id=filed)
+def filter_by_id(value, field):
+    db_filter = value.filter(id=field)
     if db_filter:
         return db_filter
     else:
@@ -17,8 +19,8 @@ def filter_by_id(value, filed):
 
 
 @register.filter('count_by_id')
-def db_count_by_id(value, filed):
-    db_filter = value.filter(id=filed)
+def db_count_by_id(value, field):
+    db_filter = value.filter(id=field)
     if db_filter:
         return db_filter.count()
     else:
@@ -26,8 +28,8 @@ def db_count_by_id(value, filed):
 
 
 @register.filter('filter_by_user_id')
-def filter_by_user_id(value, filed):
-    db_filter = value.filter(user_id=filed)
+def filter_by_user_id(value, field):
+    db_filter = value.filter(user_id=field)
     if db_filter:
         return db_filter
     else:
@@ -35,8 +37,8 @@ def filter_by_user_id(value, filed):
 
 
 @register.filter('count_by_user_id')
-def filter_by_user_id(value, filed):
-    db_filter = value.filter(user_id=filed)
+def filter_by_user_id(value, field):
+    db_filter = value.filter(user_id=field)
     if db_filter:
         return db_filter.count()
     else:
@@ -44,8 +46,8 @@ def filter_by_user_id(value, filed):
 
 
 @register.filter('filter_by_pen_id')
-def filter_by_pen_id(value, filed):
-    val = value.filter(pen_id=filed)
+def filter_by_pen_id(value, field):
+    val = value.filter(pen_id=field)
     if val:
         return val
     else:
@@ -53,8 +55,8 @@ def filter_by_pen_id(value, filed):
 
 
 @register.filter('count_by_pen_id')
-def count_by_pen_id(value, filed):
-    val = value.filter(pen_id=filed)
+def count_by_pen_id(value, field):
+    val = value.filter(pen_id=field)
     if val:
         return val.count()
     else:
@@ -179,10 +181,20 @@ def rstrip(value, args=None):
 
 @register.simple_tag
 def current_menu(request, current):
-    print(request)
-    print(current)
     current_path = reverse(current)
     if request == current_path:
         return 'current'
     else:
         return ''
+
+
+@register.filter('trending_pen_filter')
+def trending_pen_fileter(pen_id):
+    if not int(pen_id):
+        return pen_id
+    pen = Pen.objects.all().filter(id=pen_id)
+
+    if pen:
+        return pen
+    else:
+        return pen_id
