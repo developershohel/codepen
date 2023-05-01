@@ -87,7 +87,7 @@
   --active-color: rgba(0, 0, 0, 0.5);
 
   --pen-love: rgb(236 72 153);
-  --pen-love-hover: #ED328F;
+  --pen-love-hover: #f54fa1;
   --form-bg: #1E1F26;
   --form-border: #1E1F26;
   --form-input: #30363D;
@@ -97,6 +97,14 @@
   --form-twitter: #1da1f2;
   --form-github: #57606a;
   --form-google: #4F86EC;
+
+  // Editor color
+  --editor-bg: #444857;
+  --editor-border: #444857;
+  --editor-darcula: #2B2B2B;
+  --editor-dracula: #282a36;
+  --editor-solarized: #002b36;
+  --editor-matrix: #0f0f0f;
 
   // Button
   --button-primary: #248537;
@@ -286,7 +294,7 @@ sup {
 }
 
 a {
-  color: var(--anchor-color);
+  color: var(--link-primary);
   text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
@@ -495,7 +503,7 @@ button {
   transition: all 0.2s ease-in-out;
 }
 
-.btn, .input {
+.btn, .input, select {
   display: inline-block;
   padding: var(--cp-button-padding);
   text-decoration: none;
@@ -507,7 +515,7 @@ button {
   transition: all 0.2s ease-in-out;
 }
 
-input {
+input, select {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -526,6 +534,27 @@ input:-webkit-autofill {
 
 input[type="search" i]:enabled:read-write:-webkit-any(:focus, :hover)::-webkit-search-cancel-button {
   opacity: 0 !important;
+}
+
+input:checked[type=checkbox] {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+  background-color: var(--link-primary-hover);
+  border-color: var(--link-primary-hover);
+}
+
+input[type=checkbox] {
+  border-radius: 0.25em;
+  width: 1em;
+  height: 1em;
+  margin-top: 0.25em;
+  vertical-align: top;
+  background-color: var(--text-primary);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  padding: 0;
+  transition: all 0.2s ease-in-out;
 }
 
 :focus-visible, :focus {

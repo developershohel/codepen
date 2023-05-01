@@ -62,17 +62,79 @@
   padding: 3%;
 }
 
-#form {
-  display: flex;
+#pen-popup-form {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  height: calc(100% - 110px) !important;
+  overflow-y: scroll;
+  z-index: 99999;
+}
+
+#pen-popup-form form {
+  position: absolute;
+  height: auto !important;
+
+  input, select, textarea {
+    padding: 8px 15px !important;
+  }
+
+  input:disabled {
+    background-color: var(--content-bg) !important;
+  }
+
+  .required {
+    color: var(--delete);
+  }
+
+  .form-submit {
+    margin-bottom: 0 !important;
+  }
+
+  .fa-edit {
+    top: 33px !important;
+    right: 15px !important;
+    left: auto !important;
+  }
+}
+
+.pen-note {
+  margin-top: 15px;
+  display: block;
+  color: var(--button-primary-hover);
+}
+
+#pen-popup-form-close {
+  padding: 0;
+  margin: 0;
+  width: fit-content !important;
+  background: white;
+  color: #fff !important;
+  position: absolute !important;
+  top: 15px;
+  right: 15px;
+
+  i {
+    background: var(--text-primary);
+    border-radius: 50%;
+    color: var(--error) !important;
+    right: 0 !important;
+    left: auto !important;
+    top: 0 !important;
+  }
+}
+
+#form, #pen-popup-form {
   background-color: var(--form-bg);
   border: 1px solid var(--form-border);
   color: var(--text-primary);
   border-radius: 5px;
-  width: 400px;
+  width: 550px;
   min-width: 360px;
   height: auto;
   margin: 0 auto;
-  justify-content: center;
 
 
   form {
@@ -89,7 +151,7 @@
       }
     }
 
-    input[type=text], input[type=password], input[type=email], input[type=tel] {
+    input[type=text], input[type=password], input[type=email], input[type=tel], input[type=url], select, input[type=date], textarea {
       background-color: var(--form-input);
       color: #fff;
       caret-color: var(--cp-logo-color);
@@ -100,7 +162,7 @@
       filter: none !important;
     }
 
-    input[type=text]:focus-visible, input[type=password]:focus-visible, input[type=email]:focus-visible, input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=tel]:focus-visible, input[type=tel]:focus {
+    input[type=text]:focus-visible, input[type=password]:focus-visible, input[type=email]:focus-visible, input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=tel]:focus-visible, input[type=tel]:focus, input[type=url]:focus-visible, select:focus-visible, input[type=date]:focus-visible, textarea:focus-visible, input[type=url]:focus, select:focus, input[type=date]:focus, textarea:focus {
       border-color: var(--header-hover);
       outline: none;
       caret-color: var(--header-hover);
@@ -403,10 +465,12 @@
   font-size: 14px;
   line-height: 1.5;
   margin: 0;
-  label{
+
+  label {
     display: flex;
     align-items: center;
-    i{
+
+    i {
       position: relative !important;
       left: 0;
       top: auto;

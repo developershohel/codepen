@@ -152,7 +152,9 @@ def signup(request):
         else:
             context['lname'] = last_name
 
-        if username and user_validation(username) and not get_user(username) and email and email_validation(email) and not get_user(email) and password and password_validation(password) and password == cpassword and first_name and last_name:
+        if username and user_validation(username) and not get_user(username) and email and email_validation(
+                email) and not get_user(email) and password and password_validation(
+                password) and password == cpassword and first_name and last_name:
             create_user = User.objects.create_user(username=username, email=email, password=password,
                                                    first_name=first_name, last_name=last_name)
             if create_user:
@@ -506,13 +508,11 @@ def check_user_validation(request):
         return HttpResponseRedirect(home_url())
     elif request.method == 'POST':
         user_value = request.POST.get('user_value')
-        print(user_value)
         validation_type = request.POST.get('type')
         context = {}
         if validation_type == 'username':
             if user_value:
                 user = get_user(user_value)
-                print(user)
                 if user:
                     context['result'] = user.get().username
                     context['user_exit'] = True

@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=UTF-8>
+    <meta content="width=device-width, initial-scale=1.0" name=viewport>
+    <title>{{ pens.get.pen_title }} - VMS Editor</title>
+    <meta content="index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large" name=robots>
+    <link rel=canonical href=https://vmseditor.com/>
+    <meta content=en_US property=og:locale>
+    <meta content=website property=og:type>
+    <meta content="{{ pens.get.pens.get.pen_title }} - VMS Editor" property=og:title>
+    <meta content=https://vmseditor.com/ property=og:url>
+    <meta content="VMS Editor" property=og:site_name>
+    <meta content=summary_large_image name=twitter:card>
+    <meta content="{{ pens.get.pen_title }} - VMS Editor" name=twitter:title>
+    <meta content="{{ pens.get.pen_description }}" name=twitter:description>
+    <meta content="Written by" name=twitter:label1>
+    <meta content=developershohel name=twitter:data1>
+    <meta content="Time to read" name=twitter:label2>
+    <meta content="2 minutes" name=twitter:data2>
+    <link rel=wlwmanifest href=https://vmseditor.com/static/icon/wlwmanifest.xml type=application/wlwmanifest+xml>
+    <link rel=icon href=https://vmseditor.com/static/icon/cropped-android-chrome-512x512-1-1-32x32.png sizes=32x32>
+    <link rel=icon href=https://vmseditor.com/static/icon/cropped-android-chrome-512x512-1-1-192x192.png sizes=192x192>
+    <link rel=apple-touch-icon href=https://vmseditor.com/static/icon/cropped-android-chrome-512x512-1-1-180x180.png>
+    <link id="editor-css" rel="stylesheet" href="{% static dynamic_css_file %}">
+</head>
+<body>
+{% include dynamic_html_template %}
+<script id="editor-js" src="{% static dynamic_js_file %}"></script>
+</body>
+</html>

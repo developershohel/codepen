@@ -3,6 +3,7 @@ import re
 from django import template
 from django.template.defaultfilters import stringfilter
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 
 from pen.models import Pen
 
@@ -198,3 +199,9 @@ def trending_pen_fileter(pen_id):
         return pen
     else:
         return pen_id
+
+
+@register.filter(name='replace_single_quotes')
+def replace_single_quotes(value):
+    value = value.replace("'", '"')
+    return mark_safe(value)

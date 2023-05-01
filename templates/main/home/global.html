@@ -76,7 +76,7 @@
                     <article class="single-item single-pen" id="pen-{{ pen.id }}">
                         <div class="pen-preview-wrapper">
                             <div class="pen-preview">
-                                <a class="pen-link" href="/{{ username }}/pen/{{ pen.pen_slug }}">
+                                <a class="pen-link" href="/{{ pen.user.username }}/pen/{{ pen.pen_slug }}">
                                     <div class="preview-source">
                                         {% if pen.pen_type == 'html' or pen.pen_type == 'javascript' %}
                                             <i class="fa-solid fa-square-c"></i>
@@ -116,7 +116,7 @@
                                         {% if pen.pen_title|length > 30 %}
                                             <a href="{{ pen.get_absolute_url }}">{{ pen.pen_title|slice:'0:30' }}...</a>
                                         {% else %}
-                                            <a href="/{{ username }}/pen/{{ pen.pen_slug }}">{{ pen.pen_title }}</a>
+                                            <a href="/{{ pen.user.username }}/pen/{{ pen.pen_slug }}">{{ pen.pen_title }}</a>
                                         {% endif %}
                                     </h2>
                                 </div>

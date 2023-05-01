@@ -8,7 +8,7 @@ from django.contrib.auth.models import AbstractUser, PermissionsMixin, AbstractB
 from django.utils.crypto import salted_hmac
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.hashers import check_password
-from codepen.functions import password_helper_text
+from codepen.functions import password_helper_text, random_token, random_code
 from django.contrib.auth import password_validation
 
 
@@ -55,8 +55,8 @@ class User(AbstractUser, PermissionsMixin):
     user_type = models.IntegerField(null=False, blank=False, default=0)
     user_trail = models.BooleanField(null=True, blank=True, default=False)
     user_status = models.BooleanField(null=True, blank=True, default=False)
-    user_activation_key = models.CharField(max_length=255, blank=False, null=False)
-    user_verification_code = models.IntegerField(blank=False, null=False, default=0)
+    user_activation_key = models.CharField(max_length=255, blank=False, null=False, default=random_token(32))
+    user_verification_code = models.IntegerField(blank=False, null=False, default=random_code(111111, 999999))
     user_registered = models.DateTimeField(auto_now_add=True)
     user_modified = models.DateTimeField(auto_now=True)
     is_superuser = models.BooleanField(default=False)

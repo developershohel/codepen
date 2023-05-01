@@ -1,1 +1,70 @@
-{% extends 'main/base/pen-base.html'%}
+{% extends 'main/base/pen-base.html' %}
+{% load static %}
+{% block bodyclass %}single-pen{% endblock %}
+{% block bodyid %}single-pen{% endblock %}
+{% block content %}
+    <div class="editor-content-wrapper {{ platform }}">
+        <div class="editor-content-wrap">
+            {% if platform == 'html' %}
+                <div class="editor-content-section" id="editor-html-content-section">
+                    <div class="editor-content-header html-editor-header"><h2 class="editor-title"><i class="fab fa-html5"></i> HTML</h2>
+                    </div>
+                    <div class="editor-area">
+                        <div class="editor" id="html-editor"></div>
+                    </div>
+                    <input type="hidden" id="html-val">
+                </div>
+                <div class="editor-content-section" id="editor-css-content-section">
+                    <div class="editor-content-header css-editor-header"><h2 class="editor-title"><i class="fab fa-css3-alt"></i>CSS</h2>
+                    </div>
+                    <div class="editor-area">
+                        <div class="editor" id="css-editor"></div>
+                    </div>
+                </div>
+                <div class="editor-content-section" id="editor-js-content-section">
+                    <div class="editor-content-header js-editor-header"><h2 class="editor-title"><i class="fab fa-js"></i> JS</h2><button id="js-formatting" type="button">Formatting</button>
+                    </div>
+                    <div class="editor-area">
+                        <div class="editor" id="js-editor"></div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="editor-content-section" id="editor-content-section">
+                    <div class="editor-content-header">
+                        <h2 class="editor-title"><i class="fab fa-pen-alt"></i> {{ platform }}</h2>
+                    </div>
+                    <div class="editor-area">
+                        <div class="editor" id="{{ platform }}-editor"></div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="editor-control-resizer"></div>
+        <div class="editor-content-output">
+            <div class="output-header">
+                <h2 class="output-title">Output</h2>
+            </div>
+            <div class="output-area">
+                {% if platform == 'html' %}
+                    <iframe id="preview"  title="An attractive title" sandbox="allow-scripts allow-same-origin allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups"></iframe>
+                {% else %}
+                    <pre id="output-code"></pre>
+                {% endif %}
+            </div>
+{#            <div class="console-area">#}
+{#                <div class="console-header">#}
+{#                    <h2 class="console-title">Console</h2>#}
+{#                    <div class="console-action">#}
+{#                        <button class="btn console-clear">Clear</button>#}
+{#                        <button class="btn console-close"><i class="fa-regular fa-circle-xmark"></i></button>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="console-output" id="console-output"></div>#}
+{#                <div class="console-field">#}
+{#                    <i class="fa-solid fa-angle-right"></i>#}
+{#                    <textarea id="console-input" rows="1" data-min-rows="1" data-max-rows="1"></textarea>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+    </div>
+{% endblock %}

@@ -79,7 +79,7 @@
   --section-color: rgba(128, 203, 196, 0.2);
   --active-color: rgba(0, 0, 0, 0.5);
   --pen-love: rgb(236 72 153);
-  --pen-love-hover: #ED328F;
+  --pen-love-hover: #f54fa1;
   --form-bg: #1E1F26;
   --form-border: #1E1F26;
   --form-input: #30363D;
@@ -89,6 +89,12 @@
   --form-twitter: #1da1f2;
   --form-github: #57606a;
   --form-google: #4F86EC;
+  --editor-bg: #444857;
+  --editor-border: #444857;
+  --editor-darcula: #2B2B2B;
+  --editor-dracula: #282a36;
+  --editor-solarized: #002b36;
+  --editor-matrix: #0f0f0f;
   --button-primary: #248537;
   --button-primary-hover: #2f9f43;
   --delete: #ff3d44;
@@ -241,7 +247,7 @@ sup {
 }
 
 a {
-  color: var(--anchor-color);
+  color: var(--link-primary);
   text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
@@ -448,7 +454,7 @@ button {
   transition: all 0.2s ease-in-out;
 }
 
-.btn, .input {
+.btn, .input, select {
   display: inline-block;
   padding: var(--cp-button-padding);
   text-decoration: none;
@@ -460,7 +466,7 @@ button {
   transition: all 0.2s ease-in-out;
 }
 
-input {
+input, select {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -479,6 +485,27 @@ input:-webkit-autofill {
 
 input[type=search i]:enabled:read-write:-webkit-any(:focus, :hover)::-webkit-search-cancel-button {
   opacity: 0 !important;
+}
+
+input:checked[type=checkbox] {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+  background-color: var(--link-primary-hover);
+  border-color: var(--link-primary-hover);
+}
+
+input[type=checkbox] {
+  border-radius: 0.25em;
+  width: 1em;
+  height: 1em;
+  margin-top: 0.25em;
+  vertical-align: top;
+  background-color: var(--text-primary);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  padding: 0;
+  transition: all 0.2s ease-in-out;
 }
 
 :focus-visible, :focus {
@@ -665,13 +692,16 @@ section {
 }
 .main-nav .main-menu li .fa-angle-down {
   position: absolute;
-  right: 5px;
-  top: 0;
+  right: 0;
+  top: 1px;
   padding: 13px;
+  border-left: 1px solid var(--text-primary);
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 .main-nav .main-menu li .fa-angle-down:hover {
   color: var(--cp-logo-color);
+  background-color: var(--bg-color);
 }
 .main-nav .main-menu li:first-child a {
   border-top: 2px solid var(--button-primary);
@@ -826,6 +856,7 @@ section {
 
 .main-content {
   padding-top: 3rem;
+  width: 100%;
 }
 
 .banner-section {
@@ -1030,31 +1061,87 @@ section {
   padding: 3%;
 }
 
-#form {
-  display: flex;
+#pen-popup-form {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  height: calc(100% - 110px) !important;
+  overflow-y: scroll;
+  z-index: 99999;
+}
+
+#pen-popup-form form {
+  position: absolute;
+  height: auto !important;
+}
+#pen-popup-form form input, #pen-popup-form form select, #pen-popup-form form textarea {
+  padding: 8px 15px !important;
+}
+#pen-popup-form form input:disabled {
+  background-color: var(--content-bg) !important;
+}
+#pen-popup-form form .required {
+  color: var(--delete);
+}
+#pen-popup-form form .form-submit {
+  margin-bottom: 0 !important;
+}
+#pen-popup-form form .fa-edit {
+  top: 33px !important;
+  right: 15px !important;
+  left: auto !important;
+}
+
+.pen-note {
+  margin-top: 15px;
+  display: block;
+  color: var(--button-primary-hover);
+}
+
+#pen-popup-form-close {
+  padding: 0;
+  margin: 0;
+  width: fit-content !important;
+  background: white;
+  color: #fff !important;
+  position: absolute !important;
+  top: 15px;
+  right: 15px;
+}
+#pen-popup-form-close i {
+  background: var(--text-primary);
+  border-radius: 50%;
+  color: var(--error) !important;
+  right: 0 !important;
+  left: auto !important;
+  top: 0 !important;
+}
+
+#form, #pen-popup-form {
   background-color: var(--form-bg);
   border: 1px solid var(--form-border);
   color: var(--text-primary);
   border-radius: 5px;
-  width: 400px;
+  width: 550px;
   min-width: 360px;
   height: auto;
   margin: 0 auto;
-  justify-content: center;
 }
-#form form {
+#form form, #pen-popup-form form {
   width: 100%;
   height: 100%;
   padding: 10%;
 }
-#form form > div {
+#form form > div, #pen-popup-form form > div {
   display: block;
   position: relative;
 }
-#form form > div div {
+#form form > div div, #pen-popup-form form > div div {
   position: relative;
 }
-#form form input[type=text], #form form input[type=password], #form form input[type=email], #form form input[type=tel] {
+#form form input[type=text], #form form input[type=password], #form form input[type=email], #form form input[type=tel], #form form input[type=url], #form form select, #form form input[type=date], #form form textarea, #pen-popup-form form input[type=text], #pen-popup-form form input[type=password], #pen-popup-form form input[type=email], #pen-popup-form form input[type=tel], #pen-popup-form form input[type=url], #pen-popup-form form select, #pen-popup-form form input[type=date], #pen-popup-form form textarea {
   background-color: var(--form-input);
   color: #fff;
   caret-color: var(--cp-logo-color);
@@ -1064,7 +1151,7 @@ section {
   position: relative;
   filter: none !important;
 }
-#form form input[type=text]:focus-visible, #form form input[type=password]:focus-visible, #form form input[type=email]:focus-visible, #form form input[type=text]:focus, #form form input[type=password]:focus, #form form input[type=email]:focus, #form form input[type=tel]:focus-visible, #form form input[type=tel]:focus {
+#form form input[type=text]:focus-visible, #form form input[type=password]:focus-visible, #form form input[type=email]:focus-visible, #form form input[type=text]:focus, #form form input[type=password]:focus, #form form input[type=email]:focus, #form form input[type=tel]:focus-visible, #form form input[type=tel]:focus, #form form input[type=url]:focus-visible, #form form select:focus-visible, #form form input[type=date]:focus-visible, #form form textarea:focus-visible, #form form input[type=url]:focus, #form form select:focus, #form form input[type=date]:focus, #form form textarea:focus, #pen-popup-form form input[type=text]:focus-visible, #pen-popup-form form input[type=password]:focus-visible, #pen-popup-form form input[type=email]:focus-visible, #pen-popup-form form input[type=text]:focus, #pen-popup-form form input[type=password]:focus, #pen-popup-form form input[type=email]:focus, #pen-popup-form form input[type=tel]:focus-visible, #pen-popup-form form input[type=tel]:focus, #pen-popup-form form input[type=url]:focus-visible, #pen-popup-form form select:focus-visible, #pen-popup-form form input[type=date]:focus-visible, #pen-popup-form form textarea:focus-visible, #pen-popup-form form input[type=url]:focus, #pen-popup-form form select:focus, #pen-popup-form form input[type=date]:focus, #pen-popup-form form textarea:focus {
   border-color: var(--header-hover);
   outline: none;
   caret-color: var(--header-hover);
@@ -1077,23 +1164,31 @@ section {
 #form form textarea:-webkit-autofill:focus,
 #form form select:-webkit-autofill,
 #form form select:-webkit-autofill:hover,
-#form form select:-webkit-autofill:focus {
+#form form select:-webkit-autofill:focus, #pen-popup-form form input:-webkit-autofill,
+#pen-popup-form form input:-webkit-autofill:hover,
+#pen-popup-form form input:-webkit-autofill:focus,
+#pen-popup-form form textarea:-webkit-autofill,
+#pen-popup-form form textarea:-webkit-autofill:hover,
+#pen-popup-form form textarea:-webkit-autofill:focus,
+#pen-popup-form form select:-webkit-autofill,
+#pen-popup-form form select:-webkit-autofill:hover,
+#pen-popup-form form select:-webkit-autofill:focus {
   -webkit-text-fill-color: #fff;
   -webkit-box-shadow: 0 0 0 1000px var(--form-input) inset;
   transition: background-color 5000s ease-in-out 0s;
   user-focus-pointer: #fff;
 }
-#form form input[type=checkbox] {
+#form form input[type=checkbox], #pen-popup-form form input[type=checkbox] {
   width: 20px;
   height: 20px;
   float: left;
 }
-#form form button {
+#form form button, #pen-popup-form form button {
   width: 100%;
   position: relative;
   border: none;
 }
-#form form i {
+#form form i, #pen-popup-form form i {
   color: var(--cp-icon-color);
   position: absolute;
   z-index: 999;
@@ -1101,33 +1196,33 @@ section {
   top: 28%;
   font-size: 20px;
 }
-#form form #have-account {
+#form form #have-account, #pen-popup-form form #have-account {
   font-size: 16px;
   color: #fff;
   text-align: center;
   margin: 0;
 }
-#form form #have-account a {
+#form form #have-account a, #pen-popup-form form #have-account a {
   padding-left: 5px;
   color: var(--cp-icon-color);
   text-decoration: none;
 }
-#form form #have-account a:hover {
+#form form #have-account a:hover, #pen-popup-form form #have-account a:hover {
   color: #00b9eb;
 }
-#form form .submit {
+#form form .submit, #pen-popup-form form .submit {
   padding: 20px 0;
   margin: 0;
 }
-#form form .submit button {
+#form form .submit button, #pen-popup-form form .submit button {
   width: 100%;
   position: relative;
 }
-#form form .form-logo {
+#form form .form-logo, #pen-popup-form form .form-logo {
   text-align: center;
   margin: 0 auto;
 }
-#form form .form-title {
+#form form .form-title, #pen-popup-form form .form-title {
   color: var(--cp-logo-color);
   font-size: 24px;
   margin: 25px auto;
@@ -1135,61 +1230,61 @@ section {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
-#form form .form-title:hover {
+#form form .form-title:hover, #pen-popup-form form .form-title:hover {
   color: var(--header-hover);
 }
-#form form .form-field {
+#form form .form-field, #pen-popup-form form .form-field {
   position: relative;
   margin-bottom: 20px;
 }
-#form form .svg-checkbox {
+#form form .svg-checkbox, #pen-popup-form form .svg-checkbox {
   width: 20px;
   height: 20px;
   position: absolute;
   top: 3px;
 }
-#form form .svg-checkbox #circle {
+#form form .svg-checkbox #circle, #pen-popup-form form .svg-checkbox #circle {
   display: none;
   fill: var(--cp-icon-color);
 }
-#form form .svg-checkbox #border {
+#form form .svg-checkbox #border, #pen-popup-form form .svg-checkbox #border {
   fill: none;
   stroke: var(--cp-icon-color);
   stroke-miterlimit: 10;
   stroke-width: 2px;
 }
-#form form .svg-checkbox #right {
+#form form .svg-checkbox #right, #pen-popup-form form .svg-checkbox #right {
   display: none;
   fill: #FFFFFF;
 }
-#form form .form-footer {
+#form form .form-footer, #pen-popup-form form .form-footer {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-flow: row nowrap;
 }
-#form form .form-footer a {
+#form form .form-footer a, #pen-popup-form form .form-footer a {
   color: var(--cp-logo-color);
   text-decoration: none;
   transition: all 0.3s ease-in-out;
 }
-#form form .form-footer a:hover {
+#form form .form-footer a:hover, #pen-popup-form form .form-footer a:hover {
   color: var(--header-hover);
 }
-#form form .form-submit {
+#form form .form-submit, #pen-popup-form form .form-submit {
   margin: 15px auto;
 }
-#form form .form-submit button {
+#form form .form-submit button, #pen-popup-form form .form-submit button {
   background-color: var(--form-button);
   color: #fff;
   border: 1px solid var(--form-button);
   transition: background-color 0.2s ease-in-out;
 }
-#form form .form-submit button:hover {
+#form form .form-submit button:hover, #pen-popup-form form .form-submit button:hover {
   background-color: var(--form-button-hover);
   border-color: var(--form-button-hover);
 }
-#form form:not(.form-title) .form-logo {
+#form form:not(.form-title) .form-logo, #pen-popup-form form:not(.form-title) .form-logo {
   margin-bottom: 20px;
 }
 
@@ -1628,6 +1723,38 @@ section {
   color: var(--copyright-color);
 }
 
+body.new-pen, body.single-pen {
+  overflow: hidden !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.fa-spinner {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.new-pen #root, .single-pen #root {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.new-pen .cp-main, .single-pen .cp-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
 #pen-filter-wrapper {
   flex-direction: column;
   align-items: flex-start;
@@ -1706,7 +1833,9 @@ section {
 }
 
 #pen-content-wrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: max-content;
   gap: 25px;
   background-color: transparent !important;
   border: none !important;
@@ -1715,8 +1844,6 @@ section {
 #pen-content-wrapper article {
   background-color: var(--content-bg);
   padding: 15px 15px 25px 15px;
-  height: 350px;
-  flex: 0 0 30%;
 }
 #pen-content-wrapper article .pen-preview {
   position: relative;
@@ -1900,7 +2027,8 @@ section {
   position: absolute;
   left: 0;
   right: 0;
-  padding: 5px 50px;
+  top: 0;
+  padding: 5px 25px;
   background: var(--header-bg);
 }
 
@@ -1930,16 +2058,21 @@ section {
   align-items: center;
   justify-content: center;
 }
+.pen-header-left-section .pen-logo-section a i {
+  color: var(--text-primary);
+}
 .pen-header-left-section .pen-author-section a {
   color: var(--header-button);
   text-transform: capitalize;
-  font-size: 14px;
+  font-size: 12px;
 }
 .pen-header-left-section .pen-author-section a:hover {
   color: var(--header-button-hover);
 }
 .pen-header-left-section .pen-heading-section {
-  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 .pen-header-left-section .pen-heading-section input {
   background-color: transparent;
@@ -1948,44 +2081,95 @@ section {
   color: var(--cp-logo-color);
   padding: 0;
   word-break: break-word;
-  font-size: 22px;
+  font-size: 18px;
   cursor: text;
 }
 .pen-header-left-section .pen-heading-section input:focus-within, .pen-header-left-section .pen-heading-section input:focus, .pen-header-left-section .pen-heading-section input:focus-visible {
   background-color: transparent;
   border: none;
 }
-.pen-header-left-section .pen-header-title label {
+.pen-header-left-section .pen-header-title label, .pen-header-left-section .pen-author-section label {
   display: flex;
   align-items: center;
+  min-width: 300px;
+  max-width: 450px;
 }
-.pen-header-left-section .pen-header-title label i {
+.pen-header-left-section .pen-header-title label i, .pen-header-left-section .pen-author-section label i {
   color: var(--cp-icon-color);
-  font-size: 25px;
+  font-size: 18px;
   margin-left: 15px;
   cursor: pointer;
   transition: color 0.2s ease-in-out;
 }
-.pen-header-left-section .pen-header-title label i:hover {
+.pen-header-left-section .pen-header-title label i:hover, .pen-header-left-section .pen-author-section label i:hover {
   color: var(--cp-icon-hover);
+}
+.pen-header-left-section .pen-author-section input {
+  width: fit-content;
 }
 
 .pen-header-right-section {
   flex: 0 0 40%;
   max-width: 40%;
 }
-.pen-header-right-section #follow-user {
+.pen-header-right-section #follow-user, .pen-header-right-section #run-button, .pen-header-right-section #save-button, .pen-header-right-section .console-clear, .pen-header-right-section #setting-button, .pen-header-right-section .pen-setting {
   background: var(--button-primary);
+}
+.pen-header-right-section .pen-setting .fa-angle-down {
+  padding: 7px 10px;
+  border-left: 1px solid var(--text-primary);
+}
+.pen-header-right-section #follow-user, .pen-header-right-section #run-button, .pen-header-right-section #save-button, .pen-header-right-section .console-clear, .pen-header-right-section .console-close, .pen-header-right-section #setting-button {
   color: var(--text-primary);
   font-size: 14px;
   padding: 4px 14px;
-  margin-left: 10px;
   border-radius: 3px;
+}
+.pen-header-right-section #run-button .fa-spinner, .pen-header-right-section #save-button .fa-spinner, .pen-header-right-section #setting-button .fa-spinner {
+  margin-left: 8px;
+  margin-right: 0;
+  display: none;
+}
+.pen-header-right-section #follow-user:hover, .pen-header-right-section #run-button:hover, .pen-header-right-section #save-button:hover, .pen-header-right-section .console-clear:hover, .pen-header-right-section #setting-button:hover {
+  background-color: var(--button-primary-hover);
+}
+.pen-header-right-section .console-close {
+  background-color: var(--delete);
+}
+.pen-header-right-section .console-close:hover {
+  background-color: var(--delete-hover);
+}
+.pen-header-right-section #pen-love {
+  background-color: var(--content-bg);
+  padding: 6px 15px;
+  transition: background-color 0.3s ease-in-out;
+}
+.pen-header-right-section #pen-love i {
+  color: var(--text-primary);
+  margin-right: 0;
+  transition: color 0.3s ease-in-out;
+}
+.pen-header-right-section #pen-love i:hover {
+  color: var(--pen-love-hover);
+}
+.pen-header-right-section #pen-love.loved i {
+  color: var(--pen-love);
+}
+.pen-header-right-section #pen-love:hover {
+  background-color: var(--pen-bg);
+}
+.pen-header-right-section #pen-header-setting {
+  transition: background-color 0.3s ease-in-out;
+  background-color: var(--content-bg);
+  color: var(--text-primary);
+}
+.pen-header-right-section #pen-header-setting:hover {
+  background-color: var(--pen-bg);
 }
 
 .pen-header-author-image {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: var(--text-primary);
   border: none;
   border-radius: 5px;
@@ -2008,22 +2192,28 @@ section {
 .pen-header-menu {
   position: relative;
   justify-content: flex-end;
+  margin: 0;
 }
 .pen-header-menu .main-menu-wrap {
   display: none;
   position: absolute;
   right: 0;
   top: 60px;
-  max-width: 200px;
+  max-width: 250px;
   min-width: 200px;
   background-color: var(--side-header);
   padding: 25px 0;
+  z-index: 99999;
+  overflow-y: auto;
+  height: 500px;
 }
 .pen-header-menu .main-menu-wrap a {
   padding: 10px 25px;
 }
 .pen-header-menu li {
   margin-right: 15px;
+  position: relative;
+  cursor: pointer;
 }
 .pen-header-menu .useful-links a {
   display: block;
@@ -2032,6 +2222,43 @@ section {
 }
 .pen-header-menu .useful-links hr {
   width: 100%;
+}
+.pen-header-menu button, .pen-header-menu select {
+  padding: 3px 15px;
+  display: flex;
+  align-items: center;
+}
+.pen-header-menu button i, .pen-header-menu select i {
+  margin-right: 15px;
+}
+.pen-header-menu .sub-menu {
+  display: none;
+  position: absolute;
+  top: 35px;
+  background-color: var(--editor-bg);
+  height: auto;
+  padding: 0;
+  width: 230px;
+  right: 0;
+  z-index: 9999;
+}
+.pen-header-menu .sub-menu li {
+  justify-content: space-between;
+  position: relative;
+  margin: 0;
+  padding: 5px 25px;
+  border-bottom: 1px solid #fff;
+  transition: background-color 0.2s ease-in-out;
+}
+.pen-header-menu .sub-menu li .toggle-button {
+  display: flex;
+  align-items: center;
+}
+.pen-header-menu .sub-menu li:last-child {
+  border-bottom: none;
+}
+.pen-header-menu .sub-menu li:hover {
+  background-color: var(--editor-dracula);
 }
 
 .pen-heading {
@@ -2091,6 +2318,405 @@ section {
   position: absolute;
   top: 210px;
   right: 15px;
+}
+
+.pen-main-content-wrapper {
+  display: flex;
+  position: absolute;
+  top: 63px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: calc(100% - 110px);
+  flex-grow: 1;
+}
+
+.editor-content-section {
+  height: 33.3333333333%;
+  display: block;
+  min-height: 100px;
+  max-height: 500px;
+  overflow: hidden;
+}
+
+.CodeMirror-fullscreen {
+  z-index: 999999 !important;
+}
+
+.editor-content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: row-resize;
+  background-color: var(--editor-bg);
+}
+.editor-content-header button {
+  color: var(--text-primary);
+  background-color: var(--button-primary);
+  font-size: 14px;
+  padding: 4px 14px;
+  margin-left: 10px;
+  border-radius: 3px;
+}
+.editor-content-header button:hover {
+  background-color: var(--button-primary-hover);
+}
+
+.editor-title, .output-title, .console-title {
+  background-color: var(--button-primary-hover);
+  width: fit-content;
+  padding: 5px 25px;
+  font-size: 18px;
+  margin: 0;
+  border-top: 2px solid var(--link-primary);
+}
+
+.editor-area {
+  background-color: var(--editor-bg);
+  display: flex;
+  flex-grow: 1;
+}
+.editor-area .editor {
+  width: 100%;
+  height: 100%;
+}
+.editor-area textarea:focus, .editor-area textarea:focus-visible, .editor-area textarea:active {
+  border: none;
+  outline: none;
+}
+
+.editor-control-resizer {
+  position: relative;
+  min-width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: col-resize;
+}
+
+.output-area {
+  background-color: var(--editor-bg);
+  height: 100%;
+}
+.output-area iframe {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--text-primary);
+}
+
+.main-content-wrap {
+  display: flex;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.editor-content-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  flex-grow: 1;
+  width: 100%;
+  overflow: hidden;
+}
+
+.editor-content-wrap {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  position: relative;
+}
+
+.editor-content-output {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.ui-resizable-handle {
+  background-color: var(--editor-bg);
+  height: 95%;
+  width: 5px;
+  top: 3%;
+  border-radius: 5px;
+}
+
+.editor-content-wrap .ui-resizable-handle.ui-resizable-e {
+  right: -10px;
+}
+
+.editor-footer-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  position: absolute;
+  bottom: -44px;
+  left: 0;
+  right: 0;
+  background-color: var(--footer-bg);
+  padding: 5px 25px;
+}
+
+#editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  position: relative;
+}
+#editor-footer .editor-last-save {
+  margin: 0 10px 0 0;
+  font-size: 12px;
+}
+
+#editor-footer .editor-button {
+  padding: 3px 10px;
+  color: var(--text-primary);
+  background-color: var(--button-primary);
+  border: none;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+#editor-footer .editor-button:hover {
+  background-color: var(--button-primary-hover);
+}
+
+#editor-footer .pen-delete-button {
+  background-color: var(--delete);
+}
+
+#editor-footer .pen-delete-button:hover {
+  background-color: var(--delete-hover);
+}
+
+#editor-footer button {
+  margin-right: 15px;
+}
+#editor-footer button i {
+  margin-right: 5px;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+}
+
+.export-option, .share-option {
+  position: absolute;
+  bottom: 16px;
+  width: 250px;
+  right: 0;
+  list-style: none;
+  padding: 0;
+  cursor: pointer;
+}
+.export-option li, .share-option li {
+  background: var(--content-bg);
+  padding: 0;
+  margin-right: 15px;
+  transition: background-color 0.3s ease-in-out;
+}
+.export-option i, .share-option i {
+  margin-right: 5px;
+}
+
+.export-option {
+  display: none;
+}
+
+.share-option {
+  display: none;
+}
+
+.export-option li {
+  padding: 15px 25px;
+  border-bottom: 1px solid var(--text-primary);
+}
+
+.export-option li:last-child {
+  border-bottom: none;
+}
+
+.share-option li a {
+  padding: 15px 25px;
+  border-bottom: 1px solid var(--text-primary);
+  display: block;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.share-title {
+  padding: 15px 25px;
+  border-bottom: 1px solid var(--text-primary);
+  margin: 0;
+}
+
+.share-option li:last-child a {
+  border-bottom: none;
+}
+
+.share-option li a:hover, .export-option li:hover {
+  background-color: var(--pen-bg);
+}
+
+.export-option li:first-child:hover {
+  background-color: var(--content-bg);
+}
+
+.CodeMirror {
+  height: 100% !important;
+}
+
+.CodeMirror-search-hint {
+  display: none;
+}
+
+.CodeMirror-dialog {
+  display: flex;
+  align-items: center;
+}
+
+.console-area {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 200px;
+}
+
+.console-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px 0 0;
+  background-color: var(--editor-matrix);
+}
+
+#follow-user, #run-button, #save-button, .console-clear {
+  background: var(--button-primary);
+}
+
+.console-clear, .console-close {
+  color: var(--text-primary);
+  font-size: 14px;
+  padding: 4px 14px;
+  margin-left: 10px;
+  border-radius: 3px;
+}
+
+.console-clear:hover {
+  background-color: var(--button-primary-hover);
+}
+
+.console-close {
+  background-color: var(--delete);
+}
+
+.console-close:hover {
+  background-color: var(--delete-hover);
+}
+
+.console-field {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.console-field i {
+  position: absolute;
+  color: #fff;
+  top: 12px;
+  padding-left: 10px;
+}
+
+#console-input {
+  border: 1px solid var(--button-primary);
+  width: 100%;
+  max-height: 40px;
+  background-color: var(--editor-matrix);
+  padding: 5px 25px;
+  color: var(--text-primary);
+  overflow: hidden;
+  resize: none;
+}
+
+.console-output {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 200px;
+  background-color: var(--editor-dracula);
+  padding: 10px 25px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.console-output p {
+  display: flex;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+}
+.console-output p.error {
+  color: var(--error);
+}
+
+.console-code {
+  margin-bottom: 25px;
+}
+.console-code .CodeMirror {
+  padding: 0 25px;
+}
+
+.console-command {
+  background-color: #0f0f0f;
+}
+.console-command pre {
+  margin: 0;
+  padding: 5px 25px;
+}
+
+input[name=toggle] {
+  display: none;
+}
+
+label.toggle {
+  display: inline-block;
+  width: 50px;
+  height: 20px;
+  background-color: var(--text-primary);
+  border-radius: 50px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+label.toggle::before {
+  content: "";
+  display: block;
+  width: 15px;
+  height: 15px;
+  background-color: var(--button-primary-hover);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 15px;
+  transition: all 0.2s ease;
+}
+
+label.toggle.on {
+  background-color: var(--button-primary-hover);
+}
+
+input[type=radio]:checked, label.toggle.on::before {
+  left: calc(100% - 15px);
+  background-color: var(--text-primary);
 }
 
 /*# sourceMappingURL=style.css.map */

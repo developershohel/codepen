@@ -145,14 +145,17 @@
 
       .fa-angle-down {
         position: absolute;
-        right: 5px;
-        top: 0;
+        right: 0;
+        top: 1px;
         padding: 13px;
+        border-left: 1px solid var(--text-primary);
         cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
       }
 
       .fa-angle-down:hover {
         color: var(--cp-logo-color);
+        background-color: var(--bg-color);
       }
 
       &:first-child a {

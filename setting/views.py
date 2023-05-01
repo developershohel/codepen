@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from codepen.cp_user import get_user, get_profile
 from codepen.functions import codepen_theme, codepen_platform, codepen_font
 from pen.models import PenSetting
+from setting.models import Setting
 
 
 @login_required
@@ -150,3 +152,32 @@ def block_user_setting(request):
 
     render_template = render(request, 'dashboard/setting/profile-setting.html', context)
     return render_template
+
+
+@csrf_exempt
+def setting_update(request):
+    context = {}
+    if request.method == 'POST':
+        user_id = request.user.id
+        setting_name = request.POST.get('setting_name')
+        field_name = request.POST.get('field_name')
+        field_value = request.POST.get('field_value')
+        if user_id and setting_name and field_value and field_name:
+            setting_updated = Setting.objects.update_or_create(
+                user_id=user_id,
+                defaults={
+                    'setting_name': setting_name,
+                    f'{field_name}': field_value,
+                }
+            )
+
+            if setting_updated:
+                print(setting_updated)
+                context['status'] = True
+            else:
+                context['status'] = False
+        return JsonResponse(context)
+    else:
+        context['status'] = False
+        context['get'] = 'GET'
+        return JsonResponse(context)

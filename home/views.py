@@ -24,12 +24,15 @@ def index(request):
         context['country'] = ip['countryCode']
     if request.method == "GET":
         if user_auth(request):
-            user = get_user(request.user.id)
-            pen = Pen.objects.all().filter(user_id=user.get().id)
+            login_user = get_user(request.user.id)
+            context['login_user'] = login_user
+            pen = Pen.objects.all()
             context['pens'] = pen
-            context['username'] = user.get().username
+            context['username'] = login_user.get().username
             return render(request, 'main/home/index.html', context)
         else:
+            login_user = get_user('guest_user')
+            context['login_user'] = login_user
             trending_pen = trending_pens()[:6]
             context['trending_pens'] = trending_pen
             return render(request, 'main/home/index.html', context)

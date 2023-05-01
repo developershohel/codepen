@@ -12,4 +12,5 @@ urlpatterns = [
     path('dashboard/setting/notification/', views.notification_setting, name='setting_notification'),
     path('dashboard/setting/security/', views.security_setting, name='setting_security'),
     path('dashboard/setting/block-user/', views.block_user_setting, name='setting_block_user'),
+    path('setting/update/', views.setting_update, name='setting_update')
 ]

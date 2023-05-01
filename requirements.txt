@@ -3,3 +3,4 @@ django-taggit
 mysqlclient
 requests
 pillow
+django-cors-headers

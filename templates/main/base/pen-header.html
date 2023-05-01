@@ -5,31 +5,36 @@
         </div>
         <div class="pen-heading-section">
             <div class="pen-header-title">
-                <label class="pen-title-label" for="pen-title"><input type="text" class="input pen-title-input" id="pen-title" value="{% if pens.pen_title %}{{ pens.pen_title }}{% else %}Untitled{% endif %}" placeholder="Enter you pen title" {% if not pens.get.user_id == request.user.id %}disabled="disabled"{% endif %}>{{ pens.pen_title}}{% if pens.get.user_id == request.user.id %}<i class="fa-regular fa-pen-to-square"></i> {% endif %}</label>
+                <label class="pen-title-label" for="pen-title">
+                    <input type="text" class="input pen-title-input" id="pen-title" value="{% if pens.get.pen_title %}{{ pens.get.pen_title }}{% else %}Untitled{% endif %}" placeholder="Enter you pen title" {% if not pens.get.user_id == request.user.id %}disabled="disabled"{% endif %}>{% if pens.get.user_id == request.user.id %}<i class="fa-regular fa-pen-to-square"></i> {% endif %}
+                </label>
             </div>
             <div class="pen-author-section">
-                <a href="{{ pens.get.user.username }}" class="pen-author"><i class="fa-solid fa-at"></i>{{ pens.get.user.username }}</a>
+                {% if request.user.username == pens.get.user.username %}
+                    <label class="pen-slug-label" for="pen-slug">{{ base_url }} <input type="text" value="{{ pens.get.pen_slug }}" id="pen-slug" placeholder="Give a SEO friendly url" class="input pen-slug"></label>
+                {% else %}
+                    <a href="{{ pens.get.user.username }}" class="pen-author"><i class="fa-solid fa-at"></i>{{ pens.get.user.username }}</a>
+                {% endif %}
             </div>
         </div>
     </div>
     <div class="pen-header-right-section">
         <ul class="pen-header-menu menu">
             <li class="user-follow menu-item">
-                <button class=" btn follow-user" id="follow-user"><i class="fa-solid fa-plus"></i>Follow</button>
+                <button class="btn run-button" id="run-button" data-target-id="10"><i class="fa-solid fa-play"></i><span class="button-text">{% if setting.get.auto_run == True %} Auto Run {% else %}Run {% endif %}</span><i class="fa-solid fa-spinner"></i></button>
+                <input type="hidden" id="pen-run-method" value="{{ setting.get.auto_run }}">
             </li>
-            <li class="pen-love menu-item">
-                <button class="btn love-button" id="pen-love"><i class="fa fa-heart"></i></button>
-            </li>
-            <li class="menu-item">
-                <button class="btn pen-header-setting" id="pen-header-setting"><i class="fa fa-gear"></i><span
-                        class="button-text">setting</span></button>
-            </li>
-            <li class="menu-item">
-                <select class="btn pen-header-layout" id="pen-header-layout">
-                    <option value=""><i class="fa-solid fa-table-layout"></i><span class="button-text">setting</span>
-                    </option>
-                </select>
-            </li>
+            {% if request.user.is_authenticated %}
+                {% if request.user.username == pens.get.user.username %}
+                    <li class="save-method-save ">
+                        <button class="btn save-button" id="save-button" data-target-id="20"><i class="fa-regular fa-floppy-disk"></i><span class="button-text">{% if setting.get.auto_save == True %}Auto Save {% else %}Save {% endif %}</span><i
+                                class="fa-solid fa-spinner"></i></button>
+                    </li>
+                    <li class="pen-setting">
+                        <button class="btn setting-button" id="setting-button"><i class="fa-solid fa-gear"></i><span>Setting</span><i class="fa-solid fa-spinner"></i></button>
+                    </li>
+                {% endif %}
+            {% endif %}
             <li class="menu-item">
                 {% if request.user.is_authenticated %}
                     <div class="pen-header-author-image">

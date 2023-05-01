@@ -5,7 +5,6 @@ from pen.models import Pen
 
 
 def get_user(value):
-    print('Value: ', value)
     check_id = isinstance(value, int)
     if not check_id and email_validation(value):
         user = User.objects.all().filter(email=value)

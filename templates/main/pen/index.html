@@ -1,65 +1,68 @@
-{% extends 'main/base/base.html' %}
-{% load static %}
-{% block stylesheet %}
-    <link href="{% static 'plugins/codemirror/lib/codemirror.css' %}">
-{% endblock %}
+{% extends 'main/base/pen-base.html' %}
+{% block bodyclass %}new-pen{% endblock %}
+{% block bodyid %}new-pen{% endblock %}
 {% block content %}
-<article>
-<h2>Python mode</h2>
-
-    <div><textarea id="code" name="code">
-        print(2*2)
-    </textarea></div>
-
-<h2>Cython mode</h2>
-
-<div><textarea id="code-cython" name="code-cython"></textarea></div>
-
-    <h2>Configuration Options for Python mode:</h2>
-    <ul>
-      <li>version - 2/3 - The version of Python to recognize.  Default is 3.</li>
-      <li>singleLineStringErrors - true/false - If you have a single-line string that is not terminated at the end of the line, this will show subsequent lines as errors if true, otherwise it will consider the newline as the end of the string. Default is false.</li>
-      <li>hangingIndent - int - If you want to write long arguments to a function starting on a new line, how much that line should be indented. Defaults to one normal indentation unit.</li>
-    </ul>
-    <h2>Advanced Configuration Options:</h2>
-    <p>Useful for superset of python syntax like Enthought enaml, IPython magics and  questionmark help</p>
-    <ul>
-      <li>singleOperators - RegEx - Regular Expression for single operator matching,  default : <pre>^[\\+\\-\\*/%&amp;|\\^~&lt;&gt;!]</pre> including <pre>@</pre> on Python 3</li>
-      <li>singleDelimiters - RegEx - Regular Expression for single delimiter matching, default :  <pre>^[\\(\\)\\[\\]\\{\\}@,:`=;\\.]</pre></li>
-      <li>doubleOperators - RegEx - Regular Expression for double operators matching, default : <pre>^((==)|(!=)|(&lt;=)|(&gt;=)|(&lt;&gt;)|(&lt;&lt;)|(&gt;&gt;)|(//)|(\\*\\*))</pre></li>
-      <li>doubleDelimiters - RegEx - Regular Expression for double delimiters matching, default : <pre>^((\\+=)|(\\-=)|(\\*=)|(%=)|(/=)|(&amp;=)|(\\|=)|(\\^=))</pre></li>
-      <li>tripleDelimiters - RegEx - Regular Expression for triple delimiters matching, default : <pre>^((//=)|(&gt;&gt;=)|(&lt;&lt;=)|(\\*\\*=))</pre></li>
-      <li>identifiers - RegEx - Regular Expression for identifier, default : <pre>^[_A-Za-z][_A-Za-z0-9]*</pre> on Python 2 and <pre>^[_A-Za-z\u00A1-\uFFFF][_A-Za-z0-9\u00A1-\uFFFF]*</pre> on Python 3.</li>
-      <li>extra_keywords - list of string - List of extra words ton consider as keywords</li>
-      <li>extra_builtins - list of string - List of extra words ton consider as builtins</li>
-    </ul>
-
-
-    <p><strong>MIME types defined:</strong> <code>text/x-python</code> and <code>text/x-cython</code>.</p>
-  </article>
-
-{% endblock %}
-{% block script %}
-    <script src="{% static 'plugins/codemirror/lib/codemirror.js' %}"></script>
-    <script src="{% static 'plugins/codemirror/mode/python/python.js' %}"></script>
-    <script src="{% static 'plugins/codemirror/addon/edit/matchbrackets.js' %}"></script>
-       <script>
-      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-        mode: {name: "python",
-               version: 3,
-               singleLineStringErrors: false},
-        lineNumbers: true,
-        indentUnit: 4,
-        matchBrackets: true
-    });
-
-    CodeMirror.fromTextArea(document.getElementById("code-cython"), {
-        mode: {name: "text/x-cython",
-               version: 2,
-               singleLineStringErrors: false},
-        lineNumbers: true,
-        indentUnit: 4,
-        matchBrackets: true
-      });
-    </script>
+    <div class="editor-content-wrapper {{ platform }}">
+        <div class="editor-content-wrap">
+            {% if platform == 'html' %}
+                <div class="editor-content-section" id="editor-content-section">
+                    <div class="editor-content-header"><h2 class="editor-title"><i class="fab fa-html5"></i> HTML</h2>
+                    </div>
+                    <div class="editor-area">
+                        <div class="editor" id="html-editor"></div>
+                    </div>
+                </div>
+                <div class="editor-content-section" id="editor-content-section">
+                    <div class="editor-content-header"><h2 class="editor-title"><i class="fab fa-css3-alt"></i>CSS</h2>
+                    </div>
+                    <div class="editor-area">
+                        <div class="editor" id="css-editor"></div>
+                    </div>
+                </div>
+                <div class="editor-content-section" id="editor-content-section">
+                    <div class="editor-content-header"><h2 class="editor-title"><i class="fab fa-js"></i> JS</h2>
+                    </div>
+                    <div class="editor-area">
+                        <div class="editor" id="js-editor"></div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="editor-content-output">
+            <div class="output-header">
+                <h2 class="output-title">Output</h2>
+            </div>
+            <div class="output-area">
+                <iframe id="preview" src="{{ pens.get.get_absolute_full_view_url }}" title="An attractive title"
+                            sandbox="allow-scripts allow-same-origin allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups"></iframe>
+            </div>
+            <div class="console-area">
+                <div class="console-header">
+                    <h2 class="console-title">Console</h2>
+                    <div class="console-action">
+                        <button class="btn console-clear">Clear</button>
+                        <button class="btn console-close"><i class="fa-regular fa-circle-xmark"></i></button>
+                    </div>
+                </div>
+                <div class="console-output" id="console-output"></div>
+                <div class="console-field">
+                    <i class="fa-solid fa-angle-right"></i>
+                    <textarea id="console-input" rows="1" sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="editor-footer-section">
+            <footer id="editor-footer" class="editor-footer">
+                <div class="footer-left">
+                    <button class="editor-console-button editor-button" id="editor-console-button"><i
+                            class="fa-solid fa-terminal"></i> Console
+                    </button>
+                    <button id="editor-assets-button" class="editor-assets-button editor-button"><i
+                            class="fa-solid fa-link"></i>
+                        Assets
+                    </button>
+                </div>
+            </footer>
+        </div>
+    </div>
 {% endblock %}

@@ -53,6 +53,13 @@ def create_file_directory(request):
     return f'users/{name}/{year}/{month}'
 
 
+def create_pen_file_directory(request, pen_user, pen_slug):
+    today = date.today()
+    year = str(today.strftime("%Y"))
+    month = str(today.strftime("%m"))
+    return f'pendata/pen/{pen_user}/{year}/{month}/{pen_slug}'
+
+
 def user_validation(username):
     regex = r"^[\w_]+\Z"
     match = re.match(regex, username)
@@ -231,84 +238,163 @@ def pen_platform():
         'html': {
             'name': "HTML",
             'icon': 'fa-brands fa-html5',
+            'extension': 'html',
         },
         'javascript': {
             'name': "JavaScript",
             'icon': 'fa-brands fa-js',
+            'extension': 'js',
         },
-        'c': {
+        'cpp': {
             'name': "C, C++, C#",
             'icon': 'fa-solid fa-c',
+            'extension': 'c',
         },
         'php': {
             'name': "PHP",
             'icon': 'fa-brands fa-php',
+            'extension': 'php',
         },
         'python': {
             'name': "Python",
             'icon': 'fa-brands fa-python',
+            'extension': 'py',
         },
         'java': {
             'name': "Java",
             'icon': 'fa-brands fa-java',
+            'extension': 'java',
         },
         'kotlin': {
             'name': "Kotlin",
             'icon': '',
+            'extension': 'kt',
         },
         'django': {
             'name': "Django",
             'icon': '',
+            'extension': 'py',
         },
         'go': {
             'name': "Go",
             'icon': 'fa-brands fa-golang',
+            'extension': 'go',
         },
         'R': {
             'name': "R",
             'icon': '',
+            'extension': 'r',
         },
         'ruby': {
             'name': "Ruby",
             'icon': '',
+            'extension': 'rb',
         },
         'swift': {
             'name': "Swift",
             'icon': 'fa-brands fa-swift',
+            'extension': 'swift',
         },
         'vue': {
             'name': "Vue.js",
             'icon': 'fa-brands fa-vuejs',
+            'extension': 'vue',
         },
         'xml': {
             'name': "XML",
             'icon': 'fa-solid fa-code',
+            'extension': 'xml',
         }
     }
     return context
 
 
+
 def codepen_theme():
-    return (
-        ('3024-day', '3024 day'), ('3024-night', '3024 night'), ('abbott', 'Abbott'), ('abcdef', 'Abcdef'),
-        ('ambiance-mobile', 'Ambiance mobile'), ('ambiance', 'Ambiance'), ('ayu-dark', 'Ayu dark'),
-        ('ayu-mirage', 'Ayu mirage'), ('base16-dark', 'Base16 dark'), ('base16-light', 'Base16 light'),
-        ('bespin', 'Bespin'), ('blackboard', 'Blackboard'), ('cobalt', 'Bobalt'), ('colorforth', 'Colorforth'),
-        ('darcula', 'Darcula'), ('duotone-dark', 'Duotone dark'),
-        ('duotone-light', 'Duotone light'), ('eclipse', 'Eclipse'), ('elegant', 'Elegant'),
-        ('erlang-dark', 'Erlang dark'), ('gruvbox-dark', 'Qruvbox dark'), ('hopscotch', 'Hopscotch'),
-        ('icecoder', 'Icecoder'), ('idea', 'Idea'), ('isotope', 'Isotope'), ('juejin', 'Juejin'),
-        ('lesser-dark', 'Lesser dark'), ('liquibyte', 'Liquibyte'), ('lucario', 'Lucario'),
-        ('material-darker', 'Material darker'), ('material-ocean', 'Material ocean'),
-        ('material-palenight', 'Material palenight'), ('material', 'Material'), ('mbo', 'MBO'),
-        ('mdn-like', 'MDN like'), ('midnight', 'Midnight'), ('monokai', 'Monokai'), ('moxer', 'Moxer'),
-        ('neat', 'Neat'), ('neo', 'Neo'), ('night', 'Night'), ('nord', 'Nord'), ('oceanic-next', 'Oceanic next'),
-        ('panda-syntax', 'Panda syntax'), ('paraiso-dark', 'Paraiso dark'), ('paraiso-light', 'Paraiso light'),
-        ('pastel-on-dark', 'Pastel on dark'), ('railscasts', 'Railscasts'), ('rubyblue', 'Rubyblue'),
-        ('seti', 'Seti'),
-        ('shadowfox', 'Shadowfox'), ('solarized', 'Solarized'), ('ssms', 'SSMS'), ('the-matrix', 'The matrix'),
-        ('twilight', 'twilight'), ('vibrant-ink', 'Vibrant ink'), ('xq-dark', 'XQ dark'), ('xq-light', 'XQ light'),
-        ('yeti', 'Yeti'), ('yonce', 'Yonce'), ('zenburn', 'Zenburn'))
+    return {
+        "blackboard": "Blackboard",
+        "cobalt": "Cobalt",
+        "colorforth": "Colorforth",
+        "darcula": "Darcula",
+        "dracula": "Dracula",
+        "eclipse": "Eclipse",
+        "erlang-dark": "Erlang-Dark",
+        "idea": "Idea",
+        "material": "Material",
+        "material-darker": "Material-Darker",
+        "material-palenight": "Material-Palenight",
+        "material-ocean": "Material-Ocean",
+        "monokai": "Monokai",
+        "the-matrix": "The-Matrix",
+    }
+
+
+def codepen_theme_color():
+    return {
+        "3024-day": "#f8f8f8",
+        "3024-night": "#090300",
+        "abcdef": "#283c86",
+        "ambiance": "#282c34",
+        "ayu-dark": "#0b1c2c",
+        "ayu-mirage": "#1c1f27",
+        "base16-dark": "#151515",
+        "base16-light": "#f5f5f5",
+        "bespin": "#28211c",
+        "blackboard": "#0C1021",
+        "cobalt": "#002240",
+        "colorforth": "#1f1f1f",
+        "darcula": "#2B2B2B",
+        "dracula": "#282a36",
+        "duotone-dark": "#2a2734",
+        "duotone-light": "#f0e2aa",
+        "eclipse": "#2C3539",
+        "elegant": "#DCE7E9",
+        "erlang-dark": "#0f0f0f",
+        "gruvbox-dark": "#282828",
+        "hopscotch": "#322931",
+        "icecoder": "#3D3C4E",
+        "idea": "#DAE3E7",
+        "isotope": "#121212",
+        "lesser-dark": "#AAAAAA",
+        "liquibyte": "#232537",
+        "lucario": "#2B3E50",
+        "material": "#263238",
+        "material-darker": "#212121",
+        "material-palenight": "#292D3E",
+        "material-ocean": "#1E262C",
+        "mbo": "#292929",
+        "mdn-like": "#292929",
+        "midnight": "#1e1e1e",
+        "monokai": "#272822",
+        "moxer": "#3B3A32",
+        "neat": "#f6f6f6",
+        "neo": "#282828",
+        "night": "#141414",
+        "nord": "#2E3440",
+        "oceanic-next": "#1B2B34",
+        "panda-syntax": "#292a2b",
+        "paraiso-dark": "#2F1E2E",
+        "paraiso-light": "#E7E9DB",
+        "pastel-on-dark": "#75715e",
+        "railscasts": "#2b2b2b",
+        "rubyblue": "#1A1A26",
+        "seti": "#151718",
+        "shadowfox": "#0b0b0b",
+        "solarized": "#002b36",
+        "ssms": "#282828",
+        "the-matrix": "#0f0f0f",
+        "tomorrow-night-bright": "#000000",
+        "tomorrow-night-eighties": "#2C2C2C",
+        "ttcn": "#000000",
+        "twilight": "#1e1e1e",
+        "verminal": "#2f1e2e",
+        "vibrant-ink": "#363636",
+        "xq-dark": "#282828",
+        "xq-light": "#F7F7F7",
+        "yeti": "#ECEAE8",
+        "yonce": "#FFB3A7",
+        "zenburn": "#3F3F3F"
+    }
 
 
 def codepen_icon():
@@ -731,4 +817,3 @@ def datetime_converter(type, second=None, minute=None, hour=None, day=None, week
             return result
     else:
         return ''
-
